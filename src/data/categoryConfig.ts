@@ -1,7 +1,6 @@
-import type { DictionarConfigurari } from '../types/yield.types';
+//import type { DictionarConfigurari } from '../types/yield.types';
 
-// Acești parametri pot fi editați manual aici sau actualizați din baza de date
-export const CONFIGURARI_CATEGORII: DictionarConfigurari = {
+export const CONFIGURARI_CATEGORII: Record<string, any> = {
   carne_proaspata: {
     pondereBazaB2C: 0.40,
     pondereBazaB2B: 0.65,
@@ -9,7 +8,8 @@ export const CONFIGURARI_CATEGORII: DictionarConfigurari = {
     sensibilitateStocB2B: 0.15,
     plafonPresiuneStoc: 2,
     oreMinimeDonatie: 6,
-    procentPlafonDonatie: 0.10
+    procentPlafonDonatie: 0.10,
+    costStocarePerKgZiRON: 0.80 // Refrigerare intensivă + manipulare rapidă
   },
   lactate: {
     pondereBazaB2C: 0.55,
@@ -18,7 +18,8 @@ export const CONFIGURARI_CATEGORII: DictionarConfigurari = {
     sensibilitateStocB2B: 0.10,
     plafonPresiuneStoc: 3,
     oreMinimeDonatie: 12,
-    procentPlafonDonatie: 0.08
+    procentPlafonDonatie: 0.08,
+    costStocarePerKgZiRON: 0.45 // Frigider standard
   },
   conserve_uscate: {
     pondereBazaB2C: 0.75,
@@ -27,6 +28,7 @@ export const CONFIGURARI_CATEGORII: DictionarConfigurari = {
     sensibilitateStocB2B: 0.00,
     plafonPresiuneStoc: 3,
     oreMinimeDonatie: 48,
-    procentPlafonDonatie: 0.05
+    procentPlafonDonatie: 0.05,
+    costStocarePerKgZiRON: 0.15 // Depozitare uscată la raft
   }
 };

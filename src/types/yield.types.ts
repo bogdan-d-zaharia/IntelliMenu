@@ -1,25 +1,17 @@
 export type CategorieAlimentara = 'carne_proaspata' | 'lactate' | 'conserve_uscate';
 
-// Parametrii matematici extensibili pentru o categorie
+export type TipScenariu = 'SCENARIU_1_RAFT' | 'SCENARIU_2_B2B_INTEGRAL' | 'SCENARIU_3_HIBRID_AI';
+
 export interface ConfigurareCategorie {
-  pondereBazaB2C: number;           // ex: 0.40 pentru carne
-  pondereBazaB2B: number;           // ex: 0.65 pentru carne
-  sensibilitateStocB2C: number;     // ex: 0.10
-  sensibilitateStocB2B: number;     // ex: 0.15
-  plafonPresiuneStoc: number;      // ex: 2 sau 3
-  oreMinimeDonatie: number;         // ex: 6, 12, 48 ore
-  procentPlafonDonatie: number;     // ex: 0.10, 0.08, 0.05
-}
-export interface ParametriEuristici {
   pondereBazaB2C: number;
   pondereBazaB2B: number;
-  pondereBazaDonatie: number;
   sensibilitateStocB2C: number;
   sensibilitateStocB2B: number;
-  maxPresiuneStocAdmis: number;
-  oreMinimeSigurantaDonatie: number;
+  plafonPresiuneStoc: number;
+  oreMinimeDonatie: number;
+  procentPlafonDonatie: number;
+  costStocarePerKgZiRON: number; // Ex: 0.50 RON/kg/zi (depozitare + frig)
 }
-export type DictionarConfigurari = Record<CategorieAlimentara, ConfigurareCategorie>;
 
 export interface LotAlimentar {
   id: string;
@@ -30,6 +22,20 @@ export interface LotAlimentar {
   oreTotaleValabilitate: number;
   oreRămase: number;
   pretUnitarRON: number;
+  costAchizitieUnitarRON: number; // Pentru calculul marjei reale
+}
+
+export interface RezultatScenariu {
+  id: TipScenariu;
+  titlu: string;
+  descriere: string;
+  procentB2B: number;           // X% direcționat pe bursă
+  procentB2C: number;           // (100 - X)% păstrat la raft
+  venitBrutEstimatRON: number;
+  costHoldingTotalRON: number;  // Cost stocare/manipulare acumulat
+  profitNetEstimatRON: number;
+  marjaProfitProcent: number;
+  rataRisipaEstimata: number;   // % marfă donată/expirată
 }
 
 export interface PraguriAxaTimp {

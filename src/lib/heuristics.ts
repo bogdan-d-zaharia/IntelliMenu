@@ -58,6 +58,7 @@ export function calculeazaEuristicaDinDate(
     sensibilitateStocB2B: Number((sensibilitateCalculata * 1.5).toFixed(2)) || configBaza.sensibilitateStocB2B,
     plafonPresiuneStoc: configBaza.plafonPresiuneStoc,
     oreMinimeDonatie: oreRidicaiMedii || configBaza.oreMinimeDonatie,
-    procentPlafonDonatie: configBaza.procentPlafonDonatie
+    procentPlafonDonatie: configBaza.procentPlafonDonatie,
+    costStocarePerKgZiRON: configBaza.costStocarePerKgZiRON // <--- ADaugă ACEASTĂ LINIE
   };
 }
