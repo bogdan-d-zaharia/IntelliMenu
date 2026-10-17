@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { ArrowLeft, Activity, TrendingUp, ShieldCheck, AlertTriangle } from 'lucide-react';
+import { ArrowLeft, Activity, TrendingUp, ShieldCheck } from 'lucide-react';
 import {
   ComposedChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceArea, ReferenceDot
 } from 'recharts';
@@ -100,7 +100,7 @@ const StockAnalysis: React.FC<{ categoryName?: string; onBack: () => void }> = (
           <div className="bg-yellow-400 text-blue-950 font-extrabold p-2 rounded-lg border-2 border-blue-900 flex items-center justify-center w-10 h-10 shadow">
             Lidl
           </div>
-          <h1 className="text-xl font-bold text-white">Bursa Risipei: Planificator & DSS Lot</h1>
+          <h1 className="text-xl font-bold text-white">Bursa Risipei: Planificator &amp; DSS Lot</h1>
         </div>
         <div className="flex items-center gap-4">
           <span className="text-sm text-gray-300">Retail Manager</span>
@@ -188,7 +188,7 @@ const StockAnalysis: React.FC<{ categoryName?: string; onBack: () => void }> = (
 
                 <Tooltip 
                   contentStyle={{ backgroundColor: '#111827', borderColor: '#374151', borderRadius: '8px', color: '#fff' }} 
-                  formatter={(val: any) => [`${val} RON`, 'Preț Unitar']}
+                  formatter={(val) => [`${val} RON`, 'Preț Unitar']} 
                 />
                 
                 {/* 4 ZONE DE FUNDAL */}

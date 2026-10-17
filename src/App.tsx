@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import StockCategories from './StockCategories'; // <-- Importăm meniul cu categorii
-import StockAnalysis from './StockAnalysis';     // <-- Ecranul cu graficul
-import Donations from './Donations';             // <-- Pagina de donații
+import StockCategories from './StockCategories';
+import StockAnalysis from './StockAnalysis';
+import Donations from './Donations';
+import AiSimulation from './AiSimulation'; // <-- Import nou
+import B2BOffers from './B2BOffers';       // <-- Import nou
 import {
   Store, Home, Bell, History, Settings, User, ChevronDown,
   BarChart2, Package, BrainCircuit, LineChart, Handshake, Tag,
@@ -44,11 +46,10 @@ const ActionCard: React.FC<ActionCardProps> = ({ title, description, iconLeft, i
 );
 
 const App: React.FC = () => {
-  // Stări posibile: 'dashboard', 'categories' (meniul de tipuri), 'analysis' (graficul) sau 'donations'
-  const [currentView, setCurrentView] = useState<'dashboard' | 'categories' | 'analysis' | 'donations'>('dashboard');
+  // Am adăugat 'ai-simulation' și 'b2b-offers' în listă
+  const [currentView, setCurrentView] = useState<'dashboard' | 'categories' | 'analysis' | 'donations' | 'ai-simulation' | 'b2b-offers'>('dashboard');
   const [selectedCategory, setSelectedCategory] = useState<string>('');
 
-  // Dacă utilizatorul a selectat o categorie, afișăm graficul corespunzător
   if (currentView === 'analysis') {
     return (
       <StockAnalysis 
@@ -58,7 +59,6 @@ const App: React.FC = () => {
     );
   }
 
-  // Dacă utilizatorul a apăsat pe Analiza Stoc, deschidem meniul cu tipurile de produse
   if (currentView === 'categories') {
     return (
       <StockCategories 
@@ -71,12 +71,20 @@ const App: React.FC = () => {
     );
   }
 
-  // Dacă a apăsat pe Donații
   if (currentView === 'donations') {
     return <Donations onBack={() => setCurrentView('dashboard')} />;
   }
 
-  // Meniul Principal (Dashboard)
+  // Afișăm pagina de Simulare AI
+  if (currentView === 'ai-simulation') {
+    return <AiSimulation onBack={() => setCurrentView('dashboard')} />;
+  }
+
+  // Afișăm pagina de Oferte B2B
+  if (currentView === 'b2b-offers') {
+    return <B2BOffers onBack={() => setCurrentView('dashboard')} />;
+  }
+
   return (
     <div className="flex h-screen bg-[#F9F7F5] font-sans text-gray-900">
       <aside className="w-64 flex flex-col border-r border-gray-200 bg-[#F9F7F5]">
@@ -107,7 +115,6 @@ const App: React.FC = () => {
           <div className="bg-white rounded-[2rem] p-8 shadow-sm border border-gray-100 min-h-full flex flex-col">
             <div className="grid grid-cols-2 gap-5 mb-10">
               
-              {/* Butonul Analiza Stoc duce acum la meniul de categorii */}
               <ActionCard
                 title="Analiza Stoc"
                 description="Vizualizează stocurile și datele de expirare pe categorii"
@@ -116,22 +123,25 @@ const App: React.FC = () => {
                 bgColor="bg-[#3891A6]"
                 onClick={() => setCurrentView('categories')} 
               />
+              
               <ActionCard
                 title="Simulare AI"
                 description="Predicții inteligente pentru stocuri critice"
                 iconLeft={<BrainCircuit size={28} strokeWidth={2} />}
                 iconRight={<div className="bg-white/20 p-3 rounded-2xl"><LineChart size={32} strokeWidth={2}/></div>}
                 bgColor="bg-[#6B46C1]"
+                onClick={() => setCurrentView('ai-simulation')} // <-- Conectat
               />
+              
               <ActionCard
                 title="Oferte B2B"
                 description="Gestionează loturile pentru preț social și parteneri"
                 iconLeft={<Handshake size={28} strokeWidth={2} />}
                 iconRight={<Tag size={64} strokeWidth={1.5} className="rotate-45 opacity-80" />}
                 bgColor="bg-[#E68A2E]"
+                onClick={() => setCurrentView('b2b-offers')} // <-- Conectat
               />
               
-              {/* Butonul Donații */}
               <ActionCard
                 title="Donații"
                 description="Redirecționează produse către ONG-uri și cantine"
