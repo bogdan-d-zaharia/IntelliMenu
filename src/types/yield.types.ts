@@ -25,17 +25,20 @@ export interface LotAlimentar {
   costAchizitieUnitarRON: number; // Pentru calculul marjei reale
 }
 
+
 export interface RezultatScenariu {
   id: TipScenariu;
   titlu: string;
   descriere: string;
-  procentB2B: number;           // X% direcționat pe bursă
-  procentB2C: number;           // (100 - X)% păstrat la raft
+  procentB2B: number;
+  procentB2C: number;
   venitBrutEstimatRON: number;
-  costHoldingTotalRON: number;  // Cost stocare/manipulare acumulat
+  costHoldingTotalRON: number;
   profitNetEstimatRON: number;
+  scorIES: number; // <--- Adaugi acest câmp nou
   marjaProfitProcent: number;
-  rataRisipaEstimata: number;   // % marfă donată/expirată
+  rataRisipaEstimata: number;
+  esteRecomandatAI?: boolean; // <--- Flag opțional
 }
 
 export interface PraguriAxaTimp {
