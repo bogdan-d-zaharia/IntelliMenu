@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Settings, ArrowLeft, Activity } from 'lucide-react';
+import {  ArrowLeft, Activity } from 'lucide-react';
 import {
   ComposedChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceArea, ReferenceDot
 } from 'recharts';
@@ -131,8 +131,7 @@ const StockAnalysis: React.FC<{ categoryName?: string; onBack: () => void }> = (
 
                 <Tooltip 
                   contentStyle={{ backgroundColor: '#111827', borderColor: '#374151', borderRadius: '8px', color: '#fff' }} 
-                  formatter={(val: any) => [`${val} RON`, 'Preț Unitar']}
-                />
+              formatter={(val) => [`${val} RON`, 'Preț Unitar']}                />
                 
                 {/* 4 ZONE DE FUNDAL COLORATE PE FIECARE ETAPĂ */}
                 {/* Faza 1: Preț Întreg (Verde) */}
@@ -188,50 +187,58 @@ const StockAnalysis: React.FC<{ categoryName?: string; onBack: () => void }> = (
         {/* Panoul Lateral cu Detalii și Butoane */}
         <div className="bg-[#1F2937] rounded-2xl shadow-xl border border-gray-800 p-6 flex flex-col justify-between gap-6">
           <div>
-            <h3 className="text-base font-bold text-white mb-3 pb-2 border-b border-gray-700">Lot Details</h3>
+            <h3 className="text-base font-bold text-white mb-3 pb-2 border-b border-gray-700">Detalii &amp; Financiar (Lot #{lotCurent.id})</h3>
             <div className="space-y-2 text-sm text-gray-300 mb-4">
-              <p><span className="text-gray-400">Volume:</span> <strong className="text-white">{lotCurent.cantitateTotala} kg</strong></p>
+              <p><span className="text-gray-400">Volum curent:</span> <strong className="text-white">{lotCurent.cantitateTotala} kg/unități</strong></p>
+              <p><span className="text-gray-400">Preț Bază / Unitate:</span> <strong className="text-white">{pretFull} RON</strong></p>
               <p className="flex items-center gap-2">
-                <span className="text-gray-400">Status:</span> 
-                <span className="inline-flex items-center gap-1.5 text-blue-400 font-medium">
-                  <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span> Trecere pe Bursă (B2B)
+                <span className="text-gray-400">Status Recomandat:</span> 
+                <span className={`inline-flex items-center gap-1.5 font-medium ${scorRisc > 70 ? 'text-red-400' : scorRisc > 40 ? 'text-blue-400' : 'text-emerald-400'}`}>
+                  <span className={`w-2 h-2 rounded-full animate-pulse ${scorRisc > 70 ? 'bg-red-500' : scorRisc > 40 ? 'bg-blue-500' : 'bg-emerald-500'}`}></span> 
+                  {scorRisc > 70 ? 'Urgență Donație / Distrugere' : scorRisc > 40 ? 'Trecere pe Bursă (B2B)' : 'Promovare Raft'}
                 </span>
               </p>
             </div>
 
+            {/* Cifre Calculate Dinamic din formulele colegei tale */}
             <div className="grid grid-cols-2 gap-3 mb-6">
-              <div className="bg-[#111827] p-3 rounded-xl border border-gray-800 text-center">
-                <span className="text-xs text-gray-400 block mb-1">Venit Protejat:</span>
-                <span className="text-lg font-bold text-emerald-400">850 RON</span>
+              <div className="bg-[#111827] p-3 rounded-xl border border-gray-800 text-center flex flex-col justify-center">
+                <span className="text-[11px] text-gray-400 block mb-1">Valoare Rămasă (B2B):</span>
+                <span className="text-lg font-bold text-blue-400">{Math.round(lotCurent.cantitateTotala * pretB2B)} RON</span>
               </div>
-              <div className="bg-[#111827] p-3 rounded-xl border border-gray-800 text-center">
-                <span className="text-xs text-gray-400 block mb-1">Marjă Protejată:</span>
-                <span className="text-lg font-bold text-blue-400">65%</span>
+              <div className="bg-[#111827] p-3 rounded-xl border border-gray-800 text-center flex flex-col justify-center">
+                <span className="text-[11px] text-gray-400 block mb-1">Deductibilitate Fiscală:</span>
+                <span className="text-lg font-bold text-emerald-400">{Math.round(lotCurent.cantitateTotala * pretFull)} RON</span>
               </div>
             </div>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-4">
             <button className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 px-4 rounded-xl shadow transition-all text-sm flex items-center justify-center gap-2">
-              Activează Promovare -50% (Raft)
+              Activează Promovare Raft (-50%)
             </button>
-            <button className="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 px-4 rounded-xl shadow transition-all text-sm flex items-center justify-center gap-2">
-              Rezervă B2B: Preț Social (Cantine)
-            </button>
-            <button className="w-full bg-red-600 hover:bg-red-500 text-white font-semibold py-3 px-4 rounded-xl shadow transition-all text-sm flex items-center justify-center gap-2">
-              Donație Fiscală (Instantanee)
-            </button>
+            
+            <div className="space-y-1">
+              <button className="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 px-4 rounded-xl shadow transition-all text-sm flex items-center justify-center gap-2">
+                Rezervă B2B (Cantine / Procesatori)
+              </button>
+              <p className="text-[10px] text-center text-gray-400">Recomandat și pentru școli tehnologice (practică)</p>
+            </div>
+
+            <div className="space-y-1">
+              <button className="w-full bg-red-600 hover:bg-red-500 text-white font-semibold py-3 px-4 rounded-xl shadow transition-all text-sm flex items-center justify-center gap-2">
+                Donație Fiscală (ONG-uri)
+              </button>
+              <p className="text-[10px] text-center text-emerald-400 font-medium">
+                *Sponsorizare deductibilă (Limita 20% din impozit)
+              </p>
+            </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 pt-4 border-t border-gray-800">
-            <div className="bg-[#111827] p-3 rounded-xl border border-gray-800 text-center">
-              <span className="text-xs text-gray-400 block mb-1">Venit Protejat:</span>
-              <span className="text-base font-bold text-emerald-400">850 RON</span>
-            </div>
-            <div className="bg-[#111827] p-3 rounded-xl border border-gray-800 text-center">
-              <span className="text-xs text-gray-400 block mb-1">Marjă Protejată:</span>
-              <span className="text-base font-bold text-blue-400">65%</span>
-            </div>
+          <div className="mt-4 pt-4 border-t border-gray-800">
+             <button className="w-full bg-purple-600/20 hover:bg-purple-600/40 text-purple-300 border border-purple-500/30 font-semibold py-3 px-4 rounded-xl transition-all text-sm flex items-center justify-center gap-2">
+                <Activity size={16} /> Lansează Simulare (Smart Split)
+             </button>
           </div>
         </div>
 
