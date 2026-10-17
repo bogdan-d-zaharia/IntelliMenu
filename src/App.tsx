@@ -1,122 +1,151 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import StockCategories from './StockCategories'; // <-- Importăm meniul cu categorii
+import StockAnalysis from './StockAnalysis';     // <-- Ecranul cu graficul
+import Donations from './Donations';             // <-- Pagina de donații
+import {
+  Store, Home, Bell, History, Settings, User, ChevronDown,
+  BarChart2, Package, BrainCircuit, LineChart, Handshake, Tag,
+  HeartHandshake, Share2
+} from 'lucide-react';
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+interface SidebarItemProps {
+  icon: React.ReactNode;
+  label: string;
+  isActive?: boolean;
 }
 
-export default App
+const SidebarItem: React.FC<SidebarItemProps> = ({ icon, label, isActive }) => (
+  <div className={`flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer transition-colors ${isActive ? 'bg-gray-200/60 text-gray-900 font-medium' : 'text-gray-600 hover:bg-gray-100'}`}>
+    <div className={`${isActive ? 'text-green-600' : 'text-gray-500'}`}>{icon}</div>
+    <span>{label}</span>
+  </div>
+);
+
+interface ActionCardProps {
+  title: string;
+  description: string;
+  iconLeft: React.ReactNode;
+  iconRight: React.ReactNode;
+  bgColor: string;
+  onClick?: () => void;
+}
+
+const ActionCard: React.FC<ActionCardProps> = ({ title, description, iconLeft, iconRight, bgColor, onClick }) => (
+  <div onClick={onClick} className={`${bgColor} rounded-xl p-6 text-white shadow-md flex items-center justify-between cursor-pointer hover:opacity-95 transition-all hover:shadow-lg`}>
+    <div className="flex items-center gap-4">
+      <div className="p-3 bg-white/20 rounded-xl">{iconLeft}</div>
+      <div>
+        <h3 className="text-xl font-bold mb-1 text-white">{title}</h3>
+        <p className="text-sm text-white/90 leading-snug max-w-[220px]">{description}</p>
+      </div>
+    </div>
+    <div className="opacity-90">{iconRight}</div>
+  </div>
+);
+
+const App: React.FC = () => {
+  // Stări posibile: 'dashboard', 'categories' (meniul de tipuri), 'analysis' (graficul) sau 'donations'
+  const [currentView, setCurrentView] = useState<'dashboard' | 'categories' | 'analysis' | 'donations'>('dashboard');
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
+
+  // Dacă utilizatorul a selectat o categorie, afișăm graficul corespunzător
+  if (currentView === 'analysis') {
+    return (
+      <StockAnalysis 
+        categoryName={selectedCategory} 
+        onBack={() => setCurrentView('categories')} 
+      />
+    );
+  }
+
+  // Dacă utilizatorul a apăsat pe Analiza Stoc, deschidem meniul cu tipurile de produse
+  if (currentView === 'categories') {
+    return (
+      <StockCategories 
+        onBack={() => setCurrentView('dashboard')} 
+        onSelectCategory={(catName) => {
+          setSelectedCategory(catName);
+          setCurrentView('analysis');
+        }} 
+      />
+    );
+  }
+
+  // Dacă a apăsat pe Donații
+  if (currentView === 'donations') {
+    return <Donations onBack={() => setCurrentView('dashboard')} />;
+  }
+
+  // Meniul Principal (Dashboard)
+  return (
+    <div className="flex h-screen bg-[#F9F7F5] font-sans text-gray-900">
+      <aside className="w-64 flex flex-col border-r border-gray-200 bg-[#F9F7F5]">
+        <div className="p-6 pb-2">
+          <nav className="space-y-2">
+            <SidebarItem icon={<Home size={22} />} label="Acasă" isActive />
+            <SidebarItem icon={<Bell size={22} />} label="Alertor AI" />
+            <SidebarItem icon={<History size={22} />} label="Istoric Tranzacții" />
+            <SidebarItem icon={<Settings size={22} />} label="Setări" />
+          </nav>
+        </div>
+      </aside>
+
+      <main className="flex-1 flex flex-col overflow-hidden">
+        <header className="flex items-center justify-between p-8 pb-6">
+          <div className="flex items-center gap-3">
+            <Store className="text-gray-400" size={32} />
+            <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">Dashboard Manager</h1>
+          </div>
+          <div className="flex items-center gap-2 bg-white border border-gray-200 px-4 py-2 rounded-full cursor-pointer hover:bg-gray-50 transition-colors shadow-sm">
+            <div className="bg-gray-100 rounded-full p-1"><User size={16} className="text-gray-600"/></div>
+            <span className="text-sm font-medium text-gray-700">Manager</span>
+            <ChevronDown size={16} className="text-gray-400" />
+          </div>
+        </header>
+
+        <div className="flex-1 overflow-y-auto px-8 pb-8">
+          <div className="bg-white rounded-[2rem] p-8 shadow-sm border border-gray-100 min-h-full flex flex-col">
+            <div className="grid grid-cols-2 gap-5 mb-10">
+              
+              {/* Butonul Analiza Stoc duce acum la meniul de categorii */}
+              <ActionCard
+                title="Analiza Stoc"
+                description="Vizualizează stocurile și datele de expirare pe categorii"
+                iconLeft={<BarChart2 size={28} strokeWidth={2} />}
+                iconRight={<Package size={64} strokeWidth={1.5} className="opacity-80" />}
+                bgColor="bg-[#3891A6]"
+                onClick={() => setCurrentView('categories')} 
+              />
+              <ActionCard
+                title="Simulare AI"
+                description="Predicții inteligente pentru stocuri critice"
+                iconLeft={<BrainCircuit size={28} strokeWidth={2} />}
+                iconRight={<div className="bg-white/20 p-3 rounded-2xl"><LineChart size={32} strokeWidth={2}/></div>}
+                bgColor="bg-[#6B46C1]"
+              />
+              <ActionCard
+                title="Oferte B2B"
+                description="Gestionează loturile pentru preț social și parteneri"
+                iconLeft={<Handshake size={28} strokeWidth={2} />}
+                iconRight={<Tag size={64} strokeWidth={1.5} className="rotate-45 opacity-80" />}
+                bgColor="bg-[#E68A2E]"
+              />
+              
+              {/* Butonul Donații */}
+              <ActionCard
+                title="Donații"
+                description="Redirecționează produse către ONG-uri și cantine"
+                iconLeft={<HeartHandshake size={28} strokeWidth={2} />}
+                iconRight={<Share2 size={64} strokeWidth={1.5} className="opacity-80" />}
+                bgColor="bg-[#7A9E55]"
+                onClick={() => setCurrentView('donations')} 
+              />
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+};
+
+export default App;
