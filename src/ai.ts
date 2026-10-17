@@ -8,6 +8,8 @@ import {
   GoogleAIBackend,
 } from 'firebase/ai';
 
+import { getFirestore } from "firebase/firestore";
+
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -55,3 +57,4 @@ export async function askAI(prompt: string): Promise<string> {
   const result = await model.generateContent(prompt);
   return result.response.text();
 }
+export const db = getFirestore(app);
