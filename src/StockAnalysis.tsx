@@ -87,6 +87,18 @@ const formatMoney = (val: number): string => {
   return `0 RON`;
 };
 
+const formatChartTime = (hours: number): string => {
+  if (hours <= 0) return 'Data Expirării';
+  const totalHours = Math.floor(hours);
+  if (totalHours === 0) return 'Cu mai puțin de o oră înainte';
+  const days = Math.floor(totalHours / 24);
+  const restHours = totalHours % 24;
+  const parts = [];
+  if (days) parts.push(`${days} ${days === 1 ? 'zi' : 'zile'}`);
+  if (restHours) parts.push(`${restHours} ${restHours === 1 ? 'oră' : 'ore'}`);
+  return `Cu ${parts.join(' și ')} înainte`;
+};
+
 const AnalysisCharts = ({ sourceLot, adapted, onBack, onNavigate }: AnalysisChartsProps) => {
   const lotCurent = adapted.lot;
   const [saving, setSaving] = useState(false);
@@ -157,7 +169,7 @@ const AnalysisCharts = ({ sourceLot, adapted, onBack, onNavigate }: AnalysisChar
     const retail = entry.canal === 'full_price' || entry.canal === 'discount';
     const donationAtStart = scenario.intervale.some(row => row.canal === 'donation' && row.deLaOre === entry.deLaOre);
     const point = (hours: number, stock: number) => ({
-      zi: hours === 0 ? 'Data Expirării' : `Cu ${Number((hours / 24).toFixed(2)).toLocaleString('ro-RO')} ${hours === 24 ? 'zi' : 'zile'} înainte`,
+      zi: formatChartTime(hours),
       pret: retail && !donationAtStart && entry.stocInitial > 0 ? entry.pretUnitarRON : null,
       stocKg: stock,
       b2bBanda: entry.canal === 'social' && entry.cantitate > 0 ? entry.pretUnitarRON : null,
@@ -255,7 +267,7 @@ const AnalysisCharts = ({ sourceLot, adapted, onBack, onNavigate }: AnalysisChar
             <span className="text-[10px] text-gray-500 block mt-0.5">Evaluare ecologică pasivă</span>
           </div>
           <div className="bg-red-950/30 p-2.5 rounded-lg border border-red-500/40">
-            <span className="text-red-300 font-medium block">Profit Net Estimat:</span>
+            <span className="text-red-300 font-medium block">Bilant:</span>
             <span className={`font-extrabold text-base ${sPasiv.profitNetEstimatRON >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
               {formatMoney(sPasiv.profitNetEstimatRON)}
             </span>
@@ -377,7 +389,7 @@ const AnalysisCharts = ({ sourceLot, adapted, onBack, onNavigate }: AnalysisChar
                 <span className="text-[10px] text-purple-300 block mt-0.5">Scor maxim de sustenabilitate</span>
               </div>
               <div className="bg-emerald-950/40 p-3 rounded-lg border border-emerald-500/40">
-                <span className="text-emerald-300 font-medium block">Profit Net Final:</span>
+                <span className="text-emerald-300 font-medium block">Bilant:</span>
                 <span className={`font-extrabold text-base ${sHibridAI.profitNetEstimatRON >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
                   {formatMoney(sHibridAI.profitNetEstimatRON)}
                 </span>
@@ -461,7 +473,7 @@ const AnalysisCharts = ({ sourceLot, adapted, onBack, onNavigate }: AnalysisChar
                 <span className="text-[10px] text-purple-300 block mt-0.5">Sustenabilitate ridicată</span>
               </div>
               <div className="bg-blue-950/40 p-3 rounded-lg border border-blue-500/40">
-                <span className="text-blue-300 font-medium block">Profit Net Final:</span>
+                <span className="text-blue-300 font-medium block">Bilant:</span>
                 <span className={`font-extrabold text-base ${sSecvential.profitNetEstimatRON >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
                   {formatMoney(sSecvential.profitNetEstimatRON)}
                 </span>
