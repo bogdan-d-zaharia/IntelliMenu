@@ -3,16 +3,16 @@ import type { ReactNode } from 'react';
 import { collection, onSnapshot, Timestamp } from 'firebase/firestore';
 import { db } from '../firebase';
 
-export interface StoreRecord { id: string; name: string; address: string; avg_daily_sales_by_category?: Record<string, number>; esg_waste_penalty_per_kg?: number; retail_discount_pct?: number; promo_demand_multiplier?: number }
+export interface StoreRecord { id: string; name: string; address: string; contact_phone?: string; contact_email?: string; contact_person?: string; opening_hours?: string; pickup_instructions?: string; avg_daily_sales_by_category?: Record<string, number>; esg_waste_penalty_per_kg?: number; retail_discount_pct?: number; promo_demand_multiplier?: number }
 export interface InventoryRecord {
-  id: string; store_id: string; category: string; quantity: number; unit_of_measure: string;
+  id: string; name?: string; product_name?: string; store_id: string; category: string; quantity: number; unit_of_measure: string;
   expiration_date: Timestamp; received_at?: Timestamp; price_per_unit: number; cost_price_per_unit: number;
   holding_cost_per_day?: number; environmental_impact_factor?: number; waste_disposal_cost_per_unit?: number;
   bulk_eligible: boolean; status: string; weight_per_unit_kg?: number;
   distribution_plan?: { scenario: string; title: string; b2b_pct: number; b2c_pct: number; applied_at?: Timestamp; b2b_quantity?: number; b2c_quantity?: number; donation_quantity?: number; donation_remaining?: number };
 }
 export interface PartnerRecord { id: string; name: string; type: string; accepted_categories: string[]; has_refrigeration: boolean; daily_capacity_kg: number; pickup_sla_hours?: number; offered_price_pct?: number; current_demand_by_category_kg?: Record<string, number>; last_fulfilled_at?: Timestamp | null }
-export interface ClaimRecord { id: string; lot_id: string; partner_id: string; claimed_quantity: number; status: string; channel?: 'social' | 'donation'; claimed_weight_kg?: number; reservation_day?: string; unit_of_measure?: string; price_per_unit?: number; completed_at?: Timestamp; avg_processing_time_hours?: number; pickup_deadline?: Timestamp; pickup_code?: string }
+export interface ClaimRecord { id: string; store_id?: string; category?: string; total_price?: number; lot_id: string; partner_id: string; claimed_quantity: number; status: string; channel?: 'social' | 'donation'; claimed_weight_kg?: number; reservation_day?: string; unit_of_measure?: string; price_per_unit?: number; completed_at?: Timestamp; avg_processing_time_hours?: number; pickup_deadline?: Timestamp; pickup_code?: string }
 export interface SaleRecord { id: string; store_id: string; category: string; is_bulk: boolean; quantity_sold: number; time_to_first_discount_hours?: number | null }
 interface Data {
   stores: StoreRecord[]; inventory_lots: InventoryRecord[]; partners: PartnerRecord[]; claims: ClaimRecord[]; sales_history: SaleRecord[];
