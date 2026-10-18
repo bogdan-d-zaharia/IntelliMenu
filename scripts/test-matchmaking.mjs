@@ -10,8 +10,7 @@ function moduleUrl(path, replacements = {}) {
   return `data:text/javascript;base64,${Buffer.from(outputText).toString('base64')}`;
 }
 process.on('uncaughtException', error => { console.error(error.message); process.exitCode = 1; });
-const mockAi = `data:text/javascript;base64,${Buffer.from('export async function askAI(prompt){return globalThis.matchTest.askAI(prompt);}').toString('base64')}`;
-const matchingUrl = moduleUrl('../src/lib/matchmaking.ts', { '../ai': mockAi });
+const matchingUrl = moduleUrl('../src/lib/matchmaking.ts');
 const matching = await import(matchingUrl);
 const configUrl = moduleUrl('../src/data/categoryConfig.ts');
 const engineUrl = moduleUrl('../src/lib/yieldEngine.ts', { '../data/categoryConfig': configUrl });
@@ -30,13 +29,7 @@ function snapshot(path) {
 }
 globalThis.matchTest = {
   Timestamp,
-  askAI: async prompt => {
-    const input = JSON.parse(prompt.slice(prompt.lastIndexOf('\n') + 1));
-    const lot = { ...documents.get(`inventory_lots/${input.lot.id}`), id: input.lot.id };
-    const partners = input.partners.map(item => ({ ...documents.get(`partners/${item.id}`), id: item.id }));
-    const allocations = matching.allocatePartners(lot, partners, input.targets, new Map(input.partners.map(item => [item.id, item.available_capacity_kg])));
-    return JSON.stringify({ allocations: allocations.map(item => ({ partner_id: item.partner.id, channel: item.channel, quantity: item.quantity })) });
-  },
+  askAI: async () => { throw new Error('Matchmaking must never invoke AI'); },
   doc: (_db, name, id) => ({ id, path: `${name}/${id}` }),
   collection: (_db, name) => name,
   getDocFromServer: async ref => snapshot(ref.path),
@@ -130,14 +123,3 @@ assert.ok(allocated.every(item => Number.isInteger(item.quantity)));
 assert.equal(allocated.reduce((sum, item) => sum + item.quantity, 0), 20);
 console.log('Passed: live-input recomputation, priority, splitting, demand deduction, prices, whole units, fulfillment, idempotency, concurrent clicks, atomic failure, missing data and expiry (mock transactions; no live writes).');
 
-reset();
-const actualAsk = globalThis.matchTest.askAI;
-globalThis.matchTest.askAI = async () => '{"allocations":[{"partner_id":"invented","channel":"social","quantity":99999}]}';
-await assert.rejects(() => actions.applyPlan(sourceLot, request), /Propunerea AI/);
-assert.equal(documents.get('inventory_lots/lot').status, 'pending_ai_review');
-assert.equal([...documents.keys()].filter(path => path.startsWith('claims/')).length, 0);
-globalThis.matchTest.askAI = async () => { throw new Error('AI unavailable'); };
-await assert.rejects(() => actions.applyPlan(sourceLot, request), /AI unavailable/);
-assert.equal(documents.get('inventory_lots/lot').status, 'pending_ai_review');
-globalThis.matchTest.askAI = actualAsk;
-console.log('Passed: askAI is invoked, invalid AI allocations rejected and AI failures do not write to Firestore.');
