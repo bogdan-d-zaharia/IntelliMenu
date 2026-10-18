@@ -10,8 +10,9 @@ const renderApp = () => createRoot(document.getElementById('root')!).render(
   </StrictMode>,
 )
 
-// Finish the additive migration before loading the Firestore-backed screens.
-if (import.meta.env.DEV) {
+// Startup writes require explicit opt-in; normal startup only loads live data.
+const importFirestoreOnStartup = import.meta.env.VITE_FIRESTORE_IMPORT_ON_STARTUP === 'true';
+if (import.meta.env.DEV && importFirestoreOnStartup) {
   void import('./migrateFirestore')
     .then(({ migrateFirestoreOnStartup }) => migrateFirestoreOnStartup())
     .catch(error => {
