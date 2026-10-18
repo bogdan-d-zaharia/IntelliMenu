@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft, Croissant, Milk, Apple, Beef } from 'lucide-react';
+import { ArrowLeft, Milk, Beef, Archive } from 'lucide-react';
 
 interface StockCategoriesProps {
   onBack: () => void;
@@ -7,10 +7,27 @@ interface StockCategoriesProps {
 }
 
 const categories = [
-  { id: 'lactate', name: 'Lactate & Brânzeturi', desc: 'Ciclu mediu de viață, praguri pe zile', icon: <Milk size={28} />, color: 'bg-blue-500' },
-  { id: 'mezeluri', name: 'Mezeluri & Carne', desc: 'Descreștere exponențială a prețului/calității', icon: <Beef size={28} />, color: 'bg-red-500' },
-  { id: 'patiserie', name: 'Patiserie & Panificație', desc: 'Grafic cursiv, rezistență pe termen scurt', icon: <Croissant size={28} />, color: 'bg-amber-500' },
-  { id: 'fructe', name: 'Fructe & Legume', desc: 'Rată rapidă de perisabilitate la final', icon: <Apple size={28} />, color: 'bg-emerald-500' },
+  { 
+    id: 'lactate', 
+    name: 'Lactate & Brânzeturi', 
+    desc: 'Ciclu mediu de viață, valabilitate calculată în ore/zile', 
+    icon: <Milk size={28} />, 
+    color: 'bg-blue-500' 
+  },
+  { 
+    id: 'carne', 
+    name: 'Carne & Mezeluri', // <-- Corectat din "Mezeluri & Carne"
+    desc: 'Perisabilitate ridicată, ajustare rapidă a prețului', 
+    icon: <Beef size={28} />, 
+    color: 'bg-red-500' 
+  },
+  { 
+    id: 'conserve', 
+    name: 'Conserve & Produse Uscate', // <-- Adăugat conform categoryConfig.ts
+    desc: 'Termen lung de valabilitate, risc scăzut de degradare', 
+    icon: <Archive size={28} />, 
+    color: 'bg-amber-500' 
+  }
 ];
 
 const StockCategories: React.FC<StockCategoriesProps> = ({ onBack, onSelectCategory }) => {
@@ -20,14 +37,14 @@ const StockCategories: React.FC<StockCategoriesProps> = ({ onBack, onSelectCateg
       {/* Buton Înapoi */}
       <button 
         onClick={onBack} 
-        className="mb-6 text-blue-400 font-semibold hover:text-blue-300 flex items-center gap-2 transition-colors bg-[#1F2937] px-4 py-2 rounded-xl border border-gray-800 shadow-sm w-max"
+        className="mb-6 text-blue-400 font-semibold hover:text-blue-300 flex items-center gap-2 transition-colors bg-[#1F2937] px-4 py-2 rounded-xl border border-gray-800 shadow-sm w-max cursor-pointer"
       >
         <ArrowLeft size={20} /> Înapoi la Dashboard
       </button>
 
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-extrabold text-white mb-2">Selectează Categoria de Produse</h1>
-        <p className="text-gray-400 mb-8">Alege o secțiune pentru a vizualiza curba de preț și stocurile critice bazate pe algoritmul AI.</p>
+        <p className="text-gray-400 mb-8">Alege o secțiune pentru a vizualiza stocurile prioritizate pe baza algoritmului AI.</p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {categories.map((cat) => (

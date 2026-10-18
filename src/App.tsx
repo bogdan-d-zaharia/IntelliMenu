@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
+import type { LotAlimentar } from './types/yield.types';
+import { LOT_DEFAULT_CONFIG } from './data/categoryConfig';
+
 import StockCategories from './StockCategories';
 import StockAnalysis from './StockAnalysis';
 import Donations from './Donations';
-import AiSimulation from './AiSimulation'; // <-- Import nou
-import B2BOffers from './B2BOffers';       // <-- Import nou
+import AiSimulation from './AiSimulation';
+import B2BOffers from './B2BOffers';
+import InventoryDashboard from './InventoryDashboard';
+
 import {
   Store, Home, Bell, History, Settings, User, ChevronDown,
   BarChart2, Package, BrainCircuit, LineChart, Handshake, Tag,
@@ -14,10 +19,16 @@ interface SidebarItemProps {
   icon: React.ReactNode;
   label: string;
   isActive?: boolean;
+  onClick?: () => void;
 }
 
-const SidebarItem: React.FC<SidebarItemProps> = ({ icon, label, isActive }) => (
-  <div className={`flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer transition-colors ${isActive ? 'bg-gray-200/60 text-gray-900 font-medium' : 'text-gray-600 hover:bg-gray-100'}`}>
+const SidebarItem: React.FC<SidebarItemProps> = ({ icon, label, isActive, onClick }) => (
+  <div 
+    onClick={onClick}
+    className={`flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer transition-colors ${
+      isActive ? 'bg-gray-200/60 text-gray-900 font-medium' : 'text-gray-600 hover:bg-gray-100'
+    }`}
+  >
     <div className={`${isActive ? 'text-green-600' : 'text-gray-500'}`}>{icon}</div>
     <span>{label}</span>
   </div>
@@ -45,52 +56,70 @@ const ActionCard: React.FC<ActionCardProps> = ({ title, description, iconLeft, i
   </div>
 );
 
-const App: React.FC = () => {
-  // Am adăugat 'ai-simulation' și 'b2b-offers' în listă
-  const [currentView, setCurrentView] = useState<'dashboard' | 'categories' | 'analysis' | 'donations' | 'ai-simulation' | 'b2b-offers'>('dashboard');
+export const App: React.FC = () => {
+  const [currentView, setCurrentView] = useState<'dashboard' | 'categories' | 'inventory-prioritized' | 'analysis' | 'donations' | 'ai-simulation' | 'b2b-offers'>('dashboard');
   const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [selectedLot, setSelectedLot] = useState<LotAlimentar | null>(null);
 
+  // 1. Ecran Analiză Detaliată Lot
   if (currentView === 'analysis') {
     return (
       <StockAnalysis 
-        categoryName={selectedCategory} 
-        onBack={() => setCurrentView('categories')} 
+        lotCurent={selectedLot || LOT_DEFAULT_CONFIG} 
+        onBack={() => setCurrentView('inventory-prioritized')} 
       />
     );
   }
 
+  // 2. Ecran Loturi Filtrate pe Categoria Selectată
+  if (currentView === 'inventory-prioritized') {
+    return (
+      <InventoryDashboard 
+        categorieFilter={selectedCategory}
+        onSelectLot={(lot) => {
+          setSelectedLot(lot);
+          setCurrentView('analysis');
+        }}
+        onBack={() => setCurrentView('categories')}
+      />
+    );
+  }
+
+  // 3. Ecran Selectare Categorii
   if (currentView === 'categories') {
     return (
       <StockCategories 
         onBack={() => setCurrentView('dashboard')} 
         onSelectCategory={(catName) => {
           setSelectedCategory(catName);
-          setCurrentView('analysis');
+          setCurrentView('inventory-prioritized');
         }} 
       />
     );
   }
 
+  // 4. Ecran Donații
   if (currentView === 'donations') {
     return <Donations onBack={() => setCurrentView('dashboard')} />;
   }
 
-  // Afișăm pagina de Simulare AI
+  // 5. Ecran Simulare AI
   if (currentView === 'ai-simulation') {
     return <AiSimulation onBack={() => setCurrentView('dashboard')} />;
   }
 
-  // Afișăm pagina de Oferte B2B
+  // 6. Ecran Oferte B2B
   if (currentView === 'b2b-offers') {
     return <B2BOffers onBack={() => setCurrentView('dashboard')} />;
   }
 
+  // 7. Dashboard Principal (Acasă cu cele 4 Chenare)
   return (
     <div className="flex h-screen bg-[#F9F7F5] font-sans text-gray-900">
       <aside className="w-64 flex flex-col border-r border-gray-200 bg-[#F9F7F5]">
         <div className="p-6 pb-2">
           <nav className="space-y-2">
-            <SidebarItem icon={<Home size={22} />} label="Acasă" isActive />
+            <SidebarItem icon={<Home size={22} />} label="Acasă" isActive onClick={() => setCurrentView('dashboard')} />
             <SidebarItem icon={<Bell size={22} />} label="Alertor AI" />
             <SidebarItem icon={<History size={22} />} label="Istoric Tranzacții" />
             <SidebarItem icon={<Settings size={22} />} label="Setări" />
@@ -130,7 +159,7 @@ const App: React.FC = () => {
                 iconLeft={<BrainCircuit size={28} strokeWidth={2} />}
                 iconRight={<div className="bg-white/20 p-3 rounded-2xl"><LineChart size={32} strokeWidth={2}/></div>}
                 bgColor="bg-[#6B46C1]"
-                onClick={() => setCurrentView('ai-simulation')} // <-- Conectat
+                onClick={() => setCurrentView('ai-simulation')}
               />
               
               <ActionCard
@@ -139,7 +168,7 @@ const App: React.FC = () => {
                 iconLeft={<Handshake size={28} strokeWidth={2} />}
                 iconRight={<Tag size={64} strokeWidth={1.5} className="rotate-45 opacity-80" />}
                 bgColor="bg-[#E68A2E]"
-                onClick={() => setCurrentView('b2b-offers')} // <-- Conectat
+                onClick={() => setCurrentView('b2b-offers')}
               />
               
               <ActionCard
@@ -150,6 +179,7 @@ const App: React.FC = () => {
                 bgColor="bg-[#7A9E55]"
                 onClick={() => setCurrentView('donations')} 
               />
+
             </div>
           </div>
         </div>

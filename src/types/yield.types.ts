@@ -1,4 +1,7 @@
-export type CategorieAlimentara = 'carne_proaspata' | 'lactate' | 'conserve_uscate';
+export type CategorieAlimentara = 
+  | 'Carne & Mezeluri' 
+  | 'Lactate & Brânzeturi' 
+  | 'Conserve & Produse Uscate';
 
 export type TipScenariu = 'SCENARIU_1_RAFT' | 'SCENARIU_2_B2B_INTEGRAL' | 'SCENARIU_3_HIBRID_AI';
 
@@ -10,7 +13,10 @@ export interface ConfigurareCategorie {
   plafonPresiuneStoc: number;
   oreMinimeDonatie: number;
   procentPlafonDonatie: number;
-  costStocarePerKgZiRON: number; // Ex: 0.50 RON/kg/zi (depozitare + frig)
+  costStocarePerKgZiRON: number;
+  wasteDisposalCostPerKg: number;
+  esgPenaltyPerKg: number;
+  impactFactor: number;
 }
 
 export interface LotAlimentar {
@@ -18,11 +24,12 @@ export interface LotAlimentar {
   nume: string;
   categorie: CategorieAlimentara;
   cantitateTotala: number;
+  pretUnitarRON: number;
   vanzariMediiZilnice: number;
   oreTotaleValabilitate: number;
-  oreRămase: number;
-  pretUnitarRON: number;
-  costAchizitieUnitarRON: number; // Pentru calculul marjei reale
+  dataExpirare: string; // Ex: '2026-10-20T14:30:00.000Z'
+  oreRămase: number;    // Calculat dinamic sau pasat ca fallback
+  costAchizitieUnitarRON?: number;
 }
 
 

@@ -7,24 +7,16 @@ export function calculeazaSansaVanzare(
   pretInitial: number,
   categorie: CategorieAlimentara
 ): number {
-  let elasticitatePret = 1.0;
-  let coefDegradare = 1.0;
+  let elasticitatePret = 2.0;
 
-  if (categorie === 'carne_proaspata') {
-    elasticitatePret = 2.2;
-    coefDegradare = 1.8;
-  } else if (categorie === 'lactate') {
-    elasticitatePret = 1.5;
-    coefDegradare = 1.2;
-  } else if (categorie === 'conserve_uscate') {
-    elasticitatePret = 0.8;
-    coefDegradare = 0.5;
-  }
+  if (categorie === 'Carne & Mezeluri') elasticitatePret = 2.5;
+  else if (categorie === 'Lactate & Brânzeturi') elasticitatePret = 1.8;
+  else if (categorie === 'Conserve & Produse Uscate') elasticitatePret = 1.0;
 
-  const raportPret = pretCurent / Math.max(1, pretInitial);
-  const raportTimp = tScursOre / Math.max(1, tTotalOre);
+  const discountProcent = 1 - (pretCurent / Math.max(1, pretInitial));
+  const raportTimpScurs = tScursOre / Math.max(1, tTotalOre);
 
-  const z = 2.5 - (raportPret * elasticitatePret) - (raportTimp * coefDegradare);
+  const z = -1.0 + (discountProcent * elasticitatePret * 3.0) - (raportTimpScurs * 0.5);
   const probabilitate = 1 / (1 + Math.exp(-z));
 
   return Math.round(probabilitate * 100);

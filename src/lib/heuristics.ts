@@ -13,19 +13,19 @@ export interface LotIstoric {
 
 /**
  * Calculează parametrii optimi din datele istorice ale vânzărilor pentru o anumită categorie.
- * Dacă nu există date istorice suficente, folosește configurația de bază definită în categoryConfig.
+ * Dacă nu există date istorice suficiente, folosește configurația de bază definită în categoryConfig.
  */
 export function calculeazaEuristicaDinDate(
   istoricLoturi: LotIstoric[],
-  categorieTarget: CategorieAlimentara = 'carne_proaspata'
+  categorieTarget: CategorieAlimentara = 'Carne & Mezeluri'
 ): ConfigurareCategorie {
-  const configBaza = CONFIGURARI_CATEGORII[categorieTarget];
+  const configBaza = CONFIGURARI_CATEGORII[categorieTarget] || CONFIGURARI_CATEGORII['Carne & Mezeluri'];
 
-  // Filtram doar loturile din categoria specificată
+  // Filtrăm doar loturile din categoria specificată
   const loturiCategorie = (istoricLoturi || []).filter(lot => lot.categorie === categorieTarget);
 
   if (loturiCategorie.length === 0) {
-    // Fallback: Returnăm parametrii din baza de date / fișierul de configurare
+    // Fallback: Returnăm parametrii din fișierul de configurare
     return configBaza;
   }
 
@@ -59,6 +59,9 @@ export function calculeazaEuristicaDinDate(
     plafonPresiuneStoc: configBaza.plafonPresiuneStoc,
     oreMinimeDonatie: oreRidicaiMedii || configBaza.oreMinimeDonatie,
     procentPlafonDonatie: configBaza.procentPlafonDonatie,
-    costStocarePerKgZiRON: configBaza.costStocarePerKgZiRON // <--- ADaugă ACEASTĂ LINIE
+    costStocarePerKgZiRON: configBaza.costStocarePerKgZiRON,
+    wasteDisposalCostPerKg: configBaza.wasteDisposalCostPerKg,
+    esgPenaltyPerKg: configBaza.esgPenaltyPerKg,
+    impactFactor: configBaza.impactFactor
   };
 }

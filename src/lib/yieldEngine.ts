@@ -35,7 +35,7 @@ export function calculeazaIntervaleAxaDinamice(
   configCustom?: ConfigurareCategorie
 ): PraguriAxaTimp {
   // PROMPT STEP 1: Încarcă configurarea specifică categoriei sau folosește fallback-ul implicit
-  const config = configCustom || CONFIGURARI_CATEGORII[lot.categorie];
+  const config = configCustom || CONFIGURARI_CATEGORII[lot.categorie] || CONFIGURARI_CATEGORII['Conserve & Produse Uscate'];
 
   // PROMPT STEP 2: Extrage variabilele primare de timp și volum din lotul de marfă
   const Ttotal = lot.oreTotaleValabilitate;
@@ -79,11 +79,12 @@ export function calculeazaIntervaleAxaDinamice(
 
   // PROMPT STEP 9: Formatare Output (Rotunjire și garantarea valorilor pozitive >= 1h)
   return {
-    pB2C: Math.round(Math.max(1, pB2C)),      // T1 (Ore Rămase)
-    pB2B: Math.round(Math.max(1, pB2B)),      // T2 (Ore Rămase)
+    pB2C: Math.round(Math.max(1, pB2C)),       // T1 (Ore Rămase)
+    pB2B: Math.round(Math.max(1, pB2B)),       // T2 (Ore Rămase)
     pDonatie: Math.round(Math.max(1, pDonatie)) // T3 (Ore Rămase)
   };
 }
+
 /**
  * ============================================================================
  * SYSTEM PROMPT / AI INSTRUCTION SPEC: CALCUL INDICE EFICIENȚĂ SUSTENABILĂ (IES)
@@ -109,7 +110,7 @@ export function calculeazaIntervaleAxaDinamice(
  */
 
 export interface RezultatScorIES {
-  scorIESRon: number;          // Valoare Financiară ajustată ESG (pentru algoritmul de decizie)
+  scorIESRon: number;             // Valoare Financiară ajustată ESG (pentru algoritmul de decizie)
   scorSustenabilitatePct: number; // Scor vizual 0-100% (pentru UI / Dashboard Manager)
 }
 
@@ -147,9 +148,7 @@ export function calculeazaScorIES(
     scorSustenabilitatePct: scorSustenabilitatePct
   };
 }
-/**
- * 2. Simulează rezultatele financiare și determină Split-ul Optim X% B2B vs (100-X)% B2C
- */
+
 /**
  * ============================================================================
  * SYSTEM PROMPT / AI INSTRUCTION SPEC: SIMULARE SCENARII FINANCIARE & YIELD ENGINE
@@ -176,7 +175,7 @@ export function simuleazaScenariiFinanciare(
   configCustom?: ConfigurareCategorie
 ): Record<TipScenariu, RezultatScenariu> {
   // PROMPT STEP 1: Extragere configurare categorie & parametri financiari de bază
-  const config = configCustom || CONFIGURARI_CATEGORII[lot.categorie];
+  const config = configCustom || CONFIGURARI_CATEGORII[lot.categorie] || CONFIGURARI_CATEGORII['Conserve & Produse Uscate'];
   
   const zileTotal = Math.max(0.1, lot.oreTotaleValabilitate / 24);
   const zileRamase = Math.max(0.05, lot.oreRămase / 24);
@@ -326,13 +325,13 @@ export function calculeazaScorRiscS(
   configCustom?: ConfigurareCategorie
 ): number {
   // PROMPT STEP 1: Încărcarea configurării și extragerea coeficientului de perisabilitate
-  const config = configCustom || CONFIGURARI_CATEGORII[lot.categorie];
+  const config = configCustom || CONFIGURARI_CATEGORII[lot.categorie] || CONFIGURARI_CATEGORII['Conserve & Produse Uscate'];
   
   // AI RULE: Determinăm factorul dinamic de perisabilitate (Default: 1.0)
   let cPerisabilitate = 1.0;
-  if (lot.categorie === 'carne_proaspata') cPerisabilitate = 1.6;
-  else if (lot.categorie === 'lactate') cPerisabilitate = 1.2;
-  else if (lot.categorie === 'conserve_uscate') cPerisabilitate = 0.5;
+  if (lot.categorie === 'Carne & Mezeluri') cPerisabilitate = 1.6;
+  else if (lot.categorie === 'Lactate & Brânzeturi') cPerisabilitate = 1.2;
+  else if (lot.categorie === 'Conserve & Produse Uscate') cPerisabilitate = 0.5;
 
   // PROMPT STEP 2: Evaluarea Risc Temporal (Timpul Scurs %)
   const tScurs = Math.max(0, lot.oreTotaleValabilitate - lot.oreRămase);
@@ -357,3 +356,44 @@ export function calculeazaScorRiscS(
   return Math.min(100, Math.max(0, scorFinal));
 }
 
+export interface TimpRamasDetaliat {
+  zile: number;
+  ore: number;
+  minute: number;
+  oreTotale: number; // util pentru calculele matematice din yieldEngine
+  textFormatat: string;
+}
+
+/**
+ * Calculează diferența dintre data de expirare și data curentă a sistemului.
+ */
+export function calculeazaTimpRamas(dataExpirare: Date | string): TimpRamasDetaliat {
+  const acum = new Date().getTime();
+  const expirare = new Date(dataExpirare).getTime();
+  const diferentaMs = expirare - acum;
+
+  if (diferentaMs <= 0) {
+    return { zile: 0, ore: 0, minute: 0, oreTotale: 0, textFormatat: 'Expirat' };
+  }
+
+  const minuteTotale = Math.floor(diferentaMs / (1000 * 60));
+  const oreTotale = Math.floor(minuteTotale / 60);
+
+  const zile = Math.floor(oreTotale / 24);
+  const ore = oreTotale % 24;
+  const minute = minuteTotale % 60;
+
+  // Construim textul formatat (ex: "2 zile, 4 ore, 15 min" sau "5 ore, 30 min")
+  const partiText: string[] = [];
+  if (zile > 0) partiText.push(`${zile} ${zile === 1 ? 'zi' : 'zile'}`);
+  if (ore > 0) partiText.push(`${ore} ${ore === 1 ? 'oră' : 'ore'}`);
+  if (minute > 0 || partiText.length === 0) partiText.push(`${minute} min`);
+
+  return {
+    zile,
+    ore,
+    minute,
+    oreTotale,
+    textFormatat: partiText.join(', ')
+  };
+}
