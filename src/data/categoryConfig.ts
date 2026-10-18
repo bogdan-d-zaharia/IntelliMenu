@@ -1,6 +1,8 @@
 // src/data/categoryConfig.ts
 
-export const CONFIGURARI_CATEGORII: Record<string, any> = {
+import type { CategorieAlimentara, ConfigurareCategorie } from '../types/yield.types';
+type CategoryConfig = ConfigurareCategorie & { wasteDisposalCostPerKg: number; esgPenaltyPerKg: number; impactFactor: number };
+export const CONFIGURARI_CATEGORII: Record<CategorieAlimentara, CategoryConfig> = {
   carne_proaspata: {
     // PRAGURI AXĂ DINAMICĂ (Ponderea din timpul total de valabilitate când se activează trigger-ul)
     pondereBazaB2C: 0.50,         // T1: La 50% timp rămas -> Reducere 50% la Raft
@@ -33,6 +35,16 @@ export const CONFIGURARI_CATEGORII: Record<string, any> = {
     impactFactor: 1.8
   },
 
+  panificatie: {
+    pondereBazaB2C: 0.6, pondereBazaB2B: 0.3, sensibilitateStocB2C: 0.1, sensibilitateStocB2B: 0.15,
+    plafonPresiuneStoc: 3, oreMinimeDonatie: 6, procentPlafonDonatie: 0.1,
+    costStocarePerKgZiRON: 0.1, wasteDisposalCostPerKg: 0.8, esgPenaltyPerKg: 2.5, impactFactor: 0.6,
+  },
+  fructe_legume: {
+    pondereBazaB2C: 0.55, pondereBazaB2B: 0.3, sensibilitateStocB2C: 0.1, sensibilitateStocB2B: 0.15,
+    plafonPresiuneStoc: 3, oreMinimeDonatie: 6, procentPlafonDonatie: 0.1,
+    costStocarePerKgZiRON: 0.2, wasteDisposalCostPerKg: 0.9, esgPenaltyPerKg: 2.5, impactFactor: 0.8,
+  },
   conserve_uscate: {
     pondereBazaB2C: 0.65,         // T1: La 65% timp rămas -> Promoție Raft
     pondereBazaB2B: 0.35,         // T2: La 35% timp rămas -> Lichidare Bulk

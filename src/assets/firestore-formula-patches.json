@@ -1,0 +1,3948 @@
+{
+  "projectId": "intelli-menu-eb62d",
+  "patches": [
+    {
+      "collection": "stores",
+      "id": "4CtaV1L6eUe5KfcnXnUf",
+      "fields": {
+        "esg_waste_penalty_per_kg": 2.5,
+        "retail_discount_pct": 0.5,
+        "promo_demand_multiplier": 1.35,
+        "demo_assumption_fields": [
+          "retail_discount_pct",
+          "promo_demand_multiplier"
+        ],
+        "avg_daily_sales_by_category": {
+          "meat": 20,
+          "dairy": 35,
+          "bakery": 45,
+          "produce": 60
+        }
+      }
+    },
+    {
+      "collection": "stores",
+      "id": "6KBaii39pTpshNjkPubQ",
+      "fields": {
+        "esg_waste_penalty_per_kg": 2.5,
+        "retail_discount_pct": 0.5,
+        "promo_demand_multiplier": 1.35,
+        "demo_assumption_fields": [
+          "retail_discount_pct",
+          "promo_demand_multiplier"
+        ]
+      }
+    },
+    {
+      "collection": "stores",
+      "id": "ZvBsQk88DOh3c5iREGYF",
+      "fields": {
+        "esg_waste_penalty_per_kg": 2.5,
+        "retail_discount_pct": 0.5,
+        "promo_demand_multiplier": 1.35,
+        "demo_assumption_fields": [
+          "retail_discount_pct",
+          "promo_demand_multiplier"
+        ],
+        "avg_daily_sales_by_category": {
+          "produce": 55,
+          "meat": 15,
+          "bakery": 40,
+          "dairy": 28
+        }
+      }
+    },
+    {
+      "collection": "stores",
+      "id": "ka5DczdhKQxfVHJPp5Ld",
+      "fields": {
+        "esg_waste_penalty_per_kg": 2.5,
+        "retail_discount_pct": 0.5,
+        "promo_demand_multiplier": 1.35,
+        "demo_assumption_fields": [
+          "retail_discount_pct",
+          "promo_demand_multiplier"
+        ]
+      }
+    },
+    {
+      "collection": "inventory_lots",
+      "id": "0PYOAzR2WrJqHDEPlyVb",
+      "fields": {
+        "environmental_impact_factor": 4.5,
+        "weight_per_unit_kg": 1
+      },
+      "replace_fields": {
+        "expiration_date": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792917240,
+          "nanoseconds": 0
+        },
+        "quantity": 490,
+        "received_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792312440,
+          "nanoseconds": 0
+        }
+      }
+    },
+    {
+      "collection": "inventory_lots",
+      "id": "HkGdMo7rcbhxKZoL3ayz",
+      "fields": {
+        "environmental_impact_factor": 0.8,
+        "weight_per_unit_kg": 1
+      },
+      "replace_fields": {
+        "expiration_date": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792830840,
+          "nanoseconds": 0
+        },
+        "quantity": 1490,
+        "received_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792312440,
+          "nanoseconds": 0
+        }
+      }
+    },
+    {
+      "collection": "inventory_lots",
+      "id": "ejDooWyDZjXxzA6I2Tqe",
+      "fields": {
+        "environmental_impact_factor": 1.2,
+        "weight_per_unit_kg": 1.0,
+        "demo_assumption_fields": [
+          "weight_per_unit_kg"
+        ],
+        "received_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1791964800,
+          "nanoseconds": 0
+        },
+        "holding_cost_per_day": 0.45
+      },
+      "replace_fields": {
+        "expiration_date": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792658040,
+          "nanoseconds": 0
+        },
+        "quantity": 620,
+        "received_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792312440,
+          "nanoseconds": 0
+        }
+      }
+    },
+    {
+      "collection": "inventory_lots",
+      "id": "gpeytDD2Fy2MVx0Fcf2M",
+      "fields": {
+        "environmental_impact_factor": 0.6,
+        "weight_per_unit_kg": 0.5,
+        "demo_assumption_fields": [
+          "weight_per_unit_kg"
+        ],
+        "received_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792044000,
+          "nanoseconds": 0
+        },
+        "holding_cost_per_day": 0.2
+      },
+      "replace_fields": {
+        "expiration_date": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792917240,
+          "nanoseconds": 0
+        },
+        "quantity": 450,
+        "received_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792312440,
+          "nanoseconds": 0
+        }
+      }
+    },
+    {
+      "collection": "inventory_lots",
+      "id": "pKcTzKzdb8vH7tOk8mEd",
+      "fields": {
+        "environmental_impact_factor": 0.8,
+        "weight_per_unit_kg": 1,
+        "received_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1791972000,
+          "nanoseconds": 0
+        },
+        "holding_cost_per_day": 0.3
+      },
+      "replace_fields": {
+        "expiration_date": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792830840,
+          "nanoseconds": 0
+        },
+        "quantity": 1480,
+        "received_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792312440,
+          "nanoseconds": 0
+        }
+      }
+    },
+    {
+      "collection": "inventory_lots",
+      "id": "rky5fbfwy6VjJKsaK8tT",
+      "fields": {
+        "environmental_impact_factor": 4.5,
+        "weight_per_unit_kg": 1,
+        "received_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1791961200,
+          "nanoseconds": 0
+        },
+        "holding_cost_per_day": 0.8
+      },
+      "replace_fields": {
+        "expiration_date": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792658040,
+          "nanoseconds": 0
+        },
+        "quantity": 260,
+        "received_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792312440,
+          "nanoseconds": 0
+        }
+      }
+    },
+    {
+      "collection": "inventory_lots",
+      "id": "ur9SOGlYmm2evA57Pgeq",
+      "fields": {
+        "environmental_impact_factor": 1.2,
+        "weight_per_unit_kg": 1.0,
+        "demo_assumption_fields": [
+          "weight_per_unit_kg"
+        ]
+      },
+      "replace_fields": {
+        "expiration_date": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792917240,
+          "nanoseconds": 0
+        },
+        "quantity": 1090,
+        "received_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792312440,
+          "nanoseconds": 0
+        }
+      }
+    },
+    {
+      "collection": "inventory_lots",
+      "id": "vMEkG3SSESbm63sl46B2",
+      "fields": {
+        "environmental_impact_factor": 0.6,
+        "weight_per_unit_kg": 0.5,
+        "demo_assumption_fields": [
+          "weight_per_unit_kg"
+        ]
+      },
+      "replace_fields": {
+        "expiration_date": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792830840,
+          "nanoseconds": 0
+        },
+        "quantity": 410,
+        "received_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792312440,
+          "nanoseconds": 0
+        }
+      }
+    },
+    {
+      "collection": "partners",
+      "id": "6uRB7sy8RUtpBdSQ0hHy",
+      "fields": {
+        "pickup_sla_hours": 4,
+        "current_demand_by_category_kg": {
+          "dairy": 180.0,
+          "meat": 180.0,
+          "produce": 180.0,
+          "bakery": 180.0
+        },
+        "last_fulfilled_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1791102840,
+          "nanoseconds": 0
+        },
+        "demo_assumption_fields": [
+          "current_demand_by_category_kg",
+          "last_fulfilled_at"
+        ]
+      }
+    },
+    {
+      "collection": "partners",
+      "id": "7uC9RendMYhJyiNWAu3k",
+      "fields": {
+        "pickup_sla_hours": 6,
+        "current_demand_by_category_kg": {
+          "bakery": 32.0,
+          "produce": 32.0,
+          "dry_goods": 32.0
+        },
+        "last_fulfilled_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1791448440,
+          "nanoseconds": 0
+        },
+        "demo_assumption_fields": [
+          "current_demand_by_category_kg",
+          "last_fulfilled_at"
+        ]
+      }
+    },
+    {
+      "collection": "partners",
+      "id": "APdWRzlSVgKGIuB2vliP",
+      "fields": {
+        "pickup_sla_hours": 6,
+        "current_demand_by_category_kg": {
+          "meat": 44.0,
+          "dairy": 44.0,
+          "bakery": 44.0,
+          "canned": 44.0
+        },
+        "last_fulfilled_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792053240,
+          "nanoseconds": 0
+        },
+        "demo_assumption_fields": [
+          "current_demand_by_category_kg",
+          "last_fulfilled_at"
+        ]
+      }
+    },
+    {
+      "collection": "partners",
+      "id": "IKoWCUbpyGf6YP8NQAuH",
+      "fields": {
+        "pickup_sla_hours": 4,
+        "current_demand_by_category_kg": {
+          "dairy": 180.0,
+          "meat": 180.0,
+          "produce": 180.0,
+          "bakery": 180.0
+        },
+        "last_fulfilled_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1791102840,
+          "nanoseconds": 0
+        },
+        "demo_assumption_fields": [
+          "current_demand_by_category_kg",
+          "last_fulfilled_at"
+        ],
+        "offered_price_pct": 0.4
+      }
+    },
+    {
+      "collection": "partners",
+      "id": "Mcgqw6aNz0ar8jKW9Prf",
+      "fields": {
+        "pickup_sla_hours": 6,
+        "current_demand_by_category_kg": {
+          "dairy": 48.0,
+          "bakery": 48.0,
+          "produce": 48.0
+        },
+        "last_fulfilled_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792226040,
+          "nanoseconds": 0
+        },
+        "demo_assumption_fields": [
+          "current_demand_by_category_kg",
+          "last_fulfilled_at"
+        ]
+      }
+    },
+    {
+      "collection": "partners",
+      "id": "Nvfmn8zDo5uExQs9FIWI",
+      "fields": {
+        "pickup_sla_hours": 4,
+        "current_demand_by_category_kg": {
+          "dairy": 80.0,
+          "produce": 80.0,
+          "meat": 80.0,
+          "bakery": 80.0
+        },
+        "last_fulfilled_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1790498040,
+          "nanoseconds": 0
+        },
+        "demo_assumption_fields": [
+          "current_demand_by_category_kg",
+          "last_fulfilled_at"
+        ]
+      }
+    },
+    {
+      "collection": "partners",
+      "id": "OMM0qsTskVbJsGo0CAvr",
+      "fields": {
+        "pickup_sla_hours": 6,
+        "current_demand_by_category_kg": {
+          "meat": 44.0,
+          "dairy": 44.0,
+          "bakery": 44.0,
+          "canned": 44.0
+        },
+        "last_fulfilled_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792053240,
+          "nanoseconds": 0
+        },
+        "demo_assumption_fields": [
+          "current_demand_by_category_kg",
+          "last_fulfilled_at"
+        ]
+      }
+    },
+    {
+      "collection": "partners",
+      "id": "mIP3xbAOxozzxlRy7OBG",
+      "fields": {
+        "pickup_sla_hours": 6,
+        "current_demand_by_category_kg": {
+          "bakery": 32.0,
+          "produce": 32.0,
+          "dry_goods": 32.0
+        },
+        "last_fulfilled_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1791448440,
+          "nanoseconds": 0
+        },
+        "demo_assumption_fields": [
+          "current_demand_by_category_kg",
+          "last_fulfilled_at"
+        ]
+      }
+    },
+    {
+      "collection": "partners",
+      "id": "rWkIvTHWTBMF9zqYvIs8",
+      "fields": {
+        "pickup_sla_hours": 6,
+        "current_demand_by_category_kg": {
+          "dairy": 128.0,
+          "bakery": 128.0,
+          "produce": 128.0,
+          "meat": 128.0,
+          "canned": 128.0
+        },
+        "last_fulfilled_at": null,
+        "demo_assumption_fields": [
+          "current_demand_by_category_kg",
+          "last_fulfilled_at"
+        ]
+      }
+    },
+    {
+      "collection": "partners",
+      "id": "sC6M2dyDWzZEjFI7xlf4",
+      "fields": {
+        "pickup_sla_hours": 4,
+        "current_demand_by_category_kg": {
+          "dairy": 80.0,
+          "produce": 80.0,
+          "meat": 80.0,
+          "bakery": 80.0
+        },
+        "last_fulfilled_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1790498040,
+          "nanoseconds": 0
+        },
+        "demo_assumption_fields": [
+          "current_demand_by_category_kg",
+          "last_fulfilled_at"
+        ],
+        "offered_price_pct": 0.35
+      }
+    },
+    {
+      "collection": "partners",
+      "id": "tQUuG8L8VmI1TFWROibw",
+      "fields": {
+        "pickup_sla_hours": 4,
+        "current_demand_by_category_kg": {
+          "dairy": 100.0,
+          "produce": 100.0,
+          "meat": 100.0,
+          "canned": 100.0
+        },
+        "last_fulfilled_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1791707640,
+          "nanoseconds": 0
+        },
+        "demo_assumption_fields": [
+          "current_demand_by_category_kg",
+          "last_fulfilled_at"
+        ],
+        "offered_price_pct": 0.3
+      }
+    },
+    {
+      "collection": "partners",
+      "id": "uvAddcLf4L7ecuapIa6e",
+      "fields": {
+        "pickup_sla_hours": 6,
+        "current_demand_by_category_kg": {
+          "dairy": 128.0,
+          "bakery": 128.0,
+          "produce": 128.0,
+          "meat": 128.0,
+          "canned": 128.0
+        },
+        "last_fulfilled_at": null,
+        "demo_assumption_fields": [
+          "current_demand_by_category_kg",
+          "last_fulfilled_at"
+        ]
+      }
+    },
+    {
+      "collection": "partners",
+      "id": "wXfp2nEkApTaF3eR540C",
+      "fields": {
+        "pickup_sla_hours": 6,
+        "current_demand_by_category_kg": {
+          "dairy": 48.0,
+          "bakery": 48.0,
+          "produce": 48.0
+        },
+        "last_fulfilled_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792226040,
+          "nanoseconds": 0
+        },
+        "demo_assumption_fields": [
+          "current_demand_by_category_kg",
+          "last_fulfilled_at"
+        ]
+      }
+    },
+    {
+      "collection": "partners",
+      "id": "wjVbpQq3EYOioppi4vAx",
+      "fields": {
+        "pickup_sla_hours": 4,
+        "current_demand_by_category_kg": {
+          "dairy": 100.0,
+          "produce": 100.0,
+          "meat": 100.0,
+          "canned": 100.0
+        },
+        "last_fulfilled_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1791707640,
+          "nanoseconds": 0
+        },
+        "demo_assumption_fields": [
+          "current_demand_by_category_kg",
+          "last_fulfilled_at"
+        ]
+      }
+    },
+    {
+      "collection": "claims",
+      "id": "SE6XpZY3hcymfFErx5K1",
+      "fields": {
+        "avg_processing_time_hours": 12
+      }
+    },
+    {
+      "collection": "claims",
+      "id": "lgyhfE2VeB0LhR4dDulR",
+      "fields": {
+        "avg_processing_time_hours": 18
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "02oXorxsLX3Nz0Wcfoz5",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "06gSnbYl8kBTbqA8DGR9",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "07Sp1AHI7SaF4V3vvnEH",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "07XKEivLoLcMK0gO5yRp",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "0Cjymj0ylP4moG1xariD",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "0SZafkje2yWMvei7vSA7",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "0dioLHbfJxrBM1dXGVk9",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "0hdhwpeSxA4ub69oey5V",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "0ivV25bp7dD0J8e0FSnc",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "0uHUg229hhCHQKYRDmNP",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "0wBwa59czPgZ15C9HW7f",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "127MxX0RnAqZw53qpJ7z",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "16Q3VCXj6da6a5aeO9hS",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "17joKXIAWUi0LPaTjnow",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "1AokIRP9gXVXdiU1oHcQ",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "1Eznbpbv9xN2SefzCpWW",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "1FkloN6x1zHOz0b8OgSj",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "1GRd9QaZqz936hJqHXE1",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "1NHkZZXklxGX2tauUsX5",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "1TsxdJoOwBptEhd3dfaa",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "1ZOzCJ3xq0oe0CMLxyPX",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "1ZzHzlFNxPSJBEJBLQLO",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "1tcLPcuqqdl7dnQHdIg8",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "1ubpqXvcZUSyLlUkDyPJ",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "1wPBcoiYWZxiSI1AhGEl",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "23Vn18jirH6QzajktzCr",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "27kY2CcEQCTJu9RoDS1M",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "2GlJU4jdjY1N0S6QIQ6W",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "2KT3qdwVeEPh2UhmD3Jb",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "2RviwWWeqhVCK68setu7",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "2WeeH4FbE031LpikW9vu",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "2dehD0FIg7CMzkPlfcly",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "2oi0NwU5cBv4Uc37AP0c",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "2oimBxBmgyrKjwlaTISI",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "2vQNj8wQlwG2TeEyLWCk",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "3HAGcmDuGLEvwJu1mpYz",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "3KexawxOWT8Wt8Tfa3Z6",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "3L3lyFCd7ez0ZLsarXNB",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "3M5kDdFHbltTtcII6WJI",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "3PyjupqNkG7RvEkpP21V",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "3gp41qddWQuQYC3MnaJE",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "3vpXota4KzK72YhgB1Se",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "41NFaiVwAOVQhOMCCWlr",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "4Ix2LKXQKf8DORVcbK13",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "4JnpAz9zPlCsbdaRZBKg",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "4VhUad69OQON710qUpT1",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "4aLuTLmlIZpMSRN7qyeH",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "4hP3WNVV7TtO3TVK3VHS",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "4hhxn0JWVienOIUoJxHL",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "4kDdCifLEwoQRNAGDaJj",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "4rvxsH4Ybid8Q0WB3KRw",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "4tkqZbvs5TctAh3KnrMu",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "5Az1MO9pfjgkcSo8nTXP",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "5FFj6CWXScBeIvEaVM89",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "5PJmNwKkhkWT74awLZcf",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "5YJNMzGUl0oQh8L2xRNK",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "5YhlhCHZvyhav8KNkvLJ",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "5ieGNfp0VYOd5As2PD0U",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "5qigLyoD7f20DKJlQ8N9",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "5tLWkl1VuzSyTBGO5i1r",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "5wRscOZzeu5ASVz1u5yM",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "5wfBvUTE6XEfnfUgumcR",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "5wtA25vi0ftJl5i89W3Z",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "5xE9vn20xKJZhyOv1NwJ",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "66N2GVXSYpgDw45tJQBQ",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "6BQyeVC4L9ZMHUHiMN4Y",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "6ETNX4mx8hyuwL6kpupW",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "6KDZSAOGcJK99IR8NWji",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "714RwzfEBKpizzmpDEqK",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "73kh1pr3bhwkDmN4JkUa",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "74LayyUAiPIaVohKXTJW",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "74cs6gZiPNdfPPMP1ixg",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "7CItdRmX8LOLPNHf3T3h",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "7ILO8O7Hs9sxK16bCp23",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "7oObUoJc1ZhpVnpREQy6",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "7ojWbdJhjVLOtBfrYiz3",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "8DqbZ03DF7wxHLMYEgdM",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "8bUmrTfJkHcc8XK70OiU",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "8dHB6ygAna8kg8AMaROt",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "9D56oj2eT684WlZD1MrU",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "9G9eQIX30fM9cOsTKCWx",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "9eKkpv8fxxi9xqGvdcl2",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "9n5rE6Mr9IByrjtjeiI1",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "9nN5IeghmcTBOcOKSs77",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "9qMbojhPQEyB46R2djau",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "A0nGKWNJFC5OnFw1BB0n",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "A5ZefyVnJ9XXYHlPyFXo",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "AMxBiZcJifSsRsJZvjcb",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "AXTrF32y6uwDpeubGSiA",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "AYAFOMKl6oSJzSDHS0Oh",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "Adk5160HXKI7cPHcqJ3i",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "AgoMyXMCTJhbSjqn3HKK",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "AvgMNdsaxLDDUwA1h2eg",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "B67F2ubzXOCAdTKNe0Xb",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "B8DSKfT9tSrFeCCtcBtJ",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "B8QIipT6rwjEv7Wy5jm7",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "BEyCLRd2uawFmHfr7okc",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "BVvhOkJ42EH8JyCHyGFy",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "BZOh63GbhrPyc8XBsTpb",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "BeXYbjRXNEsg0RLSiUd7",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "BqBfPqmaNEB1RJMRdSOS",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "C4qYtWg1yZFYZnu0zVCQ",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "C5YfpeM59hYgNfbG9ZJ8",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "C5ib615DXpg0QgARWCYd",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "CFT8SXn01XssokdVgHH6",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "CThKZRTntB6jqb8Vhk6O",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "CanN8oGTJk6y9xkaOvIB",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "CrKnf8aw6Iwg0AEHyI2j",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "DDWSWLZlJ20nTs2sGGkc",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "DI4sTVBskhZpA6Uek1yE",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "DJ2wjcpmE1D8B9oZ5iPv",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "DutpIUgT7maZxeRNntmN",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "DvqFGNTZTiTfeLuT08gx",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "Dw1oHidIRdLMy7Ya5Htx",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "EAzzvhtija5C3wpbzhTe",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "ENcMyZlkXyUzdy5WSGa6",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "EPVbtGSGegvABaz4QXYL",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "EVQLvw3bSznRhacr9nRD",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "EqysOlaFIz6u0QRtbtvZ",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "EwnJgaitInm2fghzu4aN",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "F2K2iGqSAzUH9Mge1O5n",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "FJM0t1LuVTosxu6xDiNR",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "FQE2RzP85ovqruLKFfDM",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "FU17kxY46eUj9Pc5lqp0",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "FU7w1bv32utJ8mPaZr0w",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "FV8TxwZt4rzjq54dV40U",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "FiSHMnTAV5i0Nh8rC9vB",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "G6ucUC7HBTtrlb3stb7M",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "GhMNhuqxJP9TkLnoJKmX",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "GiqbB56MQEY3YM6fGyji",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "Gu88BhCxKeokSdXFojr1",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "H3RdjJtsOoS7tw0yF96e",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "HC2NU4x0SzC798j7Hyib",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "HMxUiPCGoi3cvvlkYG54",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "Hby6akgDJR9T3VvRz3PZ",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "HkgN1vBy9vaBHLl3yKES",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "I8kpeNSRgB3kQ8jKMGxa",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "I8w2gqqXaUlmKhRRjTxr",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "IHqtOUegdLaFFZS7Ehkb",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "IIgqhlAwa1GPFeGlEtjt",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "IPmhOLyXMpF3sJ0dYIiu",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "IZVHs2jCVSkO0mpiPbEb",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "Iki6FkxmrfpqI83mgjNd",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "IlNqlPLP3zgdODQfp4Qs",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "ImXWyCWhtYkG9RBqqrwM",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "InXI0G4lfBCnDEywmuet",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "Isbem1vxT6YgIVPOe1Hj",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "JPjmTqsRPYauaVm8iJB5",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "JdxFUzCcdGRGWvLh9WdI",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "JrHE3UDSbMjXHWHvBkz0",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "K2RThaFWd7UZjdbraOhy",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "KDfCzNMV7BBL5T4Uc1c3",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "KFaC2OnWcmz8WueXSphU",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "KJyQJeajNNez6qlsz6m0",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "KLoLCgvihFBqpdIVIjXE",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "KMNQHhCa04h8eeoV4ab0",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "KPut4mQZsEhcDJNhQPMV",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "KRFBNYZXRBe0GE1DbU9w",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "KRlJcPeohgGGfEpNlwjr",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "KbQY8fwuBQwUlqZG09aT",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "KbZ076IOYR2wAV72IJ3N",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "KnbJF0L6LNqnqkuDutH8",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "KsUdVk3tGEHOUHqKo8Bi",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "L1TjQIrYBdEm8eLiWQnm",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "L2PVVoRUwxseLsVAzi2f",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "L53hcZztivP6fKIzy7hx",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "L6P8vLThV6ZnvrX0Ofmv",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "LL6j0U5Hp2wf8KyCD8dq",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "LVEvFErRPTT9YDfDiHr2",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "LWZZsJD04eEHTKVxzXe4",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "LflkxMdG1wRcLQiyosDO",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "LsMG4bF2rdQpYasEK2L3",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "LvRd4DBOc6ZJijaqvTPG",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "M7JTGp5zTJtQlDacpx9Y",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "MChtXlw6788VDIsmSo7M",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "MRgBkP177TAegdRNOzRk",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "MUdsL8lyA7eLOeF7wulp",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "Mcx9z5V1k2F5qX232qGe",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "MvB1CXNpFtMMroZa0vib",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "N1oplefBDxC1DrYJt2ka",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "N8Uf9AoNZKQhM4Ob9kbY",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "NNDQdH3Mu7DDJV5FqtN9",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "NSAMncuOq1qyZtNOGcdj",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "NTCas5d6ffRp7Pn6WWJR",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "NUOyPLNCY0LaiO7krA35",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "NcwddrnTcUEI6pFmgiuT",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "Ng8u6M8WYpXHKgXK6MA4",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "NoXp9c4LPmYh0K7YM40z",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "OWJfiXwVxtegjeZOmWcg",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "OaVerEcHve0Ri5Zt9qHQ",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "Ok63oW5w2tMO5nB1xUaX",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "Ookj2YkGNfyfoWbZ4V6C",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "Os2TlY3KTYxl0WnHrtrC",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "P0HA5sKY0fupwKhp3grB",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "P28vR5YAhlnLQIHV9150",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "P8xdEZyOpeRtSDY2gq5D",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "PYKYnJNPVFhi2ABKvJ6b",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "PiIJRdJnPpEzORHSa8tm",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "QIVOwkN3YJzbFDdG3q5N",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "QMF8nLBqn0oS9DFAifXF",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "QOAlkAjwvo5yPmQw1Uiy",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "QZzAQp76kIAMfHULzpXz",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "QdBsHNGcVW16iZfJ1jGE",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "QezdEBwu3LaJv5GhRKef",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "QfFFme7Ya59g9cNwg74n",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "QwMWqqIdn3hbnlikU2IM",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "Qz1C0XlD8ROnSjRVTpFw",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "R2iRvwUvwi7UYNjYvK2T",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "RJrc5SsDhYWjdDcmiHef",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "RRKegNZ2fb9Guap6kLBW",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "RTSFqKtYHVR4uk88DFi3",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "RVhYdT7wMSVM51Mpz0dV",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "RuGCjyPLwiP5rwLJwq3h",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "SAruwClpLGdNpLoHYaGR",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "SHgIIw9TIJHoHdmzcvZH",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "SHvXRXwPX1qLbkX82Wxg",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "SSb2df3ftEO4AR5L65KF",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "SVnss3OowleHgEeGQPJb",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "ScAe8KdwanDSt2fx3t7V",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "Sd9gu0mazroKk9EUrce8",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "Sf8abe6FDAtuvPVVmDgt",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "SnvtQQFryS9goBckmC7F",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "SpsobnzPT2HOnFqZiT6i",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "Sy5i5p704rs5pRpYeR5b",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "T3SzPBxPg71SO4ztzGzw",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "T4xg8JF6gerpWACytpyO",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "THbk2tTWQb1wpaS6c6ac",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "TJSqF71oEihZ6axy3l3c",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "TRnDHVuIzXRs5pArHq3w",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "TX5qvgnccRVanWiAe49Y",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "TYaHrcrJlYFcuFqmIDhs",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "ThLizlGpqHSumNAWdmbG",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "Tv9ED2QHp5NpQuoJXs5x",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "Tvo0XcvuSME2Ay2syetE",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "U6UIVlzWvy3h5WCP55P6",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "UGhqtrtHkQTt8QAICFBg",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "UMv6DpPSzZLDbByMecKU",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "UNLUNObmOf50jmhCH17a",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "UTkdNKGSQfuuFeozKZD4",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "UcKGyz14sGdct96s5DI2",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "UqLGKAV9QNeW2Y6XAt1q",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "V2cY57b4d2mrLEwdpLax",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "V4OcRtwoZAgQYRMHZdyW",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "V5sQpOIBJA95ZF8nF9fm",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "V64tcHd9UaCu9hwXCeQ4",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "VCgDIbDb4JEL9RYqZqCa",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "VZ4HXkx4cIrkdwpMRmGf",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "VaIuSwSxa5fX1RPonXIs",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "VhSfuN7Mxq6GMWANWpI6",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "VrjbpdOsvbLYwuRwrkDz",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "W3GV9kTqpVBbZEGrVrle",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "WUPtgVhkvFKoiM7issjr",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "WVP42a0fDEHGg4Uihw3n",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "WjEgipCRqC6WnCQ0xGSL",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "WmAjfNQuiapRxaBa5yoo",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "WyUoLL5nWNQ96F09JiSE",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "WzeyxDnJaPd8eXbYIxyP",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "XCgkZyPwGlXSVSnPsKcP",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "XK8N7WBZED8Bc8XJaH7I",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "XUtzAFhXXE4gvtiheIZL",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "XZWQ4kirLFA8Kj5qL45C",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "XsyzFvJglfhYlIl9YGlK",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "Xv3ScNplnGPzdgJd93Jj",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "Y3dz2ZP8CbHxCC6CdIZx",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "YEieZfFQZZV9jsFtirtt",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "YK3DFg5GRBSl2hFifN7u",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "YLN7QqwHQPJmVKJ0f6cq",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "YMKl8D35TPEBS2SHUYRR",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "YmGVGfYj6tUuZtsWQMYW",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "YuBshK2fyOVWLTznPcL6",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "YyKLunjNLxaC01yvyCwu",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "YzOP3GwGd8kTAxANN6PR",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "ZBhnNRH6taXNB5sUnsVG",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "ZUkFueop7ipjRYD2mivh",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "ZW82jeJku40EHMwewh8r",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "a1kfUNW2pe6jOIj6lzu5",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "a3KOyFrEL1Qo42FfGw0A",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "a81FYKhcHMmVYYrOp2Vb",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "aD0R6uaTekvFFnbyMJr4",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "aGC0NdibUwOZQ0lgv2gk",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "aWsYKIerjuVe9x3TLMb9",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "auRUKS6fPRCHAP6o8PtP",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "azZb2kW2044u4G97pBoh",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "b2nTd5LxbrdytqkmES6k",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "bLT4MwdHfNBCNE7JXGQh",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "bQUMZkSWYbSAGsm9HQB2",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "bTQkGVOVtMzbqxFwF44A",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "bXrQBpwRF0uSeqGGBFxQ",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "bbLIn4sX8yjAj4RQBYjQ",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "biAr3ZprNa4VKqJbzyXQ",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "c5tg7hxGDnoDGwDDxtqH",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "cDd9opTlNduKva6AgUZO",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "cGPJthRN0bLX77h3sWk0",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "cUCB52dzCJRmiDz0Vljp",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "cUgvC6jZrDaKTsaHJH7L",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "cdn3wki75MgnyYih38D0",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "ciPMHpWFxkVuyhRANc3q",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "ck0uK16TODkaLyRULcnp",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "cpaJz2fO4UHGZOEEG2Ym",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "cz0bGDD5xfzG1q9cL8M9",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "d5zxKxNaeuui3xxRa2bb",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "d7Du9nMpfPR4V5msnRSu",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "dC8kznrb21K8BwLuJCKg",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "dEkOWlMSrIOj0qaS0F8a",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "dYM8TAx2QdKpovMNtb5r",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "da1G5egXMmsJiRr8W8w6",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "deMZgn51cpB9uLQlLNos",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "dhdBLTHwyI4PQqLv82o3",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "dkjBbJ4N9iwKjRVrPlMI",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "dpBF2ZPeFCddMFTBQQ3z",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "duYHwS7cdBIbdHe91vBd",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "eQKvZhAfsn7XTtQ5cvpl",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "f9CuUqDl0P11QeTYIq59",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "fEYf7kO0IO1NI5pxZ4J0",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "fZfrLEfIqYTGt5aCyT9f",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "fhnY3h5p5cSKb6mI1Rws",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "fiFnevzPIizo4AvNd3OB",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "fwY5drfsOafkaLLPBfS0",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "g5y1gJ2cXsXI92As9nnZ",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "gGEPZyK6FZYKK7hndCxi",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "gGw20kM9eiAbr0jnrvqX",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "gHmaTHIFwCEB2uFLHkoG",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "gHz5ebj2MCJAdTWbHK1U",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "gOhF0Wa5vwNGFj4Qfo6n",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "gQEJ3MHbBnr91frnAZgJ",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "gZuqzD42sNFmiXYgL5ZN",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "gcaQzhqpikIK8saTg6Ii",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "h8J6TvLIgia5eZbMwLxJ",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "hOLTaqAU4tp0MTuUizRE",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "haJgiPzpGg4W4c6Iw9Eb",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "hnFXNtAZ0oz1cSzQYACn",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "i0jD3geYbN9C2KJ2Nl2Q",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "i5DI4e9LHW2mqtEowfNh",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "i7KEBwnycVMwANfdAkNW",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "i8NvRZQYRTOxYLxOzaiL",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "i9tIm2V1NkT2gLQ4PE61",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "iCQ5yILAn6FwgeWoovF0",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "iECqrlQMv5dF4fdrcetu",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "iJ3NDOap3msxAU5O9tky",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "iSXSkJFZ30gke50yrfzO",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "iXJbM1VnkWPFNVYs2pFI",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "iiWqsrHErwwRLuFNyEZF",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "iikxW6ToznUMvFdZZUPc",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "j0iMgXB7GpdAHzZz9YTS",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "jGJaPn2v8980HWKzchIm",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "jGeLAkIXdGEZ3aj4Bsma",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "jHbERi3o8xKsow1sr2fo",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "jP0Bg1hioBeognK5OHte",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "jVgCwf2ivf2ooWXnWCiZ",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "jYAJ8MLe6AeT5fxg3p2s",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "jYmQ3un2580773U5l00y",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "jcZYxGYc7rYSfmI1tLWe",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "jjkHHPJKlrTL5hg8pKGC",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "junO5HZKc13gwJ69BVsl",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "jzN1VI9xCSbZ4AzlsCQ2",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "k3PVrV6qSrP3EhCXckiK",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "kGVnAyvHUErxUgwdlw0c",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "kQfkPWngxfAKMNRMsnwr",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "kT3nuMDdZZXvk1AMVKx5",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "kdHXgbNCBHQj5BvU0l0T",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "kdgayqUBAdEBjZ6Bzp9X",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "kfNXT0NcsJxUq6emTeGu",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "kmYF0lENQbGZwrhoNBpO",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "kzsdWRE2RGshCF1InWV2",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "l4pFD1dV6Fk1vIpWXt5u",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "lC13LVRKV9jNuvzV7a7B",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "lCb89AqyR3vGGlY8POSE",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "lJMt7rpVWtRNQCP7uB6n",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "lSCj6Y3ECoZGGghYsAPl",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "ljdvDDzGjah3TtGygrYp",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "lmSZ00CkmQXZOuu3p5rM",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "lsXzBMOSwKRUieURdzjX",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "lt2bTt1jHbm0R8IcSANU",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "lvaECgbhES00u9F7COmI",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "m3ixSG1jDIfPD2eATGYf",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "m5wwCFd4XPhEWBybD2SR",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "mAJIRTG5TzDbRrKU8G1b",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "mHJDgvJZVbEEiu3WL6d9",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "mNAjpFAqAxP5lqMfRxqH",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "mWIrG8CHpP5fJCCBfDTx",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "mY8hYMqmXzSGnx27rHpk",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "ml2dC2AQFH9bEror56BV",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "mv2pBmDmVj529WbmA4wB",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "n6PKpJguVIOC4L2l3tdt",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "nCX3T49Kn8KSR1cU0mU6",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "nDkon2sk3yl4Bghutd8s",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "nEac1rlpOsez7TTJzKlK",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "nWu69vNLeBPBsjZvAo1K",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "njODQZaDgW2O9yiZbPo1",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "njVzUk3EefknOlqO5nUD",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "nkHUgxJV7XiGOhPTGX9c",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "nrg6zGGIvrAfo16vVMMQ",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "ns4lGvPKCj5RunbWkIDe",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "nsM62eH5UZBin1ehMoVn",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "nsUzGbPPFRPncSZm34yf",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "nzb3RusJRqQy92p2znE3",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "o52ccorV33qFHtcxjPUV",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "oCLRP2LSaykARHbueAUC",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "oD0kq0bkvtBunsupHGBm",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "oGH6XbmlNgmskyG0VZVl",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "oGXGkt9AWw4IQbSLph61",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "oP0sqmVLUgXHtiU6ZKUI",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "oP4ZHFckIExCzZ5C0NcY",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "oTBbAFm3rBpZCK4kVMd3",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "oV4OaCo2YX6Bh2KfLpCl",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "ogyTPqPqp2ZAa3a6lXu2",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "ojFt2Fl5DMH2mbHeGZ69",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "ompCTcVcwJ6SAM3HlUkK",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "pHfu0D4h5pqBMvdSYmr9",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "pL2VB636ubjvm8HHYAgl",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "pNvpLyZcBAR8RiF7oGAR",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "pX51EpTHG9DYFJcBFmm4",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "piOFc0hR2TyVq6SQJAZs",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "pnl22nFxmb3mjaUf2fko",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "pv6ItmNWMlHBiDG6D5Ge",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "py2jjj5oHmpFSLmO3QqK",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "pzXtNfoBxL60EFoPUiVy",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "qLdUablfSYot4lCKsSKW",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "qWApBWi84uWZv5IJsSaL",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "qYjTltIJXlYqEKKc1mmf",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "qdjjitRDpqekNOIC2gDQ",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "qkE6zu0uwmxo4hV9Hlnl",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "rMXxDYGaPVXmeXmDyOqX",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "rRJOLZsDJMVesJ4kgOfo",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "rTVR9A7tWquxtTNSpqPR",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "rYiZHwRii8iZcTJUILCz",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "rg5aiG5tVkhDQzse0VYP",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "rj7APrxw9TCestK2hJFM",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "rtiRsEdzYWwSDJ7H7wny",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "s4rPupESrmEjnRxBHcSz",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "s62gqSglZRXfs0N3ZKFv",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "sGyo7phI8E5asOeQI3BE",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "sHRzBX7jtXWFkVTojLsi",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "sXdWphYOsXRf1renUUqv",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "sZlUE8nz9dzGPzSu7kX4",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "sdcDNzrijPQujNTAUtJa",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "slM4RMZC5CnLTapgLB12",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "suw5Lsg5CFioOd2fLZkX",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "t19MF1QoCXD17lY63iH7",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "t4mHDSycAncTiJ6rwpma",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "t8vA2I8XIc0k03UtYuMm",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "tCNvBVsQou5wm5uKkJYz",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "tCdPHnnkiMoypEhsgsed",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "tGtc5ym6oyZOjV8d4l6J",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "tZ7hSmeks4afhntOX67e",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "tpGIuyD0jGp84iy0GQkK",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "tyc3bh9dSoqq7WCdOqDo",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "u05MgdAucEDuuLWhwnsv",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "u2ra50tUchtZyqp24ySx",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "u62S7zIuwiiJ22vTvHBf",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "uGd8HqmuEZQog7GPYZbr",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "uM2ar3v0MVjghLlieZ9z",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "uRrVCkLidSuV7S33SPkV",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "uidF2oJUWeXu1QH384Zr",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "ukbk1HuR996qRBBS7PSD",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "v4qWVCnsENnRd6KJRcqb",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "vCfjmPqDFyT7qrq1tmbt",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "vVpuuHNkPWYR34Sojf2E",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "w1krtrhJsovlQzL3KZGS",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "wBK1bDwN3HWSlxRNXwEI",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "wEyPbqNpEs9uATaz7etG",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "wmU9p3O7Yoosb5WHn16g",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "wnPmrz5R3KYWTbhvcSYD",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "x7rlyiQLeNfkYjJYu9sL",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "xbUd4Exsth31YotNcpHt",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "xhB0L9XxEBBbtcN7qv3z",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "xiUZ90n7QY11sV0QpfkP",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "xlbPyD3L8Y0yAWU1yJvJ",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "y9yFPUao3VCdcBrZW15L",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "yCQESg9jrqywFD6lH77b",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "yYYMnzwZfpKFJPzNSmNU",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "yfrUx2siJ1q6jnqyMe6x",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "ykKxwxeSbjo5TPUOV9Hu",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "ypK4yWdIjXvwOtCPv4Vf",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "ypnRiOz2MCg53bX0bieP",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "zCX0vu8QXTqnDVwLPZGl",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "zcalS9dPFuwxzhCLY5HW",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "zgYaaqM46tOLGZ6TrelC",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "zpKk5mpMleVECswuEFBQ",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    },
+    {
+      "collection": "sales_history",
+      "id": "zv6ty9xmwMDA188roGrP",
+      "fields": {
+        "time_to_first_discount_hours": null
+      }
+    }
+  ]
+}
