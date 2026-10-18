@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import StockCategories from './StockCategories';
 import StockAnalysis from './StockAnalysis';
+import InventoryDashboard from './InventoryDashboard';
 import Donations from './Donations';
 import AiSimulation from './AiSimulation';
 import OngAlerts from './OngAlerts';
@@ -16,6 +17,7 @@ type AppView =
   | 'dashboard' 
   | 'categories' 
   | 'analysis' 
+  | 'inventory'
   | 'donations' 
   | 'ai-simulation' 
   | 'ong-alerts' 
@@ -88,6 +90,7 @@ const ProfileDropdown: React.FC<ProfileDropdownProps> = ({ profileType, isDropdo
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<AppView>('dashboard');
   const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [selectedLotId, setSelectedLotId] = useState('');
   const [profileType, setProfileType] = useState<ProfileType>('manager');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -107,12 +110,19 @@ const App: React.FC = () => {
           <ProfileDropdown profileType={profileType} isDropdownOpen={isDropdownOpen} setIsDropdownOpen={setIsDropdownOpen} onProfileChange={handleProfileChange} />
         </div>
         <StockAnalysis 
+          lotId={selectedLotId}
           categoryName={selectedCategory} 
-          onBack={() => setCurrentView('categories')} 
+          onBack={() => setCurrentView('inventory')} 
           onNavigate={(view) => setCurrentView(view as AppView)}
         />
       </div>
     );
+  }
+  if (effectiveView === 'inventory') {
+    return <InventoryDashboard categorieFilter={selectedCategory} onBack={() => setCurrentView('categories')} onSelectLot={lot => {
+      setSelectedLotId(lot.id);
+      setCurrentView('analysis');
+    }} />;
   }
   // Adaugă și ruterul pentru pagina de oferte active a managerului:
   if (effectiveView === 'active-offers') {
@@ -133,7 +143,7 @@ const App: React.FC = () => {
           onBack={() => setCurrentView('dashboard')} 
           onSelectCategory={(catName) => {
             setSelectedCategory(catName);
-            setCurrentView('analysis');
+            setCurrentView('inventory');
           }} 
         />
       </div>

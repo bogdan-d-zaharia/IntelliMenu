@@ -19,16 +19,17 @@ import { applyPlan } from './lib/firestoreActions';
 import type { RezultatScenariu } from './types/yield.types';
 
 interface StockAnalysisProps {
+  lotId?: string;
   categoryName?: string;
   onBack: () => void;
   onNavigate?: (view: string) => void;
 }
 
-const StockAnalysis: React.FC<StockAnalysisProps> = ({ categoryName, onBack, onNavigate }) => {
+const StockAnalysis: React.FC<StockAnalysisProps> = ({ lotId, categoryName, onBack, onNavigate }) => {
 
   const data = useFirestoreData();
   const matchingLots = data.inventory_lots.filter(lot => categoryLabels[lot.category] === categoryName);
-  const sourceLot = matchingLots[0];
+  const sourceLot = lotId ? data.inventory_lots.find(lot => lot.id === lotId) : matchingLots[0];
   const adapted = useMemo(() => {
     if (!sourceLot) return { error: 'Nu există loturi în această categorie.' };
     try { return { result: adaptLot(sourceLot, data.stores.find(store => store.id === sourceLot.store_id), data.partners, data.claims, data.sales_history, data.now) }; }
