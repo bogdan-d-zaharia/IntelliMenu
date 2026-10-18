@@ -135,10 +135,6 @@ const App: React.FC = () => {
         <div className="absolute top-8 right-8 z-50">
           <ProfileDropdown profileType={profileType} isDropdownOpen={isDropdownOpen} setIsDropdownOpen={setIsDropdownOpen} onProfileChange={handleProfileChange} />
         </div>
-        <div className="px-8 pt-24 flex gap-4 text-white">
-          <button onClick={() => setCurrentView('active-offers')} className="bg-emerald-700 px-4 py-2 rounded-xl">Oferte active</button>
-          <button onClick={() => setCurrentView('ai-simulation')} className="bg-purple-700 px-4 py-2 rounded-xl">Simulare AI</button>
-        </div>
         <StockCategories 
           onBack={() => setCurrentView('dashboard')} 
           onSelectCategory={(catName) => {
