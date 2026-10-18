@@ -14,6 +14,8 @@ export interface ConfigurareCategorie {
 }
 
 export interface LotAlimentar {
+  retailDiscountPct?: number;
+  promoDemandMultiplier?: number;
   pretB2BFractie?: number;
   capacitateB2B?: number;
   capacitateDonatie?: number;
@@ -33,6 +35,9 @@ export interface LotAlimentar {
 
 
 export interface RezultatScenariu {
+  intervale: IntervalDistributie[];
+  cantitateRisipita: number;
+  costDeseuriRON: number;
   id: TipScenariu;
   titlu: string;
   descriere: string;
@@ -49,6 +54,17 @@ export interface RezultatScenariu {
   cantitateB2B?: number;
   cantitateB2C?: number;
   esteRecomandatAI?: boolean; // <--- Flag opțional
+}
+
+export interface IntervalDistributie {
+  deLaOre: number;
+  panaLaOre: number;
+  canal: 'full_price' | 'discount' | 'social' | 'donation' | 'waste';
+  pretUnitarRON: number;
+  cantitate: number;
+  venitRON: number;
+  stocInitial: number;
+  stocFinal: number;
 }
 
 export interface PraguriAxaTimp {

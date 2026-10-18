@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { collection, onSnapshot, Timestamp } from 'firebase/firestore';
 import { db } from '../firebase';
 
-export interface StoreRecord { id: string; name: string; address: string; avg_daily_sales_by_category?: Record<string, number>; esg_waste_penalty_per_kg?: number }
+export interface StoreRecord { id: string; name: string; address: string; avg_daily_sales_by_category?: Record<string, number>; esg_waste_penalty_per_kg?: number; retail_discount_pct?: number; promo_demand_multiplier?: number }
 export interface InventoryRecord {
   id: string; store_id: string; category: string; quantity: number; unit_of_measure: string;
   expiration_date: Timestamp; received_at?: Timestamp; price_per_unit: number; cost_price_per_unit: number;

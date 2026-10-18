@@ -22,6 +22,9 @@ export async function applyPlan(lot: InventoryRecord, scenario: RezultatScenariu
         donation_quantity: scenario.cantitateDonata ?? 0,
         donation_remaining: scenario.cantitateDonata ?? 0,
         projected_net_financial: scenario.profitNetEstimatRON,
+        intervals: scenario.intervale,
+        projected_revenue: scenario.venitBrutEstimatRON,
+        projected_waste_quantity: scenario.cantitateRisipita,
         applied_at: Timestamp.now(),
       },
     });

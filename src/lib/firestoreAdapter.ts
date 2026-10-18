@@ -41,6 +41,8 @@ export function adaptLot(lot: InventoryRecord, store: StoreRecord | undefined, p
       cantitateTotala: lot.quantity, vanzariMediiZilnice: dailySales,
       oreTotaleValabilitate: totalHours, oreRămase: Math.max(0, (lot.expiration_date.toMillis() - now) / 3600000),
       pretUnitarRON: lot.price_per_unit, costAchizitieUnitarRON: lot.cost_price_per_unit,
+      retailDiscountPct: store.retail_discount_pct,
+      promoDemandMultiplier: store.promo_demand_multiplier,
       pretB2BFractie: buyers.length ? buyers.reduce((sum, partner) => sum + partner.offered_price_pct! * partner.daily_capacity_kg, 0) / Math.max(1, buyers.reduce((sum, partner) => sum + partner.daily_capacity_kg, 0)) : 0,
       capacitateB2B: weight ? buyers.reduce((sum, partner) => sum + partner.daily_capacity_kg / weight, 0) : 0,
       capacitateDonatie: weight ? ngos.reduce((sum, partner) => sum + partner.daily_capacity_kg / weight, 0) : 0,
