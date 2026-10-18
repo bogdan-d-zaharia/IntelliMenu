@@ -1,4 +1,4 @@
-export type CategorieAlimentara = 'carne_proaspata' | 'lactate' | 'conserve_uscate';
+export type CategorieAlimentara = 'carne_proaspata' | 'lactate' | 'conserve_uscate' | 'panificatie' | 'fructe_legume';
 
 export type TipScenariu = 'SCENARIU_1_RAFT' | 'SCENARIU_2_B2B_INTEGRAL' | 'SCENARIU_3_HIBRID_AI';
 
@@ -14,6 +14,12 @@ export interface ConfigurareCategorie {
 }
 
 export interface LotAlimentar {
+  pretB2BFractie?: number;
+  capacitateB2B?: number;
+  capacitateDonatie?: number;
+  wasteCostPerUnit?: number;
+  esgPenaltyPerUnit?: number;
+  impactFactor?: number;
   id: string;
   nume: string;
   categorie: CategorieAlimentara;
@@ -35,9 +41,13 @@ export interface RezultatScenariu {
   venitBrutEstimatRON: number;
   costHoldingTotalRON: number;
   profitNetEstimatRON: number;
+  scorSustenabilitatePct: number;
   scorIES: number; // <--- Adaugi acest câmp nou
   marjaProfitProcent: number;
   rataRisipaEstimata: number;
+  cantitateDonata?: number;
+  cantitateB2B?: number;
+  cantitateB2C?: number;
   esteRecomandatAI?: boolean; // <--- Flag opțional
 }
 

@@ -2,87 +2,185 @@ import React, { useState } from 'react';
 import StockCategories from './StockCategories';
 import StockAnalysis from './StockAnalysis';
 import Donations from './Donations';
-import AiSimulation from './AiSimulation'; // <-- Import nou
-import B2BOffers from './B2BOffers';       // <-- Import nou
+import AiSimulation from './AiSimulation';
+import OngAlerts from './OngAlerts';
+import PartnerStores from './PartnerStores';
+import ActiveOffers from './ActiveOffers';
+import OngContracts from './OngContracts';
 import {
-  Store, Home, Bell, History, Settings, User, ChevronDown,
-  BarChart2, Package, BrainCircuit, LineChart, Handshake, Tag,
-  HeartHandshake, Share2
+  Store, Home, User, ChevronDown, Bell, History, Settings,
+  BrainCircuit, HeartHandshake, MapPin, Check, FileText
 } from 'lucide-react';
+
+type AppView = 
+  | 'dashboard' 
+  | 'categories' 
+  | 'analysis' 
+  | 'donations' 
+  | 'ai-simulation' 
+  | 'ong-alerts' 
+  | 'partner-stores' 
+  | 'ong-contracts'
+  | 'active-offers';
+
+type ProfileType = 'manager' | 'client';
 
 interface SidebarItemProps {
   icon: React.ReactNode;
   label: string;
   isActive?: boolean;
+  onClick?: () => void;
 }
 
-const SidebarItem: React.FC<SidebarItemProps> = ({ icon, label, isActive }) => (
-  <div className={`flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer transition-colors ${isActive ? 'bg-gray-200/60 text-gray-900 font-medium' : 'text-gray-600 hover:bg-gray-100'}`}>
+const SidebarItem: React.FC<SidebarItemProps> = ({ icon, label, isActive, onClick }) => (
+  <div 
+    onClick={onClick}
+    className={`flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer transition-colors ${isActive ? 'bg-gray-200/60 text-gray-900 font-bold' : 'text-gray-600 hover:bg-gray-100 font-medium'}`}
+  >
     <div className={`${isActive ? 'text-green-600' : 'text-gray-500'}`}>{icon}</div>
     <span>{label}</span>
   </div>
 );
 
-interface ActionCardProps {
-  title: string;
-  description: string;
-  iconLeft: React.ReactNode;
-  iconRight: React.ReactNode;
-  bgColor: string;
-  onClick?: () => void;
+interface ProfileDropdownProps {
+  profileType: ProfileType;
+  isDropdownOpen: boolean;
+  setIsDropdownOpen: (isOpen: boolean) => void;
+  onProfileChange: (type: ProfileType) => void;
 }
 
-const ActionCard: React.FC<ActionCardProps> = ({ title, description, iconLeft, iconRight, bgColor, onClick }) => (
-  <div onClick={onClick} className={`${bgColor} rounded-xl p-6 text-white shadow-md flex items-center justify-between cursor-pointer hover:opacity-95 transition-all hover:shadow-lg`}>
-    <div className="flex items-center gap-4">
-      <div className="p-3 bg-white/20 rounded-xl">{iconLeft}</div>
-      <div>
-        <h3 className="text-xl font-bold mb-1 text-white">{title}</h3>
-        <p className="text-sm text-white/90 leading-snug max-w-[220px]">{description}</p>
+const ProfileDropdown: React.FC<ProfileDropdownProps> = ({ profileType, isDropdownOpen, setIsDropdownOpen, onProfileChange }) => (
+  <div className="relative">
+    <div 
+      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+      className="flex items-center gap-2 bg-white border border-gray-200 px-4 py-2 rounded-full cursor-pointer hover:bg-gray-50 transition-colors shadow-sm"
+    >
+      <div className="bg-gray-100 rounded-full p-1">
+        <User size={16} className="text-gray-600"/>
       </div>
+      <span className="text-sm font-bold text-gray-700 select-none">
+        {profileType === 'manager' ? 'Manager Magazin' : 'ONG / Beneficiar'}
+      </span>
+      <ChevronDown size={16} className="text-gray-400" />
     </div>
-    <div className="opacity-90">{iconRight}</div>
+
+    {isDropdownOpen && (
+      <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-100 rounded-2xl shadow-lg overflow-hidden z-50">
+        <div 
+          onClick={() => onProfileChange('manager')}
+          className="px-4 py-3 hover:bg-gray-50 cursor-pointer flex items-center justify-between transition-colors"
+        >
+          <span className={`text-sm font-semibold ${profileType === 'manager' ? 'text-green-600' : 'text-gray-700'}`}>Manager Magazin</span>
+          {profileType === 'manager' && <Check size={16} className="text-green-600" />}
+        </div>
+        <div 
+          onClick={() => onProfileChange('client')}
+          className="px-4 py-3 hover:bg-gray-50 cursor-pointer flex items-center justify-between transition-colors border-t border-gray-50"
+        >
+          <span className={`text-sm font-semibold ${profileType === 'client' ? 'text-green-600' : 'text-gray-700'}`}>ONG / Beneficiar</span>
+          {profileType === 'client' && <Check size={16} className="text-green-600" />}
+        </div>
+      </div>
+    )}
   </div>
 );
 
 const App: React.FC = () => {
-  // Am adăugat 'ai-simulation' și 'b2b-offers' în listă
-  const [currentView, setCurrentView] = useState<'dashboard' | 'categories' | 'analysis' | 'donations' | 'ai-simulation' | 'b2b-offers'>('dashboard');
+  const [currentView, setCurrentView] = useState<AppView>('dashboard');
   const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [profileType, setProfileType] = useState<ProfileType>('manager');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  if (currentView === 'analysis') {
+  const handleProfileChange = (type: ProfileType) => {
+    setProfileType(type);
+    setIsDropdownOpen(false);
+    setCurrentView('dashboard');
+  };
+
+  // Dervăm vizualizarea activă: Pentru manager, 'dashboard' deschide direct categoriile de produse!
+  const effectiveView = (profileType === 'manager' && currentView === 'dashboard') ? 'categories' : currentView;
+
+  if (effectiveView === 'analysis') {
     return (
-      <StockAnalysis 
-        categoryName={selectedCategory} 
-        onBack={() => setCurrentView('categories')} 
-      />
+      <div className="relative w-full min-h-screen">
+        <div className="absolute top-6 right-6 z-50">
+          <ProfileDropdown profileType={profileType} isDropdownOpen={isDropdownOpen} setIsDropdownOpen={setIsDropdownOpen} onProfileChange={handleProfileChange} />
+        </div>
+        <StockAnalysis 
+          categoryName={selectedCategory} 
+          onBack={() => setCurrentView('categories')} 
+          onNavigate={(view) => setCurrentView(view as AppView)}
+        />
+      </div>
+    );
+  }
+  // Adaugă și ruterul pentru pagina de oferte active a managerului:
+  if (effectiveView === 'active-offers') {
+    return <ActiveOffers onBack={() => setCurrentView('categories')} />;
+  }
+
+  if (effectiveView === 'categories') {
+    return (
+      <div className="relative w-full min-h-screen bg-[#111827]">
+        <div className="absolute top-8 right-8 z-50">
+          <ProfileDropdown profileType={profileType} isDropdownOpen={isDropdownOpen} setIsDropdownOpen={setIsDropdownOpen} onProfileChange={handleProfileChange} />
+        </div>
+        <div className="px-8 pt-24 flex gap-4 text-white">
+          <button onClick={() => setCurrentView('active-offers')} className="bg-emerald-700 px-4 py-2 rounded-xl">Oferte active</button>
+          <button onClick={() => setCurrentView('ai-simulation')} className="bg-purple-700 px-4 py-2 rounded-xl">Simulare AI</button>
+        </div>
+        <StockCategories 
+          onBack={() => setCurrentView('dashboard')} 
+          onSelectCategory={(catName) => {
+            setSelectedCategory(catName);
+            setCurrentView('analysis');
+          }} 
+        />
+      </div>
     );
   }
 
-  if (currentView === 'categories') {
-    return (
-      <StockCategories 
-        onBack={() => setCurrentView('dashboard')} 
-        onSelectCategory={(catName) => {
-          setSelectedCategory(catName);
-          setCurrentView('analysis');
-        }} 
-      />
-    );
-  }
-
-  if (currentView === 'donations') {
+  if (effectiveView === 'donations') {
     return <Donations onBack={() => setCurrentView('dashboard')} />;
   }
 
-  // Afișăm pagina de Simulare AI
-  if (currentView === 'ai-simulation') {
+  if (effectiveView === 'ai-simulation') {
     return <AiSimulation onBack={() => setCurrentView('dashboard')} />;
   }
 
-  // Afișăm pagina de Oferte B2B
-  if (currentView === 'b2b-offers') {
-    return <B2BOffers onBack={() => setCurrentView('dashboard')} />;
+  if (effectiveView === 'ong-alerts') {
+    return (
+      <div className="relative w-full min-h-screen bg-[#F9F7F5]">
+        <div className="absolute top-8 right-8 z-50">
+          <ProfileDropdown profileType={profileType} isDropdownOpen={isDropdownOpen} setIsDropdownOpen={setIsDropdownOpen} onProfileChange={handleProfileChange} />
+        </div>
+        <div className="p-8 pt-20 max-w-6xl mx-auto">
+          <OngAlerts onBack={() => setCurrentView('dashboard')} />
+        </div>
+      </div>
+    );
+  }
+
+  if (effectiveView === 'partner-stores') {
+    return (
+      <div className="relative w-full min-h-screen bg-[#F9F7F5]">
+        <div className="absolute top-8 right-8 z-50">
+          <ProfileDropdown profileType={profileType} isDropdownOpen={isDropdownOpen} setIsDropdownOpen={setIsDropdownOpen} onProfileChange={handleProfileChange} />
+        </div>
+        <PartnerStores onBack={() => setCurrentView('dashboard')} />
+      </div>
+    );
+  }
+
+  if (effectiveView === 'ong-contracts') {
+    return (
+      <div className="relative w-full min-h-screen bg-[#F9F7F5]">
+        <div className="absolute top-8 right-8 z-50">
+          <ProfileDropdown profileType={profileType} isDropdownOpen={isDropdownOpen} setIsDropdownOpen={setIsDropdownOpen} onProfileChange={handleProfileChange} />
+        </div>
+        <OngContracts onBack={() => setCurrentView('dashboard')} />
+      </div>
+    );
   }
 
   return (
@@ -90,10 +188,40 @@ const App: React.FC = () => {
       <aside className="w-64 flex flex-col border-r border-gray-200 bg-[#F9F7F5]">
         <div className="p-6 pb-2">
           <nav className="space-y-2">
-            <SidebarItem icon={<Home size={22} />} label="Acasă" isActive />
-            <SidebarItem icon={<Bell size={22} />} label="Alertor AI" />
-            <SidebarItem icon={<History size={22} />} label="Istoric Tranzacții" />
-            <SidebarItem icon={<Settings size={22} />} label="Setări" />
+            <SidebarItem 
+              icon={<Home size={22} />} 
+              label="Acasă" 
+              isActive={currentView === 'dashboard'} 
+              onClick={() => setCurrentView('dashboard')} 
+            />
+            
+            {profileType === 'client' && (
+              <SidebarItem 
+                icon={<Bell size={22} />} 
+                label="Alertor AI" 
+                isActive={(currentView as string) === 'ong-alerts'} 
+                onClick={() => setCurrentView('ong-alerts')} 
+              />
+            )}
+
+            {profileType === 'manager' && (
+              <>
+                <SidebarItem 
+                  icon={<BrainCircuit size={22} />} 
+                  label="Simulare AI" 
+                  isActive={(currentView as string) === 'ai-simulation'} 
+                  onClick={() => setCurrentView('ai-simulation')} 
+                />
+                <SidebarItem 
+                  icon={<HeartHandshake size={22} />} 
+                  label="Donații" 
+                  isActive={(currentView as string) === 'donations'} 
+                  onClick={() => setCurrentView('donations')} 
+                />
+                <SidebarItem icon={<History size={22} />} label="Istoric Tranzacții" />
+                <SidebarItem icon={<Settings size={22} />} label="Setări" />
+              </>
+            )}
           </nav>
         </div>
       </aside>
@@ -102,55 +230,37 @@ const App: React.FC = () => {
         <header className="flex items-center justify-between p-8 pb-6">
           <div className="flex items-center gap-3">
             <Store className="text-gray-400" size={32} />
-            <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">Dashboard Manager</h1>
+            <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">
+              {profileType === 'manager' ? 'Dashboard Manager' : 'Portal Beneficiari / ONG'}
+            </h1>
           </div>
-          <div className="flex items-center gap-2 bg-white border border-gray-200 px-4 py-2 rounded-full cursor-pointer hover:bg-gray-50 transition-colors shadow-sm">
-            <div className="bg-gray-100 rounded-full p-1"><User size={16} className="text-gray-600"/></div>
-            <span className="text-sm font-medium text-gray-700">Manager</span>
-            <ChevronDown size={16} className="text-gray-400" />
-          </div>
+          
+          <ProfileDropdown profileType={profileType} isDropdownOpen={isDropdownOpen} setIsDropdownOpen={setIsDropdownOpen} onProfileChange={handleProfileChange} />
         </header>
 
         <div className="flex-1 overflow-y-auto px-8 pb-8">
           <div className="bg-white rounded-[2rem] p-8 shadow-sm border border-gray-100 min-h-full flex flex-col">
-            <div className="grid grid-cols-2 gap-5 mb-10">
-              
-              <ActionCard
-                title="Analiza Stoc"
-                description="Vizualizează stocurile și datele de expirare pe categorii"
-                iconLeft={<BarChart2 size={28} strokeWidth={2} />}
-                iconRight={<Package size={64} strokeWidth={1.5} className="opacity-80" />}
-                bgColor="bg-[#3891A6]"
-                onClick={() => setCurrentView('categories')} 
-              />
-              
-              <ActionCard
-                title="Simulare AI"
-                description="Predicții inteligente pentru stocuri critice"
-                iconLeft={<BrainCircuit size={28} strokeWidth={2} />}
-                iconRight={<div className="bg-white/20 p-3 rounded-2xl"><LineChart size={32} strokeWidth={2}/></div>}
-                bgColor="bg-[#6B46C1]"
-                onClick={() => setCurrentView('ai-simulation')} // <-- Conectat
-              />
-              
-              <ActionCard
-                title="Oferte B2B"
-                description="Gestionează loturile pentru preț social și parteneri"
-                iconLeft={<Handshake size={28} strokeWidth={2} />}
-                iconRight={<Tag size={64} strokeWidth={1.5} className="rotate-45 opacity-80" />}
-                bgColor="bg-[#E68A2E]"
-                onClick={() => setCurrentView('b2b-offers')} // <-- Conectat
-              />
-              
-              <ActionCard
-                title="Donații"
-                description="Redirecționează produse către ONG-uri și cantine"
-                iconLeft={<HeartHandshake size={28} strokeWidth={2} />}
-                iconRight={<Share2 size={64} strokeWidth={1.5} className="opacity-80" />}
-                bgColor="bg-[#7A9E55]"
-                onClick={() => setCurrentView('donations')} 
-              />
-            </div>
+            
+            {profileType === 'client' && (
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-10">
+                <div onClick={() => setCurrentView('partner-stores')} className="bg-[#E68A2E] rounded-xl p-6 text-white shadow-md flex items-center gap-4 cursor-pointer hover:opacity-95 transition-all">
+                  <div className="p-3 bg-white/20 rounded-xl"><MapPin size={28} /></div>
+                  <div>
+                    <h3 className="text-xl font-bold mb-1">Magazine Partenere</h3>
+                    <p className="text-sm text-white/90">Vezi rețeaua de magazine din Iași</p>
+                  </div>
+                </div>
+
+                <div onClick={() => setCurrentView('ong-contracts')} className="bg-[#2D3748] rounded-xl p-6 text-white shadow-md flex items-center gap-4 cursor-pointer hover:opacity-95 transition-all">
+                  <div className="p-3 bg-white/20 rounded-xl"><FileText size={28} /></div>
+                  <div>
+                    <h3 className="text-xl font-bold mb-1">Contracte & Fiscalitate</h3>
+                    <p className="text-sm text-white/90">Încarcă actele (CUI, Certificat) pentru generarea procesului-verbal.</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
           </div>
         </div>
       </main>

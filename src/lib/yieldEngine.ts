@@ -78,11 +78,12 @@ export function calculeazaIntervaleAxaDinamice(
   const pDonatie = Math.min(pB2B - 1, oreDonatieGarantate);
 
   // PROMPT STEP 9: Formatare Output (Rotunjire și garantarea valorilor pozitive >= 1h)
-  return {
-    pB2C: Math.round(Math.max(1, pB2C)),      // T1 (Ore Rămase)
-    pB2B: Math.round(Math.max(1, pB2B)),      // T2 (Ore Rămase)
-    pDonatie: Math.round(Math.max(1, pDonatie)) // T3 (Ore Rămase)
-  };
+  const gap = Math.min(1, Ttotal / 6);
+  const first = Math.max(3 * gap, Math.min(Ttotal - gap, pB2C));
+  const second = Math.max(2 * gap, Math.min(first - gap, pB2B));
+  const third = Math.max(gap, Math.min(second - gap, pDonatie));
+  const format = (hours: number) => Ttotal >= 6 ? Math.round(hours) : hours;
+  return { pB2C: format(first), pB2B: format(second), pDonatie: format(third) };
 }
 /**
  * ============================================================================
@@ -178,11 +179,19 @@ export function simuleazaScenariiFinanciare(
   // PROMPT STEP 1: Extragere configurare categorie & parametri financiari de bază
   const config = configCustom || CONFIGURARI_CATEGORII[lot.categorie];
   
+  const b2bPrice = lot.pretB2BFractie ?? 0.35;
+  const expired = lot.oreRămase <= 0;
+  const b2bCapacity = expired ? 0 : (lot.capacitateB2B ?? lot.cantitateTotala);
+  const donationCapacity = expired ? 0 : (lot.capacitateDonatie ?? 0);
+  const score = (profit: number, waste: number, donated = 0) => calculeazaScorIES(
+    profit, waste, donated, lot.cantitateTotala * lot.costAchizitieUnitarRON,
+    lot.wasteCostPerUnit ?? 1.2, lot.esgPenaltyPerUnit ?? 2.5, lot.impactFactor ?? 1,
+  );
   const zileTotal = Math.max(0.1, lot.oreTotaleValabilitate / 24);
-  const zileRamase = Math.max(0.05, lot.oreRămase / 24);
+  const zileRamase = Math.max(0, lot.oreRămase / 24);
   const raportTimpRamas = Math.min(1, zileRamase / zileTotal);
 
-  const costAchizitieTotal = lot.cantitateTotala * (lot.costAchizitieUnitarRON || lot.pretUnitarRON * 0.5);
+  const costAchizitieTotal = lot.cantitateTotala * lot.costAchizitieUnitarRON;
   const costHoldingBaza = lot.cantitateTotala * config.costStocarePerKgZiRON * zileRamase;
 
   // Factor de boost pentru cerere când produsul e la promoție B2C (-50%)
@@ -205,24 +214,28 @@ export function simuleazaScenariiFinanciare(
   const venitS1 = (cantitatePretPlin_S1 * lot.pretUnitarRON) + 
                   (cantitatePromo_S1 * lot.pretUnitarRON * 0.5);
   const profitS1 = venitS1 - costAchizitieTotal - costHoldingBaza;
-  const iesS1 = calculeazaScorIES(profitS1, cantitateDonata_S1, 0, costAchizitieTotal, config.costStocarePerKgZiRON);
+  const donatedS1 = Math.min(donationCapacity, cantitateDonata_S1);
+  const wasteS1 = cantitateDonata_S1 - donatedS1;
+  const iesS1 = score(profitS1, wasteS1, donatedS1);
 
   // ===========================================================================
   // SCENARIUL 2: LICHIDARE TOTALĂ B2B (100% BULK LA T2)
   // ===========================================================================
   // PROMPT STEP 3: Trecere rapidă pe bursă. Vinde puțin B2C până la T2, restul B2B.
   const cantitateB2C_S2 = Math.min(lot.cantitateTotala * 0.25, lot.vanzariMediiZilnice * (zileRamase * 0.4));
-  const cantitateB2B_S2 = Math.max(0, lot.cantitateTotala - cantitateB2C_S2);
+  const cantitateB2B_S2 = Math.min(b2bCapacity, Math.max(0, lot.cantitateTotala - cantitateB2C_S2));
+  const donatedS2 = Math.min(donationCapacity, lot.cantitateTotala - cantitateB2C_S2 - cantitateB2B_S2);
+  const wasteS2 = Math.max(0, lot.cantitateTotala - cantitateB2C_S2 - cantitateB2B_S2 - donatedS2);
 
   const venitS2 = (cantitateB2C_S2 * lot.pretUnitarRON * 0.8) + 
-                  (cantitateB2B_S2 * lot.pretUnitarRON * 0.35); // Preț mediu de lichidare B2B (35%)
+                  (cantitateB2B_S2 * lot.pretUnitarRON * b2bPrice); // Preț mediu de lichidare B2B (35%)
   
   // AI RULE: Salvăm 70% din costul de depozitare pentru volumul dat rapid pe B2B
   const costHoldingS2 = (costHoldingBaza * (cantitateB2C_S2 / lot.cantitateTotala)) + 
                         (costHoldingBaza * (cantitateB2B_S2 / lot.cantitateTotala) * 0.3);
   
   const profitS2 = venitS2 - costAchizitieTotal - costHoldingS2;
-  const iesS2 = calculeazaScorIES(profitS2, 0, 0, costAchizitieTotal, config.costStocarePerKgZiRON);
+  const iesS2 = score(profitS2, wasteS2, donatedS2);
 
   // ===========================================================================
   // SCENARIUL 3: HIBRID OPTIMIZAT AI (SPLIT DINAMIC X% B2B)
@@ -233,16 +246,16 @@ export function simuleazaScenariiFinanciare(
 
   // Dynamic Split Calculation (Limitat între 15% și 70% B2B)
   const cotaB2BRationament = surplusRiscRaft / lot.cantitateTotala;
-  const procentB2BOptim = Math.min(0.70, Math.max(0.15, cotaB2BRationament));
+  const procentB2BOptim = Math.min(b2bCapacity / lot.cantitateTotala, 0.70, Math.max(0.15, cotaB2BRationament));
   const procentB2COptim = 1 - procentB2BOptim;
 
-  const cantitateB2COptim = lot.cantitateTotala * procentB2COptim;
+  const cantitateB2COptim = Math.min(capacitateAbsorbtieRaftB2C, lot.cantitateTotala * procentB2COptim);
   const cantitateB2BOptim = lot.cantitateTotala * procentB2BOptim;
 
   // Venit S3: B2C captează preț plin + promo; B2B lichidează restul la preț superior (40% marjă datorită timing-ului optim)
   const venitB2C_S3 = (cantitateB2COptim * 0.5 * lot.pretUnitarRON) + 
                        (cantitateB2COptim * 0.5 * lot.pretUnitarRON * 0.5);
-  const venitB2B_S3 = cantitateB2BOptim * (lot.pretUnitarRON * 0.40);
+  const venitB2B_S3 = cantitateB2BOptim * (lot.pretUnitarRON * b2bPrice);
 
   const venitS3 = venitB2C_S3 + venitB2B_S3;
 
@@ -251,8 +264,9 @@ export function simuleazaScenariiFinanciare(
                         (costHoldingBaza * procentB2BOptim * 0.25);
 
   const profitS3 = venitS3 - costAchizitieTotal - costHoldingS3;
-  const cantitateRisipitaS3 = lot.cantitateTotala * 0.005; // Sub 0.5% risipă
-  const iesS3 = calculeazaScorIES(profitS3, cantitateRisipitaS3, 0, costAchizitieTotal, config.costStocarePerKgZiRON);
+  const donatedS3 = Math.min(donationCapacity, Math.max(0, lot.cantitateTotala - cantitateB2COptim - cantitateB2BOptim));
+  const cantitateRisipitaS3 = Math.max(0, lot.cantitateTotala - cantitateB2COptim - cantitateB2BOptim - donatedS3); // Sub 0.5% risipă
+  const iesS3 = score(profitS3, cantitateRisipitaS3, donatedS3);
 
   // ===========================================================================
   // PROMPT STEP 5: Formatare și Răspuns Structurat
@@ -268,34 +282,40 @@ export function simuleazaScenariiFinanciare(
       costHoldingTotalRON: Math.round(costHoldingBaza),
       profitNetEstimatRON: Math.round(profitS1),
       scorIES: iesS1.scorIESRon,
+      scorSustenabilitatePct: iesS1.scorSustenabilitatePct,
       marjaProfitProcent: Math.round((profitS1 / Math.max(1, venitS1)) * 100),
-      rataRisipaEstimata: Math.round((cantitateDonata_S1 / lot.cantitateTotala) * 100)
+      cantitateDonata: donatedS1, cantitateB2B: 0, cantitateB2C: cantitateVandutaTotal_S1,
+      rataRisipaEstimata: Math.round((wasteS1 / lot.cantitateTotala) * 100)
     },
     SCENARIU_2_B2B_INTEGRAL: {
       id: 'SCENARIU_2_B2B_INTEGRAL',
       titlu: '2. Lichidare Totală B2B',
       descriere: 'Trece tot stocul rămas pe Bursa B2B la T2. Elimină risipa, dar taie din marjă.',
-      procentB2B: 100,
-      procentB2C: 0,
+      procentB2B: Math.round(cantitateB2B_S2 / lot.cantitateTotala * 100),
+      procentB2C: Math.round(cantitateB2C_S2 / lot.cantitateTotala * 100),
       venitBrutEstimatRON: Math.round(venitS2),
       costHoldingTotalRON: Math.round(costHoldingS2),
       profitNetEstimatRON: Math.round(profitS2),
       scorIES: iesS2.scorIESRon,
+      scorSustenabilitatePct: iesS2.scorSustenabilitatePct,
       marjaProfitProcent: Math.round((profitS2 / Math.max(1, venitS2)) * 100),
-      rataRisipaEstimata: 0
+      cantitateDonata: donatedS2, cantitateB2B: cantitateB2B_S2, cantitateB2C: cantitateB2C_S2,
+      rataRisipaEstimata: Math.round(wasteS2 / lot.cantitateTotala * 100)
     },
     SCENARIU_3_HIBRID_AI: {
       id: 'SCENARIU_3_HIBRID_AI',
       titlu: '3. Plan Hibrid Optimizat AI',
       descriere: `Trece pe Bursa B2B exact ${Math.round(procentB2BOptim * 100)}% din stoc și păstrează restul de ${Math.round(procentB2COptim * 100)}% la raft.`,
       procentB2B: Math.round(procentB2BOptim * 100),
-      procentB2C: Math.round(procentB2COptim * 100),
+      procentB2C: Math.round(cantitateB2COptim / lot.cantitateTotala * 100),
       venitBrutEstimatRON: Math.round(venitS3),
       costHoldingTotalRON: Math.round(costHoldingS3),
       profitNetEstimatRON: Math.round(profitS3),
       scorIES: iesS3.scorIESRon,
+      scorSustenabilitatePct: iesS3.scorSustenabilitatePct,
       marjaProfitProcent: Math.round((profitS3 / Math.max(1, venitS3)) * 100),
-      rataRisipaEstimata: 0
+      cantitateDonata: donatedS3, cantitateB2B: cantitateB2BOptim, cantitateB2C: cantitateB2COptim,
+      rataRisipaEstimata: Math.round(cantitateRisipitaS3 / lot.cantitateTotala * 100)
     }
   };
 }
@@ -322,11 +342,10 @@ export function simuleazaScenariiFinanciare(
  */
 
 export function calculeazaScorRiscS(
-  lot: LotAlimentar,
-  configCustom?: ConfigurareCategorie
+  lot: LotAlimentar
 ): number {
   // PROMPT STEP 1: Încărcarea configurării și extragerea coeficientului de perisabilitate
-  const config = configCustom || CONFIGURARI_CATEGORII[lot.categorie];
+
   
   // AI RULE: Determinăm factorul dinamic de perisabilitate (Default: 1.0)
   let cPerisabilitate = 1.0;

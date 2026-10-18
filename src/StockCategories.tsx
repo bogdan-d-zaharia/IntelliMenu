@@ -1,9 +1,12 @@
 import React from 'react';
-import { ArrowLeft, Croissant, Milk, Apple, Beef } from 'lucide-react';
+import { useFirestoreData } from './data/FirestoreProvider';
+import { categoryLabels } from './lib/firestoreAdapter';
+import { Croissant, Milk, Apple, Beef } from 'lucide-react';
 
 interface StockCategoriesProps {
   onBack: () => void;
   onSelectCategory: (categoryName: string) => void;
+  isManagerHome?: boolean;
 }
 
 const categories = [
@@ -13,21 +16,17 @@ const categories = [
   { id: 'fructe', name: 'Fructe & Legume', desc: 'Rată rapidă de perisabilitate la final', icon: <Apple size={28} />, color: 'bg-emerald-500' },
 ];
 
-const StockCategories: React.FC<StockCategoriesProps> = ({ onBack, onSelectCategory }) => {
+const StockCategories: React.FC<StockCategoriesProps> = ({ onSelectCategory, isManagerHome = false }) => {
+  const data = useFirestoreData();
   return (
-    <div className="min-h-screen bg-[#111827] p-8 font-sans text-gray-100">
-      
-      {/* Buton Înapoi */}
-      <button 
-        onClick={onBack} 
-        className="mb-6 text-blue-400 font-semibold hover:text-blue-300 flex items-center gap-2 transition-colors bg-[#1F2937] px-4 py-2 rounded-xl border border-gray-800 shadow-sm w-max"
-      >
-        <ArrowLeft size={20} /> Înapoi la Dashboard
-      </button>
-
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-extrabold text-white mb-2">Selectează Categoria de Produse</h1>
-        <p className="text-gray-400 mb-8">Alege o secțiune pentru a vizualiza curba de preț și stocurile critice bazate pe algoritmul AI.</p>
+    <div className={`min-h-screen font-sans text-gray-100 overflow-y-auto ${isManagerHome ? 'bg-white rounded-[2rem] p-8 shadow-sm border border-gray-100' : 'bg-[#111827] p-8'}`}>
+      <div className="max-w-5xl mx-auto">
+        <h1 className={`text-3xl font-extrabold mb-2 ${isManagerHome ? 'text-gray-900' : 'text-white'}`}>
+          Selectează Categoria de Produse
+        </h1>
+        <p className={`mb-8 ${isManagerHome ? 'text-gray-500' : 'text-gray-400'}`}>
+          Alege o secțiune pentru a vizualiza curba de preț și stocurile critice bazate pe algoritmul AI.
+        </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {categories.map((cat) => (
@@ -41,7 +40,7 @@ const StockCategories: React.FC<StockCategoriesProps> = ({ onBack, onSelectCateg
               </div>
               <div>
                 <h3 className="text-xl font-bold text-white group-hover:text-emerald-400 transition-colors">{cat.name}</h3>
-                <p className="text-sm text-gray-400 mt-1">{cat.desc}</p>
+                <p className="text-sm text-gray-400 mt-1">{cat.desc}</p><p className="text-sm text-emerald-400 mt-2">{data.inventory_lots.filter(lot => categoryLabels[lot.category] === cat.name).length} loturi în Firestore</p>
               </div>
             </div>
           ))}

@@ -1,73 +1,59 @@
 import React, { useState, useMemo } from 'react';
 import { ArrowLeft, Activity, TrendingUp, ShieldCheck, Leaf } from 'lucide-react';
+import { useFirestoreData } from './data/FirestoreProvider';
+import { adaptLot, categoryLabels } from './lib/firestoreAdapter';
+import { applyPlan } from './lib/firestoreActions';
 import {
   ComposedChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceArea, ReferenceDot
 } from 'recharts';
 
-import type { LotAlimentar, CategorieAlimentara, TipScenariu } from './types/yield.types';
+import type { TipScenariu } from './types/yield.types';
 import { calculeazaIntervaleAxaDinamice, calculeazaScorRiscS, simuleazaScenariiFinanciare } from './lib/yieldEngine';
-import { calculeazaEuristicaDinDate } from './lib/heuristics';
 
-/**
- * ============================================================================
- * COMPONENTĂ: StockAnalysis (Decision Support System - UI Dashboard)
- * ============================================================================
- * 
- * SCOP:
- * Interfața vizuală destinată Managerului de Retail pentru analizarea loturilor 
- * de marfă supuse riscului de expirare. Permite compararea dinamică a celor 3 
- * scenarii de Yield Management și vizualizarea traiectoriei optime de preț.
- * ============================================================================
- */
+interface StockAnalysisProps {
+  categoryName?: string;
+  onBack: () => void;
+  onNavigate?: (view: string) => void;
+}
 
-const StockAnalysis: React.FC<{ categoryName?: string; onBack: () => void }> = ({ categoryName, onBack }) => {
+const StockAnalysis: React.FC<StockAnalysisProps> = ({ categoryName, onBack, onNavigate }) => {
+  const [succesAplicat, setSuccesAplicat] = useState(false);
   const [scenariuSelectat, setScenariuSelectat] = useState<TipScenariu>('SCENARIU_3_HIBRID_AI');
 
-  // --------------------------------------------------------------------------
-  // 1. IDENTIFICAREA CATEGORIEI
-  // --------------------------------------------------------------------------
-  const categorieDetectata: CategorieAlimentara = useMemo(() => {
-    const name = (categoryName || '').toLowerCase();
-    if (name.includes('carne')) return 'carne_proaspata';
-    if (name.includes('lactat')) return 'lactate';
-    return 'conserve_uscate'; // Fallback profesional pentru produse uscate
-  }, [categoryName]);
+  const data = useFirestoreData();
+  const [selectedLotId, setSelectedLotId] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState('');
+  const matchingLots = data.inventory_lots.filter(lot => categoryLabels[lot.category] === categoryName);
+  const sourceLot = matchingLots.find(lot => lot.id === selectedLotId) ?? matchingLots[0];
+  const adapted = useMemo(() => {
+    if (!sourceLot) return { error: 'Nu există loturi în această categorie.' };
+    try { return { result: adaptLot(sourceLot, data.stores.find(store => store.id === sourceLot.store_id), data.partners, data.claims, data.sales_history, data.now) }; }
+    catch (error) { return { error: error instanceof Error ? error.message : String(error) }; }
+  }, [sourceLot, data]);
+  if (!adapted.result || !sourceLot) return <div className="min-h-screen bg-gray-900 text-white p-8"><button onClick={onBack}>Înapoi</button><p role="alert">{adapted.error}</p></div>;
+  return <LotAnalysis key={sourceLot.id} {...{ sourceLot, adapted: adapted.result, data, matchingLots, setSelectedLotId, saving, setSaving, saveError, setSaveError, succesAplicat, setSuccesAplicat, scenariuSelectat, setScenariuSelectat, onBack, onNavigate }} />;
+};
 
-  // --------------------------------------------------------------------------
-  // 2. CONSTRUIREA LOTULUI DE MARFĂ (DENUMIRI & PARAMETRI OPTIMIZAȚI)
-  // --------------------------------------------------------------------------
-  const lotCurent: LotAlimentar = useMemo(() => {
-    const esteCarne = categorieDetectata === 'carne_proaspata';
-    const esteLactate = categorieDetectata === 'lactate';
+type AnalysisDetailsProps = {
+  sourceLot: ReturnType<typeof useFirestoreData>['inventory_lots'][number];
+  adapted: ReturnType<typeof adaptLot>;
+  data: ReturnType<typeof useFirestoreData>;
+  matchingLots: ReturnType<typeof useFirestoreData>['inventory_lots'];
+  setSelectedLotId: (value: string) => void;
+  saving: boolean; setSaving: (value: boolean) => void;
+  saveError: string; setSaveError: (value: string) => void;
+  succesAplicat: boolean; setSuccesAplicat: (value: boolean) => void;
+  scenariuSelectat: TipScenariu; setScenariuSelectat: (value: TipScenariu) => void;
+  onBack: () => void; onNavigate?: (view: string) => void;
+};
 
-    const numeCategorieFormatat = categoryName 
-      ? categoryName 
-      : (esteCarne ? 'Carne Proaspătă' : esteLactate ? 'Lactate & Brânzeturi' : 'Produse Uscate & Conserve');
+const LotAnalysis = ({ sourceLot, adapted, data, matchingLots, setSelectedLotId, saving, setSaving, saveError, setSaveError, succesAplicat, setSuccesAplicat, scenariuSelectat, setScenariuSelectat, onBack, onNavigate }: AnalysisDetailsProps) => {
+  const lotCurent = adapted.lot;
+  const praguri = useMemo(() => calculeazaIntervaleAxaDinamice(lotCurent, adapted.config), [lotCurent, adapted.config]);
+  const scorRisc = calculeazaScorRiscS(lotCurent);
+  const scenarii = useMemo(() => simuleazaScenariiFinanciare(lotCurent, adapted.config), [lotCurent, adapted.config]);
 
-    return {
-      id: 'IAȘI-4521',
-      nume: `Lot ${numeCategorieFormatat}`,
-      categorie: categorieDetectata,
-      cantitateTotala: 120,
-      vanzariMediiZilnice: esteCarne ? 25 : esteLactate ? 40 : 50,
-      oreTotaleValabilitate: esteCarne ? 48 : esteLactate ? 72 : 96,
-      oreRămase: esteCarne ? 20 : esteLactate ? 36 : 60,
-      pretUnitarRON: esteCarne ? 12 : esteLactate ? 7 : 6,
-      costAchizitieUnitarRON: esteCarne ? 6 : esteLactate ? 3.5 : 2.5
-    };
-  }, [categoryName, categorieDetectata]);
-
-  // --------------------------------------------------------------------------
-  // 3. EXECUTAREA MOTORULUI DE YIELD MANAGEMENT (YIELD ENGINE)
-  // --------------------------------------------------------------------------
-  const euristica = useMemo(() => calculeazaEuristicaDinDate([]), []);
-  const praguri = useMemo(() => calculeazaIntervaleAxaDinamice(lotCurent, euristica), [lotCurent, euristica]);
-  const scorRisc = useMemo(() => calculeazaScorRiscS(lotCurent), [lotCurent]);
-  const scenarii = useMemo(() => simuleazaScenariiFinanciare(lotCurent, euristica), [lotCurent, euristica]);
-
-  // --------------------------------------------------------------------------
-  // 4. IDENTIFICAREA DINAMICĂ A SCENARIULUI RECOMANDAT AI (BAZAT PE SCOR IES)
-  // --------------------------------------------------------------------------
   const cheieScenariuRecomandat = useMemo(() => {
     return (Object.keys(scenarii) as TipScenariu[]).reduce((maxKey, currentKey) => {
       return scenarii[currentKey].scorIES > scenarii[maxKey].scorIES ? currentKey : maxKey;
@@ -76,28 +62,32 @@ const StockAnalysis: React.FC<{ categoryName?: string; onBack: () => void }> = (
 
   const scenariuCurent = scenarii[scenariuSelectat];
 
-  // --------------------------------------------------------------------------
-  // 5. CALCULAREA PRAGURILOR DE ORE RĂMASE PENTRU AXA X NUMERICĂ
-  // --------------------------------------------------------------------------
+  const handleAplicaPlan = async () => {
+    setSaving(true); setSaveError('');
+    try {
+      await applyPlan(sourceLot, scenariuCurent);
+      setSuccesAplicat(true);
+      onNavigate?.('active-offers');
+    } catch (error) { setSaveError(error instanceof Error ? error.message : String(error)); }
+    finally { setSaving(false); }
+  };
+
   const T = lotCurent.oreTotaleValabilitate;
-  const pB2C_hours = praguri.pB2C;      // Ore rămase pentru T1
-  const pB2B_hours = praguri.pB2B;      // Ore rămase pentru T2
-  const pDonatie_hours = praguri.pDonatie; // Ore rămase pentru T3
+  const pB2C_hours = praguri.pB2C;      
+  const pB2B_hours = praguri.pB2B;      
+  const pDonatie_hours = praguri.pDonatie; 
 
   const pretFull = lotCurent.pretUnitarRON;
   const pretB2C = Number((pretFull * 0.5).toFixed(2));
-  const pretB2B = Number((pretFull * 0.40).toFixed(2));
+  const pretB2B = Number((pretFull * (lotCurent.pretB2BFractie ?? 0)).toFixed(2));
   const pretDonatie = 0;
 
-  // --------------------------------------------------------------------------
-  // 6. GENERAREA DATELOR PENTRU GRAFIC CU AXĂ NUMERICĂ CONTINUĂ
-  // --------------------------------------------------------------------------
   const chartData = useMemo(() => {
     let priceT2 = pretB2B;
-    let priceT3 = pretDonatie;
+    const priceT3 = pretDonatie;
 
-    if (scenariuSelectat === 'SCENARIU_1_RAFT') {
-      priceT2 = pretB2C; // În Scenariul 1 nu se trece pe B2B la T2
+    if (scenariuSelectat === 'SCENARIU_1_RAFT' || !lotCurent.capacitateB2B) {
+      priceT2 = pretB2C;
     }
 
     return [
@@ -110,7 +100,7 @@ const StockAnalysis: React.FC<{ categoryName?: string; onBack: () => void }> = (
       { time: -pDonatie_hours, price: priceT3, label: `${pDonatie_hours}h (T3)` },
       { time: 0, price: priceT3, label: '0h (Expirare)' },
     ];
-  }, [scenariuSelectat, T, pB2C_hours, pB2B_hours, pDonatie_hours, pretFull, pretB2C, pretB2B, pretDonatie]);
+  }, [scenariuSelectat, T, pB2C_hours, pB2B_hours, pDonatie_hours, pretFull, pretB2C, pretB2B, pretDonatie, lotCurent.capacitateB2B]);
 
   return (
     <div className="min-h-screen bg-[#111827] p-6 font-sans text-gray-100 overflow-y-auto">
@@ -127,7 +117,7 @@ const StockAnalysis: React.FC<{ categoryName?: string; onBack: () => void }> = (
       <div className="flex items-center justify-between bg-[#1F2937] p-4 rounded-xl shadow-md mb-6 border border-gray-800">
         <div className="flex items-center gap-3">
           <div className="bg-yellow-400 text-blue-950 font-extrabold p-2 rounded-lg border-2 border-blue-900 flex items-center justify-center w-10 h-10 shadow">
-            Lidl
+            IM
           </div>
           <h1 className="text-xl font-bold text-white">Bursa Risipei: Planificator &amp; DSS Lot</h1>
         </div>
@@ -137,6 +127,18 @@ const StockAnalysis: React.FC<{ categoryName?: string; onBack: () => void }> = (
             <Activity size={18} /> Risc Expirare (S = {scorRisc}/100)
           </div>
         </div>
+      </div>
+
+      <div className="mb-6 bg-[#1F2937] p-4 rounded-xl border border-gray-800">
+        <label className="text-sm text-gray-300 block">Lot analizat
+          <select className="ml-3 p-2 bg-[#111827] rounded-lg border border-gray-700 max-w-full" value={sourceLot.id} onChange={event => { setSelectedLotId(event.target.value); setSuccesAplicat(false); setSaveError(''); }}>
+            {matchingLots.map(lot => <option key={lot.id} value={lot.id}>{data.stores.find(store => store.id === lot.store_id)?.name} · {lot.quantity} {lot.unit_of_measure} · {lot.id}</option>)}
+          </select>
+        </label>
+        <p className="text-xs text-gray-400 mt-2">{lotCurent.oreRămase.toFixed(1)} ore rămase · {lotCurent.vanzariMediiZilnice} vânzări/zi</p>
+        {adapted.warning && <p className="text-xs text-amber-300 mt-2">{adapted.warning}</p>}
+        {lotCurent.oreRămase <= 0 && <p className="text-red-400 mt-2">Lot expirat — planul nu poate fi aplicat.</p>}
+        {saveError && <p role="alert" className="text-red-400 mt-2">{saveError}</p>}
       </div>
 
       {/* SELECȚIE SCENARII STRATEGICE */}
@@ -169,7 +171,7 @@ const StockAnalysis: React.FC<{ categoryName?: string; onBack: () => void }> = (
                 <div>
                   <span className="text-[10px] text-gray-400 block">Profit Net Estimat</span>
                   <span className={`text-base font-extrabold ${sc.profitNetEstimatRON > 0 ? 'text-emerald-400' : 'text-red-400'}`}>
-                    {Math.abs(sc.profitNetEstimatRON)} RON
+                    {sc.profitNetEstimatRON} RON
                   </span>
                 </div>
                 <div className="text-right">
@@ -254,7 +256,7 @@ const StockAnalysis: React.FC<{ categoryName?: string; onBack: () => void }> = (
                 {/* PUNCTELE DE TRIGGER */}
                 <ReferenceDot x={-pB2C_hours} y={pretFull} r={6} fill="#F59E0B" stroke="#fff" strokeWidth={2} />
                 <ReferenceDot x={-pB2B_hours} y={pretB2C} r={6} fill="#3B82F6" stroke="#fff" strokeWidth={2} />
-                <ReferenceDot x={-pDonatie_hours} y={scenariuSelectat === 'SCENARIU_1_RAFT' ? pretB2C : pretB2B} r={6} fill="#EF4444" stroke="#fff" strokeWidth={2} />
+                <ReferenceDot x={-pDonatie_hours} y={scenariuSelectat === 'SCENARIU_1_RAFT' || !lotCurent.capacitateB2B ? pretB2C : pretB2B} r={6} fill="#EF4444" stroke="#fff" strokeWidth={2} />
               </ComposedChart>
             </ResponsiveContainer>
 
@@ -263,12 +265,12 @@ const StockAnalysis: React.FC<{ categoryName?: string; onBack: () => void }> = (
               Faza 1: Preț Întreg
             </div>
 
-            <div className="absolute top-[28%] left-[32%] bg-[#111827] text-white text-xs p-2 rounded-lg border border-gray-700 shadow-xl max-w-[210px]">
+            <div className="absolute top-[28%] left-[32%] bg-[#111827] text-white text-xs p-2 rounded-lg border border-gray-700 shadow-xl max-w-[210px] pointer-events-none">
               <span className="text-yellow-400 font-bold">● T1: Trigger {pB2C_hours}h Rămase</span>
               <p className="text-[10px] text-gray-300 mt-0.5">Promovare B2C (-50% la Raft)</p>
             </div>
 
-            <div className="absolute top-[48%] left-[58%] bg-[#111827] text-white text-xs p-2 rounded-lg border border-gray-700 shadow-xl max-w-[220px]">
+            <div className="absolute top-[48%] left-[58%] bg-[#111827] text-white text-xs p-2 rounded-lg border border-gray-700 shadow-xl max-w-[220px] pointer-events-none">
               <span className="text-blue-400 font-bold">● T2: Trigger {pB2B_hours}h Rămase</span>
               <p className="text-[10px] text-gray-300 mt-0.5">
                 {scenariuSelectat === 'SCENARIU_1_RAFT' 
@@ -284,7 +286,7 @@ const StockAnalysis: React.FC<{ categoryName?: string; onBack: () => void }> = (
           <div>
             <h3 className="text-base font-bold text-white mb-3 pb-2 border-b border-gray-700 flex items-center justify-between">
               <span>Bilanț Financiar Lot</span>
-              <span className="text-xs text-gray-400 font-normal">{lotCurent.cantitateTotala} kg</span>
+              <span className="text-xs text-gray-400 font-normal">{lotCurent.cantitateTotala} {sourceLot.unit_of_measure}</span>
             </h3>
 
             {/* METRICI FINANCIARE BRUTE */}
@@ -300,9 +302,9 @@ const StockAnalysis: React.FC<{ categoryName?: string; onBack: () => void }> = (
               </div>
 
               <div className="bg-[#111827] p-3 rounded-xl border border-emerald-500/30 flex justify-between items-center">
-                <span className="text-xs text-emerald-400 font-semibold">Profit Net Real:</span>
+                <span className="text-xs text-emerald-400 font-semibold">Profit Net Estimat:</span>
                 <span className="text-lg font-extrabold text-emerald-400">
-                  {Math.abs(scenariuCurent.profitNetEstimatRON)} RON
+                  {scenariuCurent.profitNetEstimatRON} RON
                 </span>
               </div>
             </div>
@@ -312,7 +314,7 @@ const StockAnalysis: React.FC<{ categoryName?: string; onBack: () => void }> = (
               <div className="flex justify-between items-center">
                 <span>Marjă Profit:</span>
                 <strong className="text-emerald-400">
-                  +{Math.abs(scenariuCurent.marjaProfitProcent)}%
+                  {scenariuCurent.marjaProfitProcent}%
                 </strong>
               </div>
 
@@ -322,7 +324,7 @@ const StockAnalysis: React.FC<{ categoryName?: string; onBack: () => void }> = (
                   <span>Scor IES (Eficiență ESG):</span>
                 </div>
                 <span className="text-xs font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                  {scenariuCurent.id === 'SCENARIU_1_RAFT' ? '45 / 100 pts' : scenariuCurent.id === 'SCENARIU_2_B2B_INTEGRAL' ? '82 / 100 pts' : '98 / 100 pts'}
+                  {scenariuCurent.scorSustenabilitatePct} / 100 pts
                 </span>
               </div>
 
@@ -330,7 +332,7 @@ const StockAnalysis: React.FC<{ categoryName?: string; onBack: () => void }> = (
               <div className="flex justify-between items-center">
                 <span>Risipă Estimat (Deșeuri):</span>
                 <strong className={scenariuCurent.id === 'SCENARIU_1_RAFT' ? 'text-red-400' : 'text-emerald-400'}>
-                  {scenariuCurent.id === 'SCENARIU_1_RAFT' ? '12%' : '0%'}
+                  {scenariuCurent.rataRisipaEstimata}%
                 </strong>
               </div>
 
@@ -338,7 +340,7 @@ const StockAnalysis: React.FC<{ categoryName?: string; onBack: () => void }> = (
               <div className="flex justify-between items-center">
                 <span>Redirecționat către Donații:</span>
                 <strong className="text-blue-400">
-                  {scenariuCurent.id === 'SCENARIU_1_RAFT' ? '33% (40 kg)' : '0% (0 kg)'}
+                  {Math.round((scenariuCurent.cantitateDonata ?? 0) / lotCurent.cantitateTotala * 100)}% ({(scenariuCurent.cantitateDonata ?? 0).toFixed(1)} {sourceLot.unit_of_measure})
                 </strong>
               </div>
             </div>
@@ -346,8 +348,8 @@ const StockAnalysis: React.FC<{ categoryName?: string; onBack: () => void }> = (
 
           {/* ACȚIUNE EXECUȚIE DECIZIE */}
           <div className="space-y-3">
-            <button className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 px-4 rounded-xl shadow transition-all text-sm flex items-center justify-center gap-2">
-              <ShieldCheck size={18} /> Aplică Planul {scenariuCurent.titlu}
+            <button onClick={handleAplicaPlan} disabled={saving || !!sourceLot.distribution_plan || lotCurent.oreRămase <= 0} className="w-full disabled:opacity-50 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 px-4 rounded-xl shadow transition-all text-sm flex items-center justify-center gap-2">
+              <ShieldCheck size={18} /> {saving ? 'Se salvează...' : succesAplicat || sourceLot.distribution_plan ? 'Plan salvat în Firestore' : `Aplică Planul ${scenariuCurent.titlu}`}
             </button>
           </div>
         </div>
