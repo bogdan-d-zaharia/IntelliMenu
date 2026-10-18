@@ -109,9 +109,24 @@ const AnalysisCharts = ({ sourceLot, adapted, onBack, onNavigate }: AnalysisChar
 
   const unit = sourceLot.unit_of_measure;
   const disposalCost = (scenario: RezultatScenariu) => scenario.costDeseuriRON;
-  const canalLabels = { full_price: 'Raft · preț întreg', discount: 'Raft · ofertă', social: 'B2B · preț social', donation: 'Donație ONG', waste: 'Deșeu' };
   // Every price and stock point comes from the engine's interval ledger.
   const buildChart = (scenario: RezultatScenariu) => {
+    const hybrid = scenario.id === 'SCENARIU_3_HIBRID_AI';
+    const hasBulk = (scenario.cantitateB2B ?? 0) > 0;
+    const discountPct = Math.round((lotCurent.retailDiscountPct ?? 0.5) * 100);
+    const phaseLabel = (channel: RezultatScenariu['intervale'][number]['canal']) => {
+      switch (channel) {
+        case 'full_price': return hybrid && hasBulk
+          ? `Preț Plin + Listare B2B (${scenario.procentB2B}% din stoc)`
+          : 'Preț Întreg (Recepție)';
+        case 'discount': return hybrid && hasBulk
+          ? 'Promo B2C + Rezervare Cantine'
+          : `Promoție Raft B2C (-${discountPct}%)`;
+        case 'social': return hybrid ? 'Ridicare Fizică Cantine' : `Licitare B2B Express (${praguriTemporale.pB2B}h rămas)`;
+        case 'donation': return 'Predare Donație ESG';
+        case 'waste': return scenario.cantitateRisipita > 0 ? 'Risipă Alimentară (Aruncat)' : 'Zero Risipă (Lot Lichidat Optim)';
+      }
+    };
     const rows = scenario.intervale.flatMap(entry => {
     const retail = entry.canal === 'full_price' || entry.canal === 'discount';
     const donationAtStart = scenario.intervale.some(row => row.canal === 'donation' && row.deLaOre === entry.deLaOre);
@@ -121,14 +136,16 @@ const AnalysisCharts = ({ sourceLot, adapted, onBack, onNavigate }: AnalysisChar
       stocKg: stock,
       b2bBanda: entry.canal === 'social' && entry.cantitate > 0 ? entry.pretUnitarRON : null,
       donatie: entry.canal === 'donation' && entry.cantitate > 0 ? 0 : null,
-      faza: `${canalLabels[entry.canal]} · ${entry.cantitate.toFixed(2)} ${unit} · venit ${entry.venitRON.toFixed(2)} RON`,
+      faza: phaseLabel(entry.canal),
+      phasePriority: entry.canal === 'waste' ? 3 : entry.cantitate > 0 ? entry.canal === 'donation' ? 2 : entry.canal === 'social' ? 1 : 0 : 0,
     });
     return retail ? [point(entry.deLaOre, entry.stocInitial), point(entry.panaLaOre, entry.stocFinal)] : [point(entry.deLaOre, entry.stocFinal)];
     });
     const points = new Map<string, typeof rows[number]>();
     for (const row of rows) {
       const prior = points.get(row.zi);
-      points.set(row.zi, { ...row, pret: row.pret ?? (row.donatie === 0 ? 0 : prior?.pret ?? null), b2bBanda: row.b2bBanda ?? prior?.b2bBanda ?? null });
+      const phase = prior && prior.phasePriority > row.phasePriority ? prior : row;
+      points.set(row.zi, { ...row, faza: phase.faza, phasePriority: phase.phasePriority, pret: row.pret ?? (row.donatie === 0 ? 0 : prior?.pret ?? null), b2bBanda: row.b2bBanda ?? prior?.b2bBanda ?? null });
     }
     return [...points.values()];
   };

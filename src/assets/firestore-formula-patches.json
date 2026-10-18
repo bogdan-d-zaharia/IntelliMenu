@@ -6,6 +6,12 @@
       "id": "4CtaV1L6eUe5KfcnXnUf",
       "fields": {
         "esg_waste_penalty_per_kg": 2.5,
+        "retail_discount_pct": 0.5,
+        "promo_demand_multiplier": 1.35,
+        "demo_assumption_fields": [
+          "retail_discount_pct",
+          "promo_demand_multiplier"
+        ],
         "avg_daily_sales_by_category": {
           "meat": 20,
           "dairy": 35,
@@ -18,7 +24,13 @@
       "collection": "stores",
       "id": "6KBaii39pTpshNjkPubQ",
       "fields": {
-        "esg_waste_penalty_per_kg": 2.5
+        "esg_waste_penalty_per_kg": 2.5,
+        "retail_discount_pct": 0.5,
+        "promo_demand_multiplier": 1.35,
+        "demo_assumption_fields": [
+          "retail_discount_pct",
+          "promo_demand_multiplier"
+        ]
       }
     },
     {
@@ -26,6 +38,12 @@
       "id": "ZvBsQk88DOh3c5iREGYF",
       "fields": {
         "esg_waste_penalty_per_kg": 2.5,
+        "retail_discount_pct": 0.5,
+        "promo_demand_multiplier": 1.35,
+        "demo_assumption_fields": [
+          "retail_discount_pct",
+          "promo_demand_multiplier"
+        ],
         "avg_daily_sales_by_category": {
           "produce": 55,
           "meat": 15,
@@ -38,21 +56,55 @@
       "collection": "stores",
       "id": "ka5DczdhKQxfVHJPp5Ld",
       "fields": {
-        "esg_waste_penalty_per_kg": 2.5
+        "esg_waste_penalty_per_kg": 2.5,
+        "retail_discount_pct": 0.5,
+        "promo_demand_multiplier": 1.35,
+        "demo_assumption_fields": [
+          "retail_discount_pct",
+          "promo_demand_multiplier"
+        ]
       }
     },
     {
       "collection": "inventory_lots",
       "id": "0PYOAzR2WrJqHDEPlyVb",
       "fields": {
-        "environmental_impact_factor": 4.5
+        "environmental_impact_factor": 4.5,
+        "weight_per_unit_kg": 1
+      },
+      "replace_fields": {
+        "expiration_date": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792917240,
+          "nanoseconds": 0
+        },
+        "quantity": 490,
+        "received_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792312440,
+          "nanoseconds": 0
+        }
       }
     },
     {
       "collection": "inventory_lots",
       "id": "HkGdMo7rcbhxKZoL3ayz",
       "fields": {
-        "environmental_impact_factor": 0.8
+        "environmental_impact_factor": 0.8,
+        "weight_per_unit_kg": 1
+      },
+      "replace_fields": {
+        "expiration_date": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792830840,
+          "nanoseconds": 0
+        },
+        "quantity": 1490,
+        "received_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792312440,
+          "nanoseconds": 0
+        }
       }
     },
     {
@@ -60,12 +112,29 @@
       "id": "ejDooWyDZjXxzA6I2Tqe",
       "fields": {
         "environmental_impact_factor": 1.2,
+        "weight_per_unit_kg": 1,
+        "demo_assumption_fields": [
+          "weight_per_unit_kg"
+        ],
         "received_at": {
           "__firestoreType": "Timestamp",
           "seconds": 1791964800,
           "nanoseconds": 0
         },
         "holding_cost_per_day": 0.45
+      },
+      "replace_fields": {
+        "expiration_date": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792658040,
+          "nanoseconds": 0
+        },
+        "quantity": 620,
+        "received_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792312440,
+          "nanoseconds": 0
+        }
       }
     },
     {
@@ -73,12 +142,29 @@
       "id": "gpeytDD2Fy2MVx0Fcf2M",
       "fields": {
         "environmental_impact_factor": 0.6,
+        "weight_per_unit_kg": 0.5,
+        "demo_assumption_fields": [
+          "weight_per_unit_kg"
+        ],
         "received_at": {
           "__firestoreType": "Timestamp",
           "seconds": 1792044000,
           "nanoseconds": 0
         },
         "holding_cost_per_day": 0.2
+      },
+      "replace_fields": {
+        "expiration_date": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792917240,
+          "nanoseconds": 0
+        },
+        "quantity": 450,
+        "received_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792312440,
+          "nanoseconds": 0
+        }
       }
     },
     {
@@ -86,12 +172,26 @@
       "id": "pKcTzKzdb8vH7tOk8mEd",
       "fields": {
         "environmental_impact_factor": 0.8,
+        "weight_per_unit_kg": 1,
         "received_at": {
           "__firestoreType": "Timestamp",
           "seconds": 1791972000,
           "nanoseconds": 0
         },
         "holding_cost_per_day": 0.3
+      },
+      "replace_fields": {
+        "expiration_date": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792830840,
+          "nanoseconds": 0
+        },
+        "quantity": 1480,
+        "received_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792312440,
+          "nanoseconds": 0
+        }
       }
     },
     {
@@ -99,26 +199,74 @@
       "id": "rky5fbfwy6VjJKsaK8tT",
       "fields": {
         "environmental_impact_factor": 4.5,
+        "weight_per_unit_kg": 1,
         "received_at": {
           "__firestoreType": "Timestamp",
           "seconds": 1791961200,
           "nanoseconds": 0
         },
         "holding_cost_per_day": 0.8
+      },
+      "replace_fields": {
+        "expiration_date": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792658040,
+          "nanoseconds": 0
+        },
+        "quantity": 260,
+        "received_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792312440,
+          "nanoseconds": 0
+        }
       }
     },
     {
       "collection": "inventory_lots",
       "id": "ur9SOGlYmm2evA57Pgeq",
       "fields": {
-        "environmental_impact_factor": 1.2
+        "environmental_impact_factor": 1.2,
+        "weight_per_unit_kg": 1,
+        "demo_assumption_fields": [
+          "weight_per_unit_kg"
+        ]
+      },
+      "replace_fields": {
+        "expiration_date": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792917240,
+          "nanoseconds": 0
+        },
+        "quantity": 1090,
+        "received_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792312440,
+          "nanoseconds": 0
+        }
       }
     },
     {
       "collection": "inventory_lots",
       "id": "vMEkG3SSESbm63sl46B2",
       "fields": {
-        "environmental_impact_factor": 0.6
+        "environmental_impact_factor": 0.6,
+        "weight_per_unit_kg": 0.5,
+        "demo_assumption_fields": [
+          "weight_per_unit_kg"
+        ]
+      },
+      "replace_fields": {
+        "expiration_date": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792830840,
+          "nanoseconds": 0
+        },
+        "quantity": 410,
+        "received_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792312440,
+          "nanoseconds": 0
+        }
       }
     },
     {

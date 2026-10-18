@@ -20,7 +20,7 @@ function decode(value) {
 }
 const backup = JSON.parse(readFileSync(new URL('../src/assets/intellimenu-firestore-modified.json', import.meta.url), 'utf8'));
 const data = Object.fromEntries(Object.entries(backup.collections).map(([name, docs]) => [name, docs.map(document => ({ id: document.id, ...decode(document.data) }))]));
-const now = Date.parse('2026-10-18T07:30:00Z');
+const now = Date.parse(backup.demo_stock_scenarios?.evaluated_at_utc ?? '2026-10-18T07:30:00Z');
 let count = 0;
 for (const source of data.inventory_lots) {
   const adapted = adapter.adaptLot(source, data.stores.find(store => store.id === source.store_id), data.partners, data.claims, data.sales_history, now);

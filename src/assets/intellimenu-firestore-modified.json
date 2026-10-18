@@ -21,6 +21,12 @@
           "donation_tax_deductibility_pct": 1,
           "name": "Supermarket Central Copou",
           "esg_waste_penalty_per_kg": 2.5,
+          "retail_discount_pct": 0.5,
+          "promo_demand_multiplier": 1.35,
+          "demo_assumption_fields": [
+            "retail_discount_pct",
+            "promo_demand_multiplier"
+          ],
           "avg_daily_sales_by_category": {
             "meat": 20,
             "dairy": 35,
@@ -50,7 +56,13 @@
           },
           "corporate_tax_rate": 0.16,
           "vat_rate": 0.09,
-          "esg_waste_penalty_per_kg": 2.5
+          "esg_waste_penalty_per_kg": 2.5,
+          "retail_discount_pct": 0.5,
+          "promo_demand_multiplier": 1.35,
+          "demo_assumption_fields": [
+            "retail_discount_pct",
+            "promo_demand_multiplier"
+          ]
         }
       },
       {
@@ -69,6 +81,12 @@
           },
           "vat_exemption_on_donation": true,
           "esg_waste_penalty_per_kg": 2.5,
+          "retail_discount_pct": 0.5,
+          "promo_demand_multiplier": 1.35,
+          "demo_assumption_fields": [
+            "retail_discount_pct",
+            "promo_demand_multiplier"
+          ],
           "avg_daily_sales_by_category": {
             "produce": 55,
             "meat": 15,
@@ -98,7 +116,13 @@
             "bakery": 45,
             "produce": 60
           },
-          "esg_waste_penalty_per_kg": 2.5
+          "esg_waste_penalty_per_kg": 2.5,
+          "retail_discount_pct": 0.5,
+          "promo_demand_multiplier": 1.35,
+          "demo_assumption_fields": [
+            "retail_discount_pct",
+            "promo_demand_multiplier"
+          ]
         }
       }
     ],
@@ -117,7 +141,7 @@
           "cost_price_per_unit": 21,
           "received_at": {
             "__firestoreType": "Timestamp",
-            "seconds": 1791961200,
+            "seconds": 1792312440,
             "nanoseconds": 0
           },
           "category": "meat",
@@ -130,20 +154,21 @@
           "holding_cost_per_day": 0.8,
           "expiration_date": {
             "__firestoreType": "Timestamp",
-            "seconds": 1792418400,
+            "seconds": 1792917240,
             "nanoseconds": 0
           },
           "price_per_unit": 32,
           "waste_disposal_cost_per_unit": 4.5,
           "bulk_eligible": true,
-          "quantity": 85,
-          "environmental_impact_factor": 4.5
+          "quantity": 490,
+          "environmental_impact_factor": 4.5,
+          "weight_per_unit_kg": 1
         }
       },
       {
         "id": "HkGdMo7rcbhxKZoL3ayz",
         "data": {
-          "quantity": 320,
+          "quantity": 1490,
           "unit_of_measure": "kg",
           "cost_price_per_unit": 2.8,
           "ai_recommendation": {
@@ -154,7 +179,7 @@
           },
           "received_at": {
             "__firestoreType": "Timestamp",
-            "seconds": 1791972000,
+            "seconds": 1792312440,
             "nanoseconds": 0
           },
           "bulk_eligible": true,
@@ -162,7 +187,7 @@
           "status": "pending_ai_review",
           "expiration_date": {
             "__firestoreType": "Timestamp",
-            "seconds": 1792497600,
+            "seconds": 1792830840,
             "nanoseconds": 0
           },
           "holding_cost_per_day": 0.3,
@@ -174,7 +199,8 @@
             "latitude": 47.1725,
             "longitude": 27.5348
           },
-          "environmental_impact_factor": 0.8
+          "environmental_impact_factor": 0.8,
+          "weight_per_unit_kg": 1
         }
       },
       {
@@ -183,13 +209,13 @@
           "waste_disposal_cost_per_unit": 1.5,
           "cost_price_per_unit": 8.5,
           "status": "pending_ai_review",
-          "quantity": 140,
+          "quantity": 620,
           "unit_of_measure": "buc",
           "bulk_eligible": true,
           "category": "dairy",
           "expiration_date": {
             "__firestoreType": "Timestamp",
-            "seconds": 1792605600,
+            "seconds": 1792658040,
             "nanoseconds": 0
           },
           "ai_recommendation": {
@@ -206,9 +232,13 @@
           },
           "store_id": "4CtaV1L6eUe5KfcnXnUf",
           "environmental_impact_factor": 1.2,
+          "weight_per_unit_kg": 1,
+          "demo_assumption_fields": [
+            "weight_per_unit_kg"
+          ],
           "received_at": {
             "__firestoreType": "Timestamp",
-            "seconds": 1791964800,
+            "seconds": 1792312440,
             "nanoseconds": 0
           },
           "holding_cost_per_day": 0.45
@@ -220,13 +250,13 @@
           "waste_disposal_cost_per_unit": 0.8,
           "cost_price_per_unit": 3,
           "status": "pending_ai_review",
-          "quantity": 60,
+          "quantity": 450,
           "unit_of_measure": "buc",
           "bulk_eligible": false,
           "category": "bakery",
           "expiration_date": {
             "__firestoreType": "Timestamp",
-            "seconds": 1792353600,
+            "seconds": 1792917240,
             "nanoseconds": 0
           },
           "ai_recommendation": {
@@ -243,9 +273,13 @@
           "price_per_unit": 6.5,
           "store_id": "4CtaV1L6eUe5KfcnXnUf",
           "environmental_impact_factor": 0.6,
+          "weight_per_unit_kg": 0.5,
+          "demo_assumption_fields": [
+            "weight_per_unit_kg"
+          ],
           "received_at": {
             "__firestoreType": "Timestamp",
-            "seconds": 1792044000,
+            "seconds": 1792312440,
             "nanoseconds": 0
           },
           "holding_cost_per_day": 0.2
@@ -264,7 +298,7 @@
           "price_per_unit": 5,
           "expiration_date": {
             "__firestoreType": "Timestamp",
-            "seconds": 1792497600,
+            "seconds": 1792830840,
             "nanoseconds": 0
           },
           "waste_disposal_cost_per_unit": 0.9,
@@ -277,12 +311,13 @@
             "projected_net_financial": 704,
             "reasoning": "Volum prea ridicat pentru vânzare la bucată; recomandare contractare en-gros către Cantina Tudor sau Cantina Sfântul Sava."
           },
-          "quantity": 320,
+          "quantity": 1480,
           "status": "pending_ai_review",
           "environmental_impact_factor": 0.8,
+          "weight_per_unit_kg": 1,
           "received_at": {
             "__firestoreType": "Timestamp",
-            "seconds": 1791972000,
+            "seconds": 1792312440,
             "nanoseconds": 0
           },
           "holding_cost_per_day": 0.3
@@ -307,19 +342,20 @@
             "reasoning": "Risc ridicat de perisabilitate; reducere de 35% pentru achiziție imediată în regim cantină.",
             "suggested_discount_pct": 35
           },
-          "quantity": 85,
+          "quantity": 260,
           "unit_of_measure": "kg",
           "store_id": "ZvBsQk88DOh3c5iREGYF",
           "expiration_date": {
             "__firestoreType": "Timestamp",
-            "seconds": 1792418400,
+            "seconds": 1792658040,
             "nanoseconds": 0
           },
           "bulk_eligible": true,
           "environmental_impact_factor": 4.5,
+          "weight_per_unit_kg": 1,
           "received_at": {
             "__firestoreType": "Timestamp",
-            "seconds": 1791961200,
+            "seconds": 1792312440,
             "nanoseconds": 0
           },
           "holding_cost_per_day": 0.8
@@ -334,10 +370,10 @@
             "longitude": 27.5744
           },
           "waste_disposal_cost_per_unit": 1.5,
-          "quantity": 140,
+          "quantity": 1090,
           "expiration_date": {
             "__firestoreType": "Timestamp",
-            "seconds": 1792605600,
+            "seconds": 1792917240,
             "nanoseconds": 0
           },
           "ai_recommendation": {
@@ -353,13 +389,17 @@
           "cost_price_per_unit": 8.5,
           "received_at": {
             "__firestoreType": "Timestamp",
-            "seconds": 1791964800,
+            "seconds": 1792312440,
             "nanoseconds": 0
           },
           "unit_of_measure": "buc",
           "bulk_eligible": true,
           "store_id": "ka5DczdhKQxfVHJPp5Ld",
-          "environmental_impact_factor": 1.2
+          "environmental_impact_factor": 1.2,
+          "weight_per_unit_kg": 1,
+          "demo_assumption_fields": [
+            "weight_per_unit_kg"
+          ]
         }
       },
       {
@@ -375,7 +415,7 @@
           "bulk_eligible": false,
           "waste_disposal_cost_per_unit": 0.8,
           "unit_of_measure": "buc",
-          "quantity": 60,
+          "quantity": 410,
           "store_location": {
             "__firestoreType": "GeoPoint",
             "latitude": 47.1742,
@@ -387,16 +427,20 @@
           "status": "pending_ai_review",
           "received_at": {
             "__firestoreType": "Timestamp",
-            "seconds": 1792044000,
+            "seconds": 1792312440,
             "nanoseconds": 0
           },
           "price_per_unit": 6.5,
           "expiration_date": {
             "__firestoreType": "Timestamp",
-            "seconds": 1792353600,
+            "seconds": 1792830840,
             "nanoseconds": 0
           },
-          "environmental_impact_factor": 0.6
+          "environmental_impact_factor": 0.6,
+          "weight_per_unit_kg": 0.5,
+          "demo_assumption_fields": [
+            "weight_per_unit_kg"
+          ]
         }
       }
     ],
@@ -21934,13 +21978,156 @@
     ]
   },
   "migration": {
-    "id": "formula-parameters-v1",
+    "id": "formula-parameters-v2",
     "source": "intellimenu-firestore-2026-10-18T07-19-16-713Z.json",
     "notes": [
       "Existing values are preserved; missing values copied from equivalent demo entities where available.",
       "ESG penalty, environmental factors and pickup SLA are demo assumptions, not measured values.",
+      "New demo assumptions: retail_discount_pct=0.5 (50%), promo_demand_multiplier=1.35.",
+      "Package weights are illustrative: dairy=1 kg/unit, bakery=0.5 kg/unit; kg lots use 1 kg/unit by definition.",
+      "demo_assumption_fields identifies the new unmeasured values in each affected document.",
       "Missing first-discount history is null (unknown), not a fabricated duration.",
       "No duplicate documents are removed."
+    ]
+  },
+  "demo_expiration_schedule": {
+    "generated_at_utc": "2026-10-18T08:34:00+00:00",
+    "note": "Synthetic demo dates. Only expiration_date is explicitly overwritten on import.",
+    "lots": [
+      {
+        "id": "0PYOAzR2WrJqHDEPlyVb",
+        "category": "meat",
+        "days_until_expiration": 7,
+        "expiration_utc": "2026-10-25T08:34:00+00:00"
+      },
+      {
+        "id": "HkGdMo7rcbhxKZoL3ayz",
+        "category": "produce",
+        "days_until_expiration": 6,
+        "expiration_utc": "2026-10-24T08:34:00+00:00"
+      },
+      {
+        "id": "ejDooWyDZjXxzA6I2Tqe",
+        "category": "dairy",
+        "days_until_expiration": 4,
+        "expiration_utc": "2026-10-22T08:34:00+00:00"
+      },
+      {
+        "id": "gpeytDD2Fy2MVx0Fcf2M",
+        "category": "bakery",
+        "days_until_expiration": 7,
+        "expiration_utc": "2026-10-25T08:34:00+00:00"
+      },
+      {
+        "id": "pKcTzKzdb8vH7tOk8mEd",
+        "category": "produce",
+        "days_until_expiration": 6,
+        "expiration_utc": "2026-10-24T08:34:00+00:00"
+      },
+      {
+        "id": "rky5fbfwy6VjJKsaK8tT",
+        "category": "meat",
+        "days_until_expiration": 4,
+        "expiration_utc": "2026-10-22T08:34:00+00:00"
+      },
+      {
+        "id": "ur9SOGlYmm2evA57Pgeq",
+        "category": "dairy",
+        "days_until_expiration": 7,
+        "expiration_utc": "2026-10-25T08:34:00+00:00"
+      },
+      {
+        "id": "vMEkG3SSESbm63sl46B2",
+        "category": "bakery",
+        "days_until_expiration": 6,
+        "expiration_utc": "2026-10-24T08:34:00+00:00"
+      }
+    ]
+  },
+  "demo_stock_scenarios": {
+    "evaluated_at_utc": "2026-10-18T08:34:00.000Z",
+    "note": "Synthetic newly received lots sized to demonstrate retail, eligible bulk buyers and NGO donations. Existing sales/claims remain sample historical data.",
+    "lots": [
+      {
+        "id": "0PYOAzR2WrJqHDEPlyVb",
+        "category": "meat",
+        "quantity": 490,
+        "unit": "kg",
+        "retail": 121.38,
+        "social": 343,
+        "donation": 25.63,
+        "waste": 0
+      },
+      {
+        "id": "HkGdMo7rcbhxKZoL3ayz",
+        "category": "produce",
+        "quantity": 1490,
+        "unit": "kg",
+        "retail": 370.91,
+        "social": 1043,
+        "donation": 76.09,
+        "waste": 0
+      },
+      {
+        "id": "ejDooWyDZjXxzA6I2Tqe",
+        "category": "dairy",
+        "quantity": 620,
+        "unit": "buc",
+        "retail": 153.49,
+        "social": 434,
+        "donation": 32.51,
+        "waste": 0
+      },
+      {
+        "id": "gpeytDD2Fy2MVx0Fcf2M",
+        "category": "bakery",
+        "quantity": 450,
+        "unit": "buc",
+        "retail": 357.94,
+        "social": 0,
+        "donation": 92.06,
+        "waste": 0
+      },
+      {
+        "id": "pKcTzKzdb8vH7tOk8mEd",
+        "category": "produce",
+        "quantity": 1480,
+        "unit": "kg",
+        "retail": 369.3,
+        "social": 1036,
+        "donation": 74.7,
+        "waste": 0
+      },
+      {
+        "id": "rky5fbfwy6VjJKsaK8tT",
+        "category": "meat",
+        "quantity": 260,
+        "unit": "kg",
+        "retail": 63.44,
+        "social": 182,
+        "donation": 14.56,
+        "waste": 0
+      },
+      {
+        "id": "ur9SOGlYmm2evA57Pgeq",
+        "category": "dairy",
+        "quantity": 1090,
+        "unit": "buc",
+        "retail": 272.27,
+        "social": 763,
+        "donation": 54.73,
+        "waste": 0
+      },
+      {
+        "id": "vMEkG3SSESbm63sl46B2",
+        "category": "bakery",
+        "quantity": 410,
+        "unit": "buc",
+        "retail": 327.75,
+        "social": 0,
+        "donation": 82.25,
+        "waste": 0
+      }
     ]
   }
 }
