@@ -232,7 +232,7 @@
           },
           "store_id": "4CtaV1L6eUe5KfcnXnUf",
           "environmental_impact_factor": 1.2,
-          "weight_per_unit_kg": 1,
+          "weight_per_unit_kg": 1.0,
           "demo_assumption_fields": [
             "weight_per_unit_kg"
           ],
@@ -396,7 +396,7 @@
           "bulk_eligible": true,
           "store_id": "ka5DczdhKQxfVHJPp5Ld",
           "environmental_impact_factor": 1.2,
-          "weight_per_unit_kg": 1,
+          "weight_per_unit_kg": 1.0,
           "demo_assumption_fields": [
             "weight_per_unit_kg"
           ]
@@ -466,7 +466,22 @@
           "type": "bulk_buyer",
           "contact_phone": "+40232278683",
           "daily_capacity_kg": 900,
-          "pickup_sla_hours": 4
+          "pickup_sla_hours": 4,
+          "current_demand_by_category_kg": {
+            "dairy": 180.0,
+            "meat": 180.0,
+            "produce": 180.0,
+            "bakery": 180.0
+          },
+          "last_fulfilled_at": {
+            "__firestoreType": "Timestamp",
+            "seconds": 1791102840,
+            "nanoseconds": 0
+          },
+          "demo_assumption_fields": [
+            "current_demand_by_category_kg",
+            "last_fulfilled_at"
+          ]
         }
       },
       {
@@ -488,7 +503,21 @@
             "latitude": 47.1812,
             "longitude": 27.5684
           },
-          "pickup_sla_hours": 6
+          "pickup_sla_hours": 6,
+          "current_demand_by_category_kg": {
+            "bakery": 32.0,
+            "produce": 32.0,
+            "dry_goods": 32.0
+          },
+          "last_fulfilled_at": {
+            "__firestoreType": "Timestamp",
+            "seconds": 1791448440,
+            "nanoseconds": 0
+          },
+          "demo_assumption_fields": [
+            "current_demand_by_category_kg",
+            "last_fulfilled_at"
+          ]
         }
       },
       {
@@ -511,7 +540,22 @@
           "name": "Centrul de Urgență Noapte și Zi Iași",
           "type": "ngo",
           "daily_capacity_kg": 220,
-          "pickup_sla_hours": 6
+          "pickup_sla_hours": 6,
+          "current_demand_by_category_kg": {
+            "meat": 44.0,
+            "dairy": 44.0,
+            "bakery": 44.0,
+            "canned": 44.0
+          },
+          "last_fulfilled_at": {
+            "__firestoreType": "Timestamp",
+            "seconds": 1792053240,
+            "nanoseconds": 0
+          },
+          "demo_assumption_fields": [
+            "current_demand_by_category_kg",
+            "last_fulfilled_at"
+          ]
         }
       },
       {
@@ -535,6 +579,21 @@
           "contact_phone": "+40232278683",
           "has_refrigeration": true,
           "pickup_sla_hours": 4,
+          "current_demand_by_category_kg": {
+            "dairy": 180.0,
+            "meat": 180.0,
+            "produce": 180.0,
+            "bakery": 180.0
+          },
+          "last_fulfilled_at": {
+            "__firestoreType": "Timestamp",
+            "seconds": 1791102840,
+            "nanoseconds": 0
+          },
+          "demo_assumption_fields": [
+            "current_demand_by_category_kg",
+            "last_fulfilled_at"
+          ],
           "offered_price_pct": 0.4
         }
       },
@@ -557,7 +616,21 @@
             "bakery",
             "produce"
           ],
-          "pickup_sla_hours": 6
+          "pickup_sla_hours": 6,
+          "current_demand_by_category_kg": {
+            "dairy": 48.0,
+            "bakery": 48.0,
+            "produce": 48.0
+          },
+          "last_fulfilled_at": {
+            "__firestoreType": "Timestamp",
+            "seconds": 1792226040,
+            "nanoseconds": 0
+          },
+          "demo_assumption_fields": [
+            "current_demand_by_category_kg",
+            "last_fulfilled_at"
+          ]
         }
       },
       {
@@ -581,7 +654,22 @@
           },
           "has_refrigeration": true,
           "contact_phone": "+40232220541",
-          "pickup_sla_hours": 4
+          "pickup_sla_hours": 4,
+          "current_demand_by_category_kg": {
+            "dairy": 80.0,
+            "produce": 80.0,
+            "meat": 80.0,
+            "bakery": 80.0
+          },
+          "last_fulfilled_at": {
+            "__firestoreType": "Timestamp",
+            "seconds": 1790498040,
+            "nanoseconds": 0
+          },
+          "demo_assumption_fields": [
+            "current_demand_by_category_kg",
+            "last_fulfilled_at"
+          ]
         }
       },
       {
@@ -604,7 +692,22 @@
           "daily_capacity_kg": 220,
           "name": "Centrul de Urgență Noapte și Zi Iași",
           "type": "ngo",
-          "pickup_sla_hours": 6
+          "pickup_sla_hours": 6,
+          "current_demand_by_category_kg": {
+            "meat": 44.0,
+            "dairy": 44.0,
+            "bakery": 44.0,
+            "canned": 44.0
+          },
+          "last_fulfilled_at": {
+            "__firestoreType": "Timestamp",
+            "seconds": 1792053240,
+            "nanoseconds": 0
+          },
+          "demo_assumption_fields": [
+            "current_demand_by_category_kg",
+            "last_fulfilled_at"
+          ]
         }
       },
       {
@@ -626,7 +729,21 @@
           "contact_phone": "+40232278535",
           "name": "Fundația Serviciilor Sociale Bethany Iași",
           "type": "ngo",
-          "pickup_sla_hours": 6
+          "pickup_sla_hours": 6,
+          "current_demand_by_category_kg": {
+            "bakery": 32.0,
+            "produce": 32.0,
+            "dry_goods": 32.0
+          },
+          "last_fulfilled_at": {
+            "__firestoreType": "Timestamp",
+            "seconds": 1791448440,
+            "nanoseconds": 0
+          },
+          "demo_assumption_fields": [
+            "current_demand_by_category_kg",
+            "last_fulfilled_at"
+          ]
         }
       },
       {
@@ -650,7 +767,19 @@
           "name": "Banca pentru Alimente - Hub Regional Iași",
           "type": "ngo",
           "has_refrigeration": true,
-          "pickup_sla_hours": 6
+          "pickup_sla_hours": 6,
+          "current_demand_by_category_kg": {
+            "dairy": 128.0,
+            "bakery": 128.0,
+            "produce": 128.0,
+            "meat": 128.0,
+            "canned": 128.0
+          },
+          "last_fulfilled_at": null,
+          "demo_assumption_fields": [
+            "current_demand_by_category_kg",
+            "last_fulfilled_at"
+          ]
         }
       },
       {
@@ -674,6 +803,21 @@
           "address": "Str. Costache Negri nr. 48, Iași",
           "has_refrigeration": true,
           "pickup_sla_hours": 4,
+          "current_demand_by_category_kg": {
+            "dairy": 80.0,
+            "produce": 80.0,
+            "meat": 80.0,
+            "bakery": 80.0
+          },
+          "last_fulfilled_at": {
+            "__firestoreType": "Timestamp",
+            "seconds": 1790498040,
+            "nanoseconds": 0
+          },
+          "demo_assumption_fields": [
+            "current_demand_by_category_kg",
+            "last_fulfilled_at"
+          ],
           "offered_price_pct": 0.35
         }
       },
@@ -698,6 +842,21 @@
           "has_refrigeration": true,
           "contact_phone": "+40232242100",
           "pickup_sla_hours": 4,
+          "current_demand_by_category_kg": {
+            "dairy": 100.0,
+            "produce": 100.0,
+            "meat": 100.0,
+            "canned": 100.0
+          },
+          "last_fulfilled_at": {
+            "__firestoreType": "Timestamp",
+            "seconds": 1791707640,
+            "nanoseconds": 0
+          },
+          "demo_assumption_fields": [
+            "current_demand_by_category_kg",
+            "last_fulfilled_at"
+          ],
           "offered_price_pct": 0.3
         }
       },
@@ -722,7 +881,19 @@
           "daily_capacity_kg": 800,
           "address": "Calea Chișinăului nr. 22, Iași",
           "has_refrigeration": true,
-          "pickup_sla_hours": 6
+          "pickup_sla_hours": 6,
+          "current_demand_by_category_kg": {
+            "dairy": 128.0,
+            "bakery": 128.0,
+            "produce": 128.0,
+            "meat": 128.0,
+            "canned": 128.0
+          },
+          "last_fulfilled_at": null,
+          "demo_assumption_fields": [
+            "current_demand_by_category_kg",
+            "last_fulfilled_at"
+          ]
         }
       },
       {
@@ -744,7 +915,21 @@
             "latitude": 47.1585,
             "longitude": 27.589
           },
-          "pickup_sla_hours": 6
+          "pickup_sla_hours": 6,
+          "current_demand_by_category_kg": {
+            "dairy": 48.0,
+            "bakery": 48.0,
+            "produce": 48.0
+          },
+          "last_fulfilled_at": {
+            "__firestoreType": "Timestamp",
+            "seconds": 1792226040,
+            "nanoseconds": 0
+          },
+          "demo_assumption_fields": [
+            "current_demand_by_category_kg",
+            "last_fulfilled_at"
+          ]
         }
       },
       {
@@ -768,7 +953,22 @@
             "canned"
           ],
           "has_refrigeration": true,
-          "pickup_sla_hours": 4
+          "pickup_sla_hours": 4,
+          "current_demand_by_category_kg": {
+            "dairy": 100.0,
+            "produce": 100.0,
+            "meat": 100.0,
+            "canned": 100.0
+          },
+          "last_fulfilled_at": {
+            "__firestoreType": "Timestamp",
+            "seconds": 1791707640,
+            "nanoseconds": 0
+          },
+          "demo_assumption_fields": [
+            "current_demand_by_category_kg",
+            "last_fulfilled_at"
+          ]
         }
       }
     ],
@@ -21978,7 +22178,7 @@
     ]
   },
   "migration": {
-    "id": "formula-parameters-v2",
+    "id": "formula-parameters-v3-matchmaking",
     "source": "intellimenu-firestore-2026-10-18T07-19-16-713Z.json",
     "notes": [
       "Existing values are preserved; missing values copied from equivalent demo entities where available.",
@@ -21987,7 +22187,9 @@
       "Package weights are illustrative: dairy=1 kg/unit, bakery=0.5 kg/unit; kg lots use 1 kg/unit by definition.",
       "demo_assumption_fields identifies the new unmeasured values in each affected document.",
       "Missing first-discount history is null (unknown), not a fabricated duration.",
-      "No duplicate documents are removed."
+      "No duplicate documents are removed.",
+      "Partner demand and last fulfillment are synthetic matchmaking fixtures; demand totals do not exceed 80% of daily capacity.",
+      "null last_fulfilled_at represents a demo beneficiary that has never received an allocation."
     ]
   },
   "demo_expiration_schedule": {

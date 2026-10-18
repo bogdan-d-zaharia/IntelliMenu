@@ -1,6 +1,7 @@
 """Create a modified backup and an additive migration; keep the source untouched."""
 import copy
 import json
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 assets = Path(__file__).resolve().parents[1] / 'src' / 'assets'
@@ -10,6 +11,8 @@ updated = copy.deepcopy(original)
 patches = []
 previous_path = assets / 'intellimenu-firestore-modified.json'
 previous = json.loads(previous_path.read_text(encoding='utf-8')) if previous_path.exists() else {}
+demo_anchor = datetime.fromisoformat(previous.get('demo_expiration_schedule', {}).get('generated_at_utc', original['exportedAt']).replace('Z', '+00:00')).astimezone(timezone.utc)
+partner_names = sorted({document['data']['name'] for document in original['collections']['partners']})
 
 identity = {
     'stores': lambda d: d['name'],
@@ -44,6 +47,22 @@ for collection, documents in updated['collections'].items():
                 defaults['demo_assumption_fields'] = ['weight_per_unit_kg']
         elif collection == 'partners':
             defaults = {'pickup_sla_hours': 6 if data['type'] == 'ngo' else 4}
+            # Demo demand is a share of one day's capacity, divided across the
+            # accepted categories. Never overwrite operational demand on import.
+            categories = data['accepted_categories']
+            per_category_kg = round(data['daily_capacity_kg'] * 0.8 / max(1, len(categories)), 2)
+            priority_index = partner_names.index(data['name'])
+            days_since_fulfilled = [None, 21, 14, 7, 3, 10, 1][priority_index % 7]
+            last_fulfilled = None if days_since_fulfilled is None else {
+                '__firestoreType': 'Timestamp',
+                'seconds': int((demo_anchor - timedelta(days=days_since_fulfilled)).timestamp()),
+                'nanoseconds': 0,
+            }
+            defaults.update({
+                'current_demand_by_category_kg': {category: per_category_kg for category in categories},
+                'last_fulfilled_at': last_fulfilled,
+                'demo_assumption_fields': ['current_demand_by_category_kg', 'last_fulfilled_at'],
+            })
         elif collection == 'sales_history':
             # Receipt/first-discount events cannot be reconstructed from daily sales.
             defaults = {'time_to_first_discount_hours': None}
@@ -70,7 +89,7 @@ for collection, documents in updated['collections'].items():
             patches.append({'collection': collection, 'id': document['id'], 'fields': additions})
 
 updated['migration'] = {
-    'id': 'formula-parameters-v2',
+    'id': 'formula-parameters-v3-matchmaking',
     'source': source.name,
     'notes': [
         'Existing values are preserved; missing values copied from equivalent demo entities where available.',
@@ -80,6 +99,8 @@ updated['migration'] = {
         'demo_assumption_fields identifies the new unmeasured values in each affected document.',
         'Missing first-discount history is null (unknown), not a fabricated duration.',
         'No duplicate documents are removed.',
+        'Partner demand and last fulfillment are synthetic matchmaking fixtures; demand totals do not exceed 80% of daily capacity.',
+        'null last_fulfilled_at represents a demo beneficiary that has never received an allocation.',
     ],
 }
 # Preserve the explicitly refreshed demo dates when rebuilding additive patches.

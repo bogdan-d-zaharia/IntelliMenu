@@ -11,13 +11,11 @@ export const app = getApps().length ? getApp() : initializeApp({
   appId: '1:1043181665154:web:ac33e5074f8f8eb92fad9b',
 });
 
-// Opt in only when App Check is enforced for this project. A registered, stable
-// debug token prevents generating new exchange requests on each page reload.
-const siteKey = import.meta.env.VITE_FIREBASE_APPCHECK_SITE_KEY;
-if (siteKey) {
-  if (import.meta.env.DEV && import.meta.env.VITE_FIREBASE_APPCHECK_DEBUG_TOKEN) {
-    (globalThis as typeof globalThis & { FIREBASE_APPCHECK_DEBUG_TOKEN?: string }).FIREBASE_APPCHECK_DEBUG_TOKEN = import.meta.env.VITE_FIREBASE_APPCHECK_DEBUG_TOKEN;
-  }
-  initializeAppCheck(app, { provider: new ReCaptchaEnterpriseProvider(siteKey), isTokenAutoRefreshEnabled: true });
+// Must be configured BEFORE initializeAppCheck. With true, the Firebase SDK
+// generates/persists the local debug token and prints it in the browser console.
+if (import.meta.env.DEV) {
+  (globalThis as typeof globalThis & { FIREBASE_APPCHECK_DEBUG_TOKEN?: boolean | string }).FIREBASE_APPCHECK_DEBUG_TOKEN = import.meta.env.VITE_FIREBASE_APPCHECK_DEBUG_TOKEN || true;
 }
+const siteKey = import.meta.env.VITE_FIREBASE_APPCHECK_SITE_KEY || '6LdZlvMtAAAAAEk7zUgUsu95bA7SOTABlw3REZ1V';
+initializeAppCheck(app, { provider: new ReCaptchaEnterpriseProvider(siteKey), isTokenAutoRefreshEnabled: true });
 export const db = getFirestore(app);

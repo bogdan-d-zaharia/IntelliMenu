@@ -10,7 +10,8 @@ function moduleUrl(path, replacements = {}) {
 }
 const configUrl = moduleUrl('../src/data/categoryConfig.ts');
 const engine = await import(moduleUrl('../src/lib/yieldEngine.ts', { '../data/categoryConfig': configUrl }));
-const adapter = await import(moduleUrl('../src/lib/firestoreAdapter.ts', { '../data/categoryConfig': configUrl }));
+const matchmakingUrl = moduleUrl('../src/lib/matchmaking.ts');
+const adapter = await import(moduleUrl('../src/lib/firestoreAdapter.ts', { '../data/categoryConfig': configUrl, './matchmaking': matchmakingUrl }));
 function decode(value) {
   if (value?.__firestoreType === 'Timestamp') return new Timestamp(value.seconds, value.nanoseconds);
   if (Array.isArray(value)) return value.map(decode);

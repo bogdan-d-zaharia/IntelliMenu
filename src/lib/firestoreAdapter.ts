@@ -1,6 +1,7 @@
 import type { InventoryRecord, StoreRecord, PartnerRecord, ClaimRecord, SaleRecord } from '../data/FirestoreProvider';
 import type { CategorieAlimentara, LotAlimentar, ConfigurareCategorie } from '../types/yield.types';
 import { CONFIGURARI_CATEGORII } from '../data/categoryConfig';
+import { remainingCapacity, reservationDay } from './matchmaking';
 
 export const categoryLabels: Record<string, string> = { dairy: 'Lactate & Brânzeturi', meat: 'Mezeluri & Carne', bakery: 'Patiserie & Panificație', produce: 'Fructe & Legume', dry_goods: 'Produse Uscate & Conserve', canned: 'Conserve' };
 const categoryMap: Record<string, CategorieAlimentara> = { dairy: 'lactate', meat: 'carne_proaspata', bakery: 'panificatie', produce: 'fructe_legume', dry_goods: 'conserve_uscate', canned: 'conserve_uscate' };
@@ -23,7 +24,13 @@ export function adaptLot(lot: InventoryRecord, store: StoreRecord | undefined, p
   const totalHours = (lot.expiration_date.toMillis() - lot.received_at.toMillis()) / 3600000;
   const dailySales = store.avg_daily_sales_by_category?.[lot.category];
   if (!(totalHours > 0) || dailySales == null || dailySales < 0 || !(lot.quantity > 0)) throw new Error('Valabilitatea, cantitatea sau media zilnică de vânzări sunt invalide.');
-  const eligible = compatiblePartners(lot, partners, now, claims);
+  const eligible = compatiblePartners(lot, partners, now, claims)
+    .filter(partner => partner.last_fulfilled_at !== undefined
+      && Number.isFinite(partner.current_demand_by_category_kg?.[lot.category]))
+    .map(partner => ({ ...partner, daily_capacity_kg: Math.min(
+      Math.max(0, partner.current_demand_by_category_kg?.[lot.category] ?? 0),
+      remainingCapacity(partner, claims, [lot], reservationDay(now)),
+    ) })).filter(partner => partner.daily_capacity_kg > 0);
   const buyers = eligible.filter(partner => partner.type === 'bulk_buyer' && lot.bulk_eligible && partner.offered_price_pct != null);
   const ngos = eligible.filter(partner => partner.type === 'ngo');
   const weight = lot.unit_of_measure === 'kg' ? 1 : lot.weight_per_unit_kg;

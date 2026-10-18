@@ -112,7 +112,7 @@
       "id": "ejDooWyDZjXxzA6I2Tqe",
       "fields": {
         "environmental_impact_factor": 1.2,
-        "weight_per_unit_kg": 1,
+        "weight_per_unit_kg": 1.0,
         "demo_assumption_fields": [
           "weight_per_unit_kg"
         ],
@@ -226,7 +226,7 @@
       "id": "ur9SOGlYmm2evA57Pgeq",
       "fields": {
         "environmental_impact_factor": 1.2,
-        "weight_per_unit_kg": 1,
+        "weight_per_unit_kg": 1.0,
         "demo_assumption_fields": [
           "weight_per_unit_kg"
         ]
@@ -273,21 +273,65 @@
       "collection": "partners",
       "id": "6uRB7sy8RUtpBdSQ0hHy",
       "fields": {
-        "pickup_sla_hours": 4
+        "pickup_sla_hours": 4,
+        "current_demand_by_category_kg": {
+          "dairy": 180.0,
+          "meat": 180.0,
+          "produce": 180.0,
+          "bakery": 180.0
+        },
+        "last_fulfilled_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1791102840,
+          "nanoseconds": 0
+        },
+        "demo_assumption_fields": [
+          "current_demand_by_category_kg",
+          "last_fulfilled_at"
+        ]
       }
     },
     {
       "collection": "partners",
       "id": "7uC9RendMYhJyiNWAu3k",
       "fields": {
-        "pickup_sla_hours": 6
+        "pickup_sla_hours": 6,
+        "current_demand_by_category_kg": {
+          "bakery": 32.0,
+          "produce": 32.0,
+          "dry_goods": 32.0
+        },
+        "last_fulfilled_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1791448440,
+          "nanoseconds": 0
+        },
+        "demo_assumption_fields": [
+          "current_demand_by_category_kg",
+          "last_fulfilled_at"
+        ]
       }
     },
     {
       "collection": "partners",
       "id": "APdWRzlSVgKGIuB2vliP",
       "fields": {
-        "pickup_sla_hours": 6
+        "pickup_sla_hours": 6,
+        "current_demand_by_category_kg": {
+          "meat": 44.0,
+          "dairy": 44.0,
+          "bakery": 44.0,
+          "canned": 44.0
+        },
+        "last_fulfilled_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792053240,
+          "nanoseconds": 0
+        },
+        "demo_assumption_fields": [
+          "current_demand_by_category_kg",
+          "last_fulfilled_at"
+        ]
       }
     },
     {
@@ -295,6 +339,21 @@
       "id": "IKoWCUbpyGf6YP8NQAuH",
       "fields": {
         "pickup_sla_hours": 4,
+        "current_demand_by_category_kg": {
+          "dairy": 180.0,
+          "meat": 180.0,
+          "produce": 180.0,
+          "bakery": 180.0
+        },
+        "last_fulfilled_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1791102840,
+          "nanoseconds": 0
+        },
+        "demo_assumption_fields": [
+          "current_demand_by_category_kg",
+          "last_fulfilled_at"
+        ],
         "offered_price_pct": 0.4
       }
     },
@@ -302,35 +361,105 @@
       "collection": "partners",
       "id": "Mcgqw6aNz0ar8jKW9Prf",
       "fields": {
-        "pickup_sla_hours": 6
+        "pickup_sla_hours": 6,
+        "current_demand_by_category_kg": {
+          "dairy": 48.0,
+          "bakery": 48.0,
+          "produce": 48.0
+        },
+        "last_fulfilled_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792226040,
+          "nanoseconds": 0
+        },
+        "demo_assumption_fields": [
+          "current_demand_by_category_kg",
+          "last_fulfilled_at"
+        ]
       }
     },
     {
       "collection": "partners",
       "id": "Nvfmn8zDo5uExQs9FIWI",
       "fields": {
-        "pickup_sla_hours": 4
+        "pickup_sla_hours": 4,
+        "current_demand_by_category_kg": {
+          "dairy": 80.0,
+          "produce": 80.0,
+          "meat": 80.0,
+          "bakery": 80.0
+        },
+        "last_fulfilled_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1790498040,
+          "nanoseconds": 0
+        },
+        "demo_assumption_fields": [
+          "current_demand_by_category_kg",
+          "last_fulfilled_at"
+        ]
       }
     },
     {
       "collection": "partners",
       "id": "OMM0qsTskVbJsGo0CAvr",
       "fields": {
-        "pickup_sla_hours": 6
+        "pickup_sla_hours": 6,
+        "current_demand_by_category_kg": {
+          "meat": 44.0,
+          "dairy": 44.0,
+          "bakery": 44.0,
+          "canned": 44.0
+        },
+        "last_fulfilled_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792053240,
+          "nanoseconds": 0
+        },
+        "demo_assumption_fields": [
+          "current_demand_by_category_kg",
+          "last_fulfilled_at"
+        ]
       }
     },
     {
       "collection": "partners",
       "id": "mIP3xbAOxozzxlRy7OBG",
       "fields": {
-        "pickup_sla_hours": 6
+        "pickup_sla_hours": 6,
+        "current_demand_by_category_kg": {
+          "bakery": 32.0,
+          "produce": 32.0,
+          "dry_goods": 32.0
+        },
+        "last_fulfilled_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1791448440,
+          "nanoseconds": 0
+        },
+        "demo_assumption_fields": [
+          "current_demand_by_category_kg",
+          "last_fulfilled_at"
+        ]
       }
     },
     {
       "collection": "partners",
       "id": "rWkIvTHWTBMF9zqYvIs8",
       "fields": {
-        "pickup_sla_hours": 6
+        "pickup_sla_hours": 6,
+        "current_demand_by_category_kg": {
+          "dairy": 128.0,
+          "bakery": 128.0,
+          "produce": 128.0,
+          "meat": 128.0,
+          "canned": 128.0
+        },
+        "last_fulfilled_at": null,
+        "demo_assumption_fields": [
+          "current_demand_by_category_kg",
+          "last_fulfilled_at"
+        ]
       }
     },
     {
@@ -338,6 +467,21 @@
       "id": "sC6M2dyDWzZEjFI7xlf4",
       "fields": {
         "pickup_sla_hours": 4,
+        "current_demand_by_category_kg": {
+          "dairy": 80.0,
+          "produce": 80.0,
+          "meat": 80.0,
+          "bakery": 80.0
+        },
+        "last_fulfilled_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1790498040,
+          "nanoseconds": 0
+        },
+        "demo_assumption_fields": [
+          "current_demand_by_category_kg",
+          "last_fulfilled_at"
+        ],
         "offered_price_pct": 0.35
       }
     },
@@ -346,6 +490,21 @@
       "id": "tQUuG8L8VmI1TFWROibw",
       "fields": {
         "pickup_sla_hours": 4,
+        "current_demand_by_category_kg": {
+          "dairy": 100.0,
+          "produce": 100.0,
+          "meat": 100.0,
+          "canned": 100.0
+        },
+        "last_fulfilled_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1791707640,
+          "nanoseconds": 0
+        },
+        "demo_assumption_fields": [
+          "current_demand_by_category_kg",
+          "last_fulfilled_at"
+        ],
         "offered_price_pct": 0.3
       }
     },
@@ -353,21 +512,62 @@
       "collection": "partners",
       "id": "uvAddcLf4L7ecuapIa6e",
       "fields": {
-        "pickup_sla_hours": 6
+        "pickup_sla_hours": 6,
+        "current_demand_by_category_kg": {
+          "dairy": 128.0,
+          "bakery": 128.0,
+          "produce": 128.0,
+          "meat": 128.0,
+          "canned": 128.0
+        },
+        "last_fulfilled_at": null,
+        "demo_assumption_fields": [
+          "current_demand_by_category_kg",
+          "last_fulfilled_at"
+        ]
       }
     },
     {
       "collection": "partners",
       "id": "wXfp2nEkApTaF3eR540C",
       "fields": {
-        "pickup_sla_hours": 6
+        "pickup_sla_hours": 6,
+        "current_demand_by_category_kg": {
+          "dairy": 48.0,
+          "bakery": 48.0,
+          "produce": 48.0
+        },
+        "last_fulfilled_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1792226040,
+          "nanoseconds": 0
+        },
+        "demo_assumption_fields": [
+          "current_demand_by_category_kg",
+          "last_fulfilled_at"
+        ]
       }
     },
     {
       "collection": "partners",
       "id": "wjVbpQq3EYOioppi4vAx",
       "fields": {
-        "pickup_sla_hours": 4
+        "pickup_sla_hours": 4,
+        "current_demand_by_category_kg": {
+          "dairy": 100.0,
+          "produce": 100.0,
+          "meat": 100.0,
+          "canned": 100.0
+        },
+        "last_fulfilled_at": {
+          "__firestoreType": "Timestamp",
+          "seconds": 1791707640,
+          "nanoseconds": 0
+        },
+        "demo_assumption_fields": [
+          "current_demand_by_category_kg",
+          "last_fulfilled_at"
+        ]
       }
     },
     {

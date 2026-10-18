@@ -22,7 +22,7 @@ export const InventoryDashboard: React.FC<InventoryDashboardProps> = ({
     .flatMap(source => {
       try {
         const adapted = adaptLot(source, data.stores.find(store => store.id === source.store_id), data.partners, data.claims, data.sales_history, data.now);
-        return [{ ...adapted.lot, unit: source.unit_of_measure, expiry: source.expiration_date.toMillis() }];
+        return [{ ...adapted.lot, status: source.status, unit: source.unit_of_measure, expiry: source.expiration_date.toMillis() }];
       } catch (error) {
         errors.push(`${source.id}: ${error instanceof Error ? error.message : String(error)}`);
         return [];
@@ -82,7 +82,7 @@ export const InventoryDashboard: React.FC<InventoryDashboardProps> = ({
                 <div className="flex justify-between items-start mb-2">
                   <div>
                     <span className="text-xs text-gray-400 font-mono">{lot.id}</span>
-                    <h3 className="text-lg font-bold text-white">{lot.nume}</h3>
+                    <h3 className="text-lg font-bold text-white">{lot.nume}</h3>{lot.status === 'reserved' && <span className="text-xs text-sky-400">Rezervat</span>}
                   </div>
                   <span className={`px-2.5 py-1 text-xs font-bold rounded-full border ${statusColor}`}>
                     Risc: {scorRisc}/100 ({statusText})

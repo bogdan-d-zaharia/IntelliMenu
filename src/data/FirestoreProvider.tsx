@@ -11,8 +11,8 @@ export interface InventoryRecord {
   bulk_eligible: boolean; status: string; weight_per_unit_kg?: number;
   distribution_plan?: { scenario: string; title: string; b2b_pct: number; b2c_pct: number; applied_at?: Timestamp; b2b_quantity?: number; b2c_quantity?: number; donation_quantity?: number; donation_remaining?: number };
 }
-export interface PartnerRecord { id: string; name: string; type: string; accepted_categories: string[]; has_refrigeration: boolean; daily_capacity_kg: number; pickup_sla_hours?: number; offered_price_pct?: number }
-export interface ClaimRecord { id: string; lot_id: string; partner_id: string; claimed_quantity: number; status: string; avg_processing_time_hours?: number; pickup_deadline?: Timestamp; pickup_code?: string }
+export interface PartnerRecord { id: string; name: string; type: string; accepted_categories: string[]; has_refrigeration: boolean; daily_capacity_kg: number; pickup_sla_hours?: number; offered_price_pct?: number; current_demand_by_category_kg?: Record<string, number>; last_fulfilled_at?: Timestamp | null }
+export interface ClaimRecord { id: string; lot_id: string; partner_id: string; claimed_quantity: number; status: string; channel?: 'social' | 'donation'; claimed_weight_kg?: number; reservation_day?: string; unit_of_measure?: string; price_per_unit?: number; completed_at?: Timestamp; avg_processing_time_hours?: number; pickup_deadline?: Timestamp; pickup_code?: string }
 export interface SaleRecord { id: string; store_id: string; category: string; is_bulk: boolean; quantity_sold: number; time_to_first_discount_hours?: number | null }
 interface Data {
   stores: StoreRecord[]; inventory_lots: InventoryRecord[]; partners: PartnerRecord[]; claims: ClaimRecord[]; sales_history: SaleRecord[];

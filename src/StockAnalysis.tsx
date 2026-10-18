@@ -1,4 +1,5 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
+import { LoaderCircle } from 'lucide-react';
 import {
   ComposedChart,
   Line,
@@ -90,13 +91,37 @@ const AnalysisCharts = ({ sourceLot, adapted, onBack, onNavigate }: AnalysisChar
   const lotCurent = adapted.lot;
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
-  const disabled = saving || saved || !!sourceLot.distribution_plan || lotCurent.oreRămase <= 0;
+  const [progress, setProgress] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const executing = useRef(false);
+  const alreadyReserved = !!sourceLot.distribution_plan || sourceLot.status === 'reserved';
+  const disabled = saving || saved || alreadyReserved || lotCurent.oreRămase <= 0;
   const execute = async (scenario: RezultatScenariu) => {
+    if (executing.current || disabled) return;
+    executing.current = true;
     setSaving(true);
-    try { await applyPlan(sourceLot, scenario); setSaved(true); onNavigate?.('active-offers'); }
-    catch (error) { window.alert(error instanceof Error ? error.message : String(error)); }
-    finally { setSaving(false); }
+    setErrorMessage(''); setSuccessMessage('');
+    setProgress('Se pornește distribuția...');
+    try {
+      const result = await applyPlan(sourceLot, scenario, setProgress);
+      setSaved(true);
+      setSuccessMessage(`Plan executat: ${result.claimIds.length} rezervări salvate, ${Number(result.reservedQuantity.toFixed(3))} ${sourceLot.unit_of_measure} alocate. Lotul este rezervat.`);
+    }
+    catch (error) {
+      console.error('Executarea planului a eșuat:', error);
+      setErrorMessage(error instanceof Error ? error.message : String(error));
+    }
+    finally { executing.current = false; setSaving(false); }
   };
+  const feedback = <div aria-live="polite" aria-atomic="true" className="mt-3 text-xs">
+    {saving && <p role="status" className="flex items-center gap-2 text-sky-300"><LoaderCircle size={16} className="animate-spin shrink-0" />{progress}</p>}
+    {errorMessage && <p role="alert" className="rounded-lg border border-red-500/40 bg-red-950/30 p-3 text-red-300">{errorMessage}</p>}
+    {successMessage && <p role="status" className="rounded-lg border border-emerald-500/40 p-3 text-emerald-300">{successMessage}</p>}
+    {!saving && !successMessage && alreadyReserved && <p className="text-amber-300">Lotul are deja un plan rezervat; nu poate fi executat din nou.</p>}
+    {!saving && !alreadyReserved && lotCurent.oreRămase <= 0 && <p className="text-red-300">Lotul a expirat; planul nu poate fi executat.</p>}
+    {!saving && (saved || alreadyReserved) && onNavigate && <button onClick={() => onNavigate('active-offers')} className="mt-2 text-sky-400 underline">Vezi rezervările salvate →</button>}
+  </div>;
   const [activeTab, setActiveTab] = useState<'suprapus' | 'secvential'>('suprapus');
 
   // Calculare dinamica prin motorul de simulare
@@ -322,9 +347,10 @@ const AnalysisCharts = ({ sourceLot, adapted, onBack, onNavigate }: AnalysisChar
                     </li>
                   </ul>
                 </div>
-                <button disabled={disabled} onClick={() => execute(sHibridAI)} className="w-full mt-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg text-xs transition-all">
-                  Execută Planul Hibrid AI ({formatMoney(sHibridAI.profitNetEstimatRON)})
+                <button disabled={disabled} aria-busy={saving} onClick={() => execute(sHibridAI)} className="w-full mt-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-lg text-xs transition-all">
+                  {saving ? 'Se execută planul...' : saved || alreadyReserved ? 'Plan deja rezervat' : `Execută Planul Hibrid AI (${formatMoney(sHibridAI.profitNetEstimatRON)})`}
                 </button>
+                {feedback}
               </div>
             </div>
 
@@ -405,9 +431,10 @@ const AnalysisCharts = ({ sourceLot, adapted, onBack, onNavigate }: AnalysisChar
                     </li>
                   </ul>
                 </div>
-                <button disabled={disabled} onClick={() => execute(sSecvential)} className="w-full mt-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg text-xs transition-all">
-                  Execută Lichidarea B2B
+                <button disabled={disabled} aria-busy={saving} onClick={() => execute(sSecvential)} className="w-full mt-4 py-2.5 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-lg text-xs transition-all">
+                  {saving ? 'Se execută planul...' : saved || alreadyReserved ? 'Plan deja rezervat' : 'Execută Lichidarea B2B'}
                 </button>
+                {feedback}
               </div>
             </div>
 
