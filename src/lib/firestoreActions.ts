@@ -4,7 +4,7 @@ import type { RezultatScenariu } from '../types/yield.types';
 import type { InventoryRecord, PartnerRecord, StoreRecord, SaleRecord, ClaimRecord } from '../data/FirestoreProvider';
 import { adaptLot, compatiblePartners } from './firestoreAdapter';
 import { simuleazaScenariiFinanciare } from './yieldEngine';
-import { allocatePartners, remainingCapacity, reservationDay } from './matchmaking';
+import { requestAIMatchmaking, validateAIAllocations, remainingCapacity, reservationDay } from './matchmaking';
 
 async function readCollection<T>(name: string): Promise<T[]> {
   const snapshot = await getDocsFromServer(collection(db, name));
@@ -15,9 +15,28 @@ export async function applyPlan(lot: InventoryRecord, requested: RezultatScenari
   onProgress?.('Se citesc datele actuale din Firestore...');
   // Discovery reads come from the server. Transaction retries re-read partner
   // demand/priority, so simultaneous plans cannot reserve the same demand twice.
-  const [partnerCandidates, sales, inventory] = await Promise.all([
-    readCollection<PartnerRecord>('partners'), readCollection<SaleRecord>('sales_history'), readCollection<InventoryRecord>('inventory_lots'),
+  const [partnerCandidates, sales, inventory, initialClaims] = await Promise.all([
+    readCollection<PartnerRecord>('partners'), readCollection<SaleRecord>('sales_history'), readCollection<InventoryRecord>('inventory_lots'), readCollection<ClaimRecord>('claims'),
   ]);
+  const initialLot = inventory.find(item => item.id === lot.id);
+  if (!initialLot) throw new Error('Lotul nu mai există.');
+  if (initialLot.distribution_plan || initialLot.status === 'reserved') throw new Error('Acest lot are deja un plan rezervat.');
+  const startedAt = Date.now();
+  if (initialLot.expiration_date.toMillis() <= startedAt) throw new Error('Lotul a expirat.');
+  if (initialClaims.some(claim => claim.lot_id === lot.id && ['pending', 'accepted'].includes(claim.status))) throw new Error('Lotul are deja rezervări active.');
+  const initialStore = await getDocFromServer(doc(db, 'stores', initialLot.store_id));
+  if (!initialStore.exists()) throw new Error('Magazinul lotului nu există.');
+  const initialPartners = compatiblePartners(initialLot, partnerCandidates, startedAt, initialClaims).filter(partner => partner.last_fulfilled_at !== undefined
+    && Number.isFinite(partner.current_demand_by_category_kg?.[initialLot.category]) && partner.current_demand_by_category_kg![initialLot.category] > 0);
+  if (!initialPartners.length) throw new Error('Niciun beneficiar eligibil nu are necesar real disponibil.');
+  const initialAdapted = adaptLot(initialLot, { ...initialStore.data(), id: initialStore.id } as StoreRecord, initialPartners, initialClaims, sales, startedAt);
+  const initialScenario = simuleazaScenariiFinanciare(initialAdapted.lot, initialAdapted.config)[requested.id];
+  if (!initialScenario) throw new Error('Scenariu invalid.');
+  const initialTargets = { social: initialScenario.cantitateB2B ?? 0, donation: initialScenario.cantitateDonata ?? 0 };
+  const initialCapacities = new Map(initialPartners.map(partner => [partner.id, remainingCapacity(partner, initialClaims, inventory, reservationDay(startedAt))]));
+  onProgress?.('AI-ul analizează lotul și propune distribuția către beneficiari...');
+  // The external model call runs ONCE, outside transaction retries and locks.
+  const proposal = await requestAIMatchmaking(initialLot, initialPartners, initialTargets, initialCapacities);
   const result = await runTransaction(db, async transaction => {
     onProgress?.('Se verifică lotul, necesarul și rezervările existente...');
     const reference = doc(db, 'inventory_lots', lot.id);
@@ -47,10 +66,21 @@ export async function applyPlan(lot: InventoryRecord, requested: RezultatScenari
     const day = reservationDay(now);
     const capacities = new Map(configured.map(partner => [partner.id, remainingCapacity(partner, claims, inventory, day)]));
     // Recalculate from live data and available demand; never trust client quantities/prices.
-    const adapted = adaptLot(current, store, configured, claims, sales, now);
+    // Keep the forecast's time anchor stable during model latency; expiry and
+    // pickup eligibility above are still checked against the actual current time.
+    const adapted = adaptLot(current, store, configured, claims, sales, startedAt);
     const scenario = simuleazaScenariiFinanciare(adapted.lot, adapted.config)[requested.id];
     if (!scenario) throw new Error('Scenariu invalid.');
-    const allocations = allocatePartners(current, configured, { social: scenario.cantitateB2B ?? 0, donation: scenario.cantitateDonata ?? 0 }, capacities);
+    const allocations = validateAIAllocations(proposal, current, configured, initialTargets, capacities);
+    if (current.quantity !== initialLot.quantity || current.category !== initialLot.category || current.store_id !== initialLot.store_id
+      || current.weight_per_unit_kg !== initialLot.weight_per_unit_kg || !current.expiration_date.isEqual(initialLot.expiration_date)) {
+      throw new Error('Lotul s-a modificat în timpul răspunsului AI. Reexecută planul.');
+    }
+    const currentTargets = { social: scenario.cantitateB2B ?? 0, donation: scenario.cantitateDonata ?? 0 };
+    const step = current.unit_of_measure === 'buc' ? 1 : 0.001;
+    if (Math.abs(currentTargets.social - initialTargets.social) > step || Math.abs(currentTargets.donation - initialTargets.donation) > step) {
+      throw new Error('Datele simulării s-au modificat în timpul răspunsului AI. Reexecută planul.');
+    }
     if (!allocations.length) throw new Error('Planul recalculat nu are cantități alocabile către beneficiari. Nicio rezervare nu a fost salvată.');
     if (allocations.length > 200) throw new Error('Prea mulți beneficiari pentru o singură tranzacție.');
     const claimRefs = allocations.map(item => doc(db, 'claims', `plan_${current.id}_${item.partner.id}_${item.channel}`));
@@ -99,8 +129,8 @@ export async function applyPlan(lot: InventoryRecord, requested: RezultatScenari
         projected_revenue: actualRevenue, projected_waste_quantity: scenario.cantitateRisipita,
         unallocated_partner_quantity: Math.max(0, (scenario.cantitateB2B ?? 0) + (scenario.cantitateDonata ?? 0) - reserved),
         applied_at: Timestamp.fromMillis(now),
-        simulated_at: Timestamp.fromMillis(now),
-        matchmaking_method: 'deterministic',
+        simulated_at: Timestamp.fromMillis(startedAt),
+        matchmaking_method: 'askAI',
       },
     });
     return { claimIds: claimRefs.map(item => item.id), reservedQuantity: reserved };
